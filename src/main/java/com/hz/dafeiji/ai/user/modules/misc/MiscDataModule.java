@@ -1,13 +1,12 @@
 package com.hz.dafeiji.ai.user.modules.misc;
 
-import com.bbz.sanguo.ai.user.ModuleManager;
 
 import java.util.Map;
 
 /**
  * user         LIUKUN
  * time         2014-5-3 11:39
- * 一个方便的存放杂项数据的地方，实用价值如何，需要在实际使用中确定
+ * 一个方便的存放杂项数据(数字和字符串)的地方，实用价值如何，需要在实际使用中确定
  */
 
 public class MiscDataModule{
@@ -16,8 +15,8 @@ public class MiscDataModule{
     private final Map<String, Object> data;
     private final MiscDataProvider db;
 
-    public MiscDataModule( ModuleManager manager ){
-        db = new MiscDataProvider( manager.getUserName() );
+    public MiscDataModule( String uname ){
+        db = new MiscDataProvider( uname );
         data = db.findOne();
     }
 
@@ -28,7 +27,7 @@ public class MiscDataModule{
      * @param args 参数
      * @return 返回字符串结果
      */
-    public String getString( MiscDataKey key, Object... args ){
+    public String getString( MiscDataKey key, String... args ){
         String buildKey = key.buildKey( args );
         String ret = (String) data.get( buildKey );
         if( ret == null ) {
@@ -44,7 +43,7 @@ public class MiscDataModule{
      * @param args 参数
      * @return 返回整型值的结果
      */
-    public int getInt( MiscDataKey key, Object... args ){
+    public int getInt( MiscDataKey key, String... args ){
         String buildKey = key.buildKey( args );
         Integer ret = (Integer) data.get( buildKey );
         if( ret == null ) {
@@ -54,7 +53,7 @@ public class MiscDataModule{
     }
 
 
-    public void put( MiscDataKey key, Object value, Object... args ){
+    public void put( MiscDataKey key, Object value, String... args ){
         String buildKey = key.buildKey( args );
         System.out.println( buildKey );
         data.put( buildKey, value );

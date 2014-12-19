@@ -1,7 +1,6 @@
 package com.hz.dafeiji.ai.user.modules.property;
 
 
-import com.hz.dafeiji.ai.user.ModuleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,8 +22,8 @@ public class PropertyModule{
     private final UserProperty                  property;
     private final String uname;
 
-    public PropertyModule( ModuleManager manager ){
-        this.uname = manager.getUserName();
+    public PropertyModule( String uname ){
+        this.uname = uname;
         db = new PropertyDataProvider( uname );
         property = db.findOne();
         //this.moduleManager = moduleManager;

@@ -18,7 +18,7 @@ import lombok.ToString;
 class UserCounterRecord{
 
 
-    private final CountMap<String> data;
+    private final CountMap<String> counterData;
 
     /**
      * 整个数据的时间戳
@@ -33,11 +33,8 @@ class UserCounterRecord{
      * @return 数量
      */
     int get( String key ){
-        if( !isToday() ) {
-            data.clear();
-            return 0;
-        }
-        return data.get( key );
+
+        return counterData.get( key );
     }
 
     /**
@@ -47,10 +44,8 @@ class UserCounterRecord{
      * @param value 要直接设置的值
      */
     void put( String key, int value ){
-        if( !isToday() ) {
-            data.clear();
-        }
-        data.put( key, value );
+
+        counterData.put( key, value );
         timeStamp = SystemTimer.currentTimeSecond();
     }
 
@@ -62,16 +57,13 @@ class UserCounterRecord{
      * @return 添加之后的结果
      */
     int add( String key, int change ){
-        if( !isToday() ) {
-            data.clear();
-        }
         timeStamp = SystemTimer.currentTimeSecond();
-        return data.add( key, change );
+        return counterData.add( key, change );
     }
 
 
     void clear(){
-        data.clear();
+        counterData.clear();
         timeStamp = 0;
     }
 

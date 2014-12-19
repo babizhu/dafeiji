@@ -1,6 +1,7 @@
 package com.hz.dafeiji.ai.user.modules.moneytree;
 
-import com.bbz.sanguo.ai.user.User;
+
+import com.hz.dafeiji.ai.user.User;
 
 /**
  * user         LIUKUN

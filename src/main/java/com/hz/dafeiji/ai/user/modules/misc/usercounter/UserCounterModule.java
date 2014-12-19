@@ -1,7 +1,6 @@
 package com.hz.dafeiji.ai.user.modules.misc.usercounter;
 
 
-import com.hz.dafeiji.ai.user.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.misc.MiscDataKey;
 
 /**
@@ -9,9 +8,7 @@ import com.hz.dafeiji.ai.user.modules.misc.MiscDataKey;
  * time         2014/5/1 0001 11:45<br/>
  * <p/>
  * 午夜12点，所有的数据项都会清0，并非通过额外线程完成，而是通过一个附加的最后更新时间做对比<br/>
- * 数据库中的过期数据在构造函数中清除<br/>
- * 所以如果程序连续运行两天的话，就会出现数据库数据和内存数据不统一的情况，因为没有机会调用构造函数,但是不会导致数据错乱<br/>
- * 只要保证内存数据逻辑正确即可<br/>
+ *
  */
 public class UserCounterModule{
 //    private static Logger                   logger = LoggerFactory.getLogger( UserCounterModule.class );
@@ -20,28 +17,41 @@ public class UserCounterModule{
 
     private final UserCounterDataProvider db;
 
-    public UserCounterModule( ModuleManager manager ){
-        db = new UserCounterDataProvider( manager.getUserName() );
+    public UserCounterModule( String uname ){
+        db = new UserCounterDataProvider( uname );
         data = db.findOne();
         if( !data.isToday() ) {
             clear();
         }
     }
 
-    public int get( MiscDataKey key, Object... args ){
+
+    public int get( MiscDataKey key, String... args ){
         String buildKey = key.buildKey( args );
+        if( !data.isToday() ) {
+            clear();
+            return 0;
+        }
 
         return data.get( buildKey );
     }
 
-    public void put( MiscDataKey key, int value, Object... args ){
+    public void put( MiscDataKey key, int value, String... args ){
+        if( !data.isToday() ) {
+            clear();
+        }
+
         String buildKey = key.buildKey( args );
         data.put( buildKey, value );
         db.update( buildKey, value );
 
     }
 
-    public int add( MiscDataKey key, int change, Object... args ){
+    public int add( MiscDataKey key, int change, String... args ){
+        if( !data.isToday() ) {
+            clear();
+        }
+
         String buildKey = key.buildKey( args );
         int count = data.add( buildKey, change );
         db.update( buildKey, count );
@@ -51,6 +61,31 @@ public class UserCounterModule{
     public void clear(){
         db.remove();
         data.clear();
+    }
+
+    /**
+     * 语法糖，判断某个key今天是否已经被置位，例如有些奖励每天只能领取一次，就可以利用此功能进行判断
+     *
+     * @param key  key
+     * @param args args
+     * @return true：mark（对应数值为1）
+     * false：NOT mark（对应数值为0）
+     */
+    public boolean isMark( MiscDataKey key, String... args ){
+        int n = get( key, args );
+        return n == 1;
+    }
+
+    /**
+     * 设置某个key是否置位,联合#isMark()使用
+     *
+     * @param key    key
+     * @param isMark true：置位   false：未置位
+     * @param args   args
+     */
+    public void setMark( MiscDataKey key, boolean isMark, String... args ){
+        int n = isMark ? 1 : 0;
+        put( key, n, args );
     }
 
     @Override

@@ -6,13 +6,19 @@ package com.hz.dafeiji.ai.user;
  */
 
 public class User{
-    public ModuleManager getModuleManager(){
-        return moduleManager;
-    }
 
     private final ModuleManager   moduleManager;
 
     public User( String uname ){
         this.moduleManager = new ModuleManager( uname );
+    }
+
+    public ModuleManager getModuleManager(){
+        return moduleManager;
+    }
+
+
+    boolean isOnline(){
+        return true;
     }
 }

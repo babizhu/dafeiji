@@ -1,8 +1,9 @@
 package com.hz.dafeiji.ai.user.modules.equipments;
 
-import com.bbz.sanguo.cfg.equipment.EquipmentTemplet;
-import com.bbz.sanguo.cfg.equipment.EquipmentTempletCfg;
+
 import com.bbz.tool.db.IdentityObj;
+import com.hz.dafeiji.cfg.equipment.EquipmentTemplet;
+import com.hz.dafeiji.cfg.equipment.EquipmentTempletCfg;
 import lombok.Data;
 
 /**
@@ -23,8 +24,8 @@ public class Equipment implements IdentityObj{
 
     public Equipment( long id, int templetId ){
         this.id = id;
-        EquipmentTemplet templet1 = EquipmentTempletCfg.getEquipmentTempletById( templetId );
-        this.templet = templet1;
+        EquipmentTemplet et = EquipmentTempletCfg.getEquipmentTempletById( templetId );
+        this.templet = et;
     }
 
 

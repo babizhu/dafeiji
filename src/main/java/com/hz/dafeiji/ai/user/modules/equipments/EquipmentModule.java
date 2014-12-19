@@ -1,7 +1,8 @@
 package com.hz.dafeiji.ai.user.modules.equipments;
 
-import com.bbz.sanguo.ai.ClientException;
-import com.bbz.sanguo.ai.ErrorCode;
+
+import com.hz.dafeiji.ai.ClientException;
+import com.hz.dafeiji.ai.ErrorCode;
 import lombok.Data;
 import lombok.ToString;
 

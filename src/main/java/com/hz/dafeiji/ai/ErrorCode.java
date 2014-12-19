@@ -13,11 +13,15 @@ public enum ErrorCode{
     /**
      * 尚未登录
      */
-    NOT_LOGIN(1000),
+    USER_NOT_LOGIN(1000),
+    /**
+     * 用户名或昵称重复
+     */
+    USER_DUPLICATE(1001),
     /**
      * 已经登录
      */
-    HAS_LOGIN(1001),
+    USER_HAS_LOGIN(1002),
     HERO_NOT_FOUND( 2000 ),
     EQUPMENT_NOT_FOUND( 3000 ),
     /**

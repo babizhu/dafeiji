@@ -1,6 +1,6 @@
 package com.hz.dafeiji.ai.user.modules.moneytree;
 
-import com.bbz.sanguo.base.counter.Counter12;
+import com.hz.dafeiji.Counter12;
 import lombok.Data;
 
 /**

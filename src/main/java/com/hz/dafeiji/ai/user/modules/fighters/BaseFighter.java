@@ -1,6 +1,7 @@
 package com.hz.dafeiji.ai.user.modules.fighters;
 
-import com.bbz.sanguo.cfg.fighter.FighterTemplet;
+
+import com.hz.dafeiji.cfg.fighter.FighterTemplet;
 import lombok.Data;
 
 /**

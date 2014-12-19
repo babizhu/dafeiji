@@ -1,9 +1,10 @@
 package com.hz.dafeiji.ai.user.modules.moneytree;
 
-import com.bbz.sanguo.ai.ClientException;
-import com.bbz.sanguo.ai.ErrorCode;
-import com.bbz.sanguo.ai.user.ModuleManager;
-import com.bbz.sanguo.ai.user.modules.property.PropertyModule;
+
+import com.hz.dafeiji.ai.ClientException;
+import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.dafeiji.ai.user.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
 
 /**
  * user         LIUKUN
@@ -19,7 +20,7 @@ public class MoneyTreeModule{
 
 
     public MoneyTreeModule( ModuleManager moduleManager ){
-        db = new MoneyTreeDataProvider( moduleManager.getUserName() );
+        db = new MoneyTreeDataProvider( null );
         propModule = moduleManager.getPropertyModule();
         record = db.findOne();
 //        System.out.println( record );

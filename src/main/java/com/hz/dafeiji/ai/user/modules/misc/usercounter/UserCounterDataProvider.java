@@ -66,7 +66,7 @@ class UserCounterDataProvider extends AbstractDataProviderWithUserName<UserCount
         DBObject obj = new BasicDBObject();
         obj.put( TIME_STAMP_FIELD, record.getTimeStamp() );
 
-        for( Map.Entry<String, Integer> entry : record.getData().entrySet() ) {
+        for( Map.Entry<String, Integer> entry : record.getCounterData().entrySet() ) {
             obj.put( entry.getKey(), entry.getValue() );
         }
         return obj;

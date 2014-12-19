@@ -123,10 +123,16 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<Object>{
     private boolean writeResponse( HttpObject currentObj, ChannelHandlerContext ctx ){
         // Decide whether to close the connection or not.
         boolean keepAlive = isKeepAlive( request );
+        String s = "{" +
+                "  \"h\":\"V09mXRRyY2ZmXnJbXWZHcnEVQVwPL0wgYC90OAAfEFBzWA\",\n" +
+                "  \"uId\":\"19\",\n" +
+                "  \"s\":0" +
+                "}";
         // Build the response object.
         FullHttpResponse response = new DefaultFullHttpResponse(
                 HTTP_1_1, currentObj.getDecoderResult().isSuccess() ? OK : BAD_REQUEST,
-                Unpooled.copiedBuffer( buf.toString(), CharsetUtil.UTF_8 ) );
+                //Unpooled.copiedBuffer( buf.toString(), CharsetUtil.UTF_8 ) );
+                Unpooled.copiedBuffer( s, CharsetUtil.UTF_8 ) );
 
         response.headers().set( CONTENT_TYPE, "text/plain; charset=UTF-8" );
 
