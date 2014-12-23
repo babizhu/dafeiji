@@ -1,20 +1,33 @@
 package com.hz.dafeiji.net;
 
-import io.netty.buffer.ByteBuf;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.hz.dafeiji.ai.ClientException;
+import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.dafeiji.ai.user.GameWorld;
+import com.hz.dafeiji.ai.user.User;
+import com.hz.dafeiji.net.handler.HandlerManager;
+import com.hz.dafeiji.net.handler.IGameHandler;
+import com.hz.dafeiji.net.handler.all.LoginHandler;
+import com.hz.dafeiji.net.handler.all.RegHandler;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.DecoderResult;
-import io.netty.handler.codec.http.*;
+import io.netty.handler.codec.http.DefaultFullHttpRequest;
+import io.netty.handler.codec.http.DefaultFullHttpResponse;
+import io.netty.handler.codec.http.FullHttpResponse;
+import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.util.CharsetUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import static io.netty.handler.codec.http.HttpHeaders.Names.*;
-import static io.netty.handler.codec.http.HttpHeaders.*;
-import static io.netty.handler.codec.http.HttpResponseStatus.*;
+import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_LENGTH;
+import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
+import static io.netty.handler.codec.http.HttpResponseStatus.OK;
 import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 /**
@@ -22,13 +35,22 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
  * time         2014-12-16 11:56
  */
 
-public class HttpGameDispatcher extends SimpleChannelInboundHandler<Object>{
+public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullHttpRequest>{
 
-    private HttpRequest request;
+    private static Logger logger = LoggerFactory.getLogger( HttpGameDispatcher.class );
+    public static final String FUNCTION = "/do";//所有http的请求的响应地址，浏览器经常会请求一个/favicon.ico，因此需要区分一下
+
+    private JSONObject responseJson = new JSONObject();
+    private ChannelHandlerContext ctx;
+
     /**
      * Buffer that stores the response content
      */
-    private final StringBuilder buf = new StringBuilder();
+    //private final StringBuilder buf = new StringBuilder();
+    @Override
+    public void channelActive( ChannelHandlerContext ctx ) throws Exception{
+        this.ctx = ctx;
+    }
 
     @Override
     public void channelReadComplete( ChannelHandlerContext ctx ) throws Exception{
@@ -36,144 +58,157 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<Object>{
     }
 
     @Override
-    protected void messageReceived( ChannelHandlerContext ctx, Object msg ){
-        if( msg instanceof HttpRequest ) {
-            HttpRequest request = this.request = (HttpRequest) msg;
+    protected void messageReceived( ChannelHandlerContext ctx, DefaultFullHttpRequest msg ){
+//        DecoderResult result = msg.getDecoderResult();
+//        if( !result.isSuccess() ) {
+//            writeResponseError( ErrorCode.HTTP_INVALID_REQUEST );
+//            return;
+//        }
 
-            if( is100ContinueExpected( request ) ) {
-                send100Continue( ctx );
-            }
+        //HttpRequest request = msg;
 
-            buf.setLength( 0 );
-            buf.append( "WELCOME TO THE WILD WILD WEB SERVER\r\n" );
-            buf.append( "===================================\r\n" );
 
-            buf.append( "VERSION: " ).append( request.getProtocolVersion() ).append( "\r\n" );
-            buf.append( "HOSTNAME: " ).append( getHost( request, "unknown" ) ).append( "\r\n" );
-            buf.append( "REQUEST_URI: " ).append( request.getUri() ).append( "\r\n\r\n" );
+//        buf.setLength( 0 );
+//        buf.append( "WELCOME TO THE WILD WILD WEB SERVER\r\n" );
+//        buf.append( "===================================\r\n" );
+//
+//        buf.append( "VERSION: " ).append( msg.getProtocolVersion() ).append( "\r\n" );
+//        buf.append( "HOSTNAME: " ).append( getHost( msg, "unknown" ) ).append( "\r\n" );
+//        buf.append( "REQUEST_URI: " ).append( msg.getUri() ).append( "\r\n\r\n" );
 
-            HttpHeaders headers = request.headers();
-            if( !headers.isEmpty() ) {
-                for( Map.Entry<String, String> h : headers ) {
-                    String key = h.getKey();
-                    String value = h.getValue();
-                    buf.append( "HEADER: " ).append( key ).append( " = " ).append( value ).append( "\r\n" );
-                }
-                buf.append( "\r\n" );
-            }
+//        HttpHeaders headers = msg.headers();
+//        if( !headers.isEmpty() ) {
+//            for( Map.Entry<String, String> h : headers ) {
+//                String key = h.getKey();
+//                String value = h.getValue();
+//                buf.append( "HEADER: " ).append( key ).append( " = " ).append( value ).append( "\r\n" );
+//            }
+//            buf.append( "\r\n" );
+//        }
 
-            QueryStringDecoder queryStringDecoder = new QueryStringDecoder( request.getUri() );
+//        QueryStringDecoder queryStringDecoder = new QueryStringDecoder( msg.getUri() );
+//        Map<String, List<String>> params = queryStringDecoder.parameters();
+//        if( !params.isEmpty() ) {
+//            for( Map.Entry<String, List<String>> p : params.entrySet() ) {
+//                String key = p.getKey();
+//                List<String> vals = p.getValue();
+//                for( String val : vals ) {
+//                    buf.append( "PARAM: " ).append( key ).append( " = " ).append( val ).append( "\r\n" );
+//                }
+//            }
+//            buf.append( "\r\n" );
+//        }
+
+        String url = msg.getUri();
+
+        if( url.length() < 3 || url.substring( 0, 3 ).equals( FUNCTION ) ) {
+            QueryStringDecoder queryStringDecoder = new QueryStringDecoder( msg.getUri() );
             Map<String, List<String>> params = queryStringDecoder.parameters();
-            if( !params.isEmpty() ) {
-                for( Map.Entry<String, List<String>> p : params.entrySet() ) {
-                    String key = p.getKey();
-                    List<String> vals = p.getValue();
-                    for( String val : vals ) {
-                        buf.append( "PARAM: " ).append( key ).append( " = " ).append( val ).append( "\r\n" );
-                    }
-                }
-                buf.append( "\r\n" );
-            }
-
-            appendDecoderResult( buf, request );
-        }
-
-        if( msg instanceof HttpContent ) {
-            HttpContent httpContent = (HttpContent) msg;
-
-            ByteBuf content = httpContent.content();
-            if( content.isReadable() ) {
-                buf.append( "CONTENT: " );
-                buf.append( content.toString( CharsetUtil.UTF_8 ) );
-                buf.append( "\r\n" );
-                appendDecoderResult( buf, request );
-            }
-
-            if( msg instanceof LastHttpContent ) {
-                buf.append( "END OF CONTENT\r\n" );
-
-                LastHttpContent trailer = (LastHttpContent) msg;
-                if( !trailer.trailingHeaders().isEmpty() ) {
-                    buf.append( "\r\n" );
-                    for( String name : trailer.trailingHeaders().names() ) {
-                        for( String value : trailer.trailingHeaders().getAll( name ) ) {
-                            buf.append( "TRAILING HEADER: " );
-                            buf.append( name ).append( " = " ).append( value ).append( "\r\n" );
-                        }
-                    }
-                    buf.append( "\r\n" );
-                }
-
-                writeResponse( trailer, ctx );
-            }
+            String data = getQueryString( params, "data" );
+            String signature = getQueryString( params, "s" );
+            String session = getQueryString( params, "h" );
+            dispatch( signature, data, session );
+        } else {
+            writeResponseError( ErrorCode.HTTP_INVALID_REQUEST );
         }
     }
 
-    private static void appendDecoderResult( StringBuilder buf, HttpObject o ){
-        DecoderResult result = o.getDecoderResult();
-        if( result.isSuccess() ) {
-            return;
+    /**
+     * 在url中通过key获取相应的值，如果值不存在，则返回null
+     *
+     * @param queryMap queryMap
+     * @param key      key
+     * @return 通过key获取相应的值，如果值不存在，则返回null
+     */
+    private String getQueryString( Map<String, List<String>> queryMap, String key ){
+        List<String> list = queryMap.get( key );
+        if( list != null ) {
+            return list.get( 0 );
         }
+        return null;
+    }
+//    private static void appendDecoderResult( StringBuilder buf, HttpObject o ){
+//        DecoderResult result = o.getDecoderResult();
+//        if( result.isSuccess() ) {
+//            return;
+//        }
+//
+//        buf.append( ".. WITH DECODER FAILURE: " );
+//        buf.append( result.cause() );
+//        buf.append( "\r\n" );
+//    }
 
-        buf.append( ".. WITH DECODER FAILURE: " );
-        buf.append( result.cause() );
-        buf.append( "\r\n" );
+    private void writeResponseError( ErrorCode eCode ){
+
+
+        responseJson.put( "s", eCode.toNum() + "," + eCode );
+        writeResponse();
     }
 
-    private boolean writeResponse( HttpObject currentObj, ChannelHandlerContext ctx ){
-        // Decide whether to close the connection or not.
-        boolean keepAlive = isKeepAlive( request );
-        String s = "{" +
-                "  \"h\":\"V09mXRRyY2ZmXnJbXWZHcnEVQVwPL0wgYC90OAAfEFBzWA\",\n" +
-                "  \"uId\":\"19\",\n" +
-                "  \"s\":0" +
-                "}";
-        // Build the response object.
+    private void writeResponse(){
+
         FullHttpResponse response = new DefaultFullHttpResponse(
-                HTTP_1_1, currentObj.getDecoderResult().isSuccess() ? OK : BAD_REQUEST,
-                //Unpooled.copiedBuffer( buf.toString(), CharsetUtil.UTF_8 ) );
-                Unpooled.copiedBuffer( s, CharsetUtil.UTF_8 ) );
+                HTTP_1_1, OK,
+                Unpooled.copiedBuffer( responseJson.toString(), CharsetUtil.UTF_8 ) );
+        //Unpooled.copiedBuffer( s, CharsetUtil.UTF_8 ) );
 
         response.headers().set( CONTENT_TYPE, "text/plain; charset=UTF-8" );
-
-        if( keepAlive ) {
-            // Add 'Content-Length' header only for a keep-alive connection.
-            response.headers().set( CONTENT_LENGTH, response.content().readableBytes() );
-            // Add keep alive header as per:
-            // - http://www.w3.org/Protocols/HTTP/1.1/draft-ietf-http-v11-spec-01.html#Connection
-            response.headers().set( CONNECTION, HttpHeaders.Values.KEEP_ALIVE );
-        }
-
-        // Encode the cookie.
-        String cookieString = request.headers().get( COOKIE );
-        if( cookieString != null ) {
-            Set<Cookie> cookies = CookieDecoder.decode( cookieString );
-            if( !cookies.isEmpty() ) {
-                // Reset the cookies if necessary.
-                for( Cookie cookie : cookies ) {
-                    response.headers().add( SET_COOKIE, ServerCookieEncoder.encode( cookie ) );
-                }
-            }
-        } else {
-            // Browser sent no cookie.  Add some.
-            response.headers().add( SET_COOKIE, ServerCookieEncoder.encode( "key1", "value1" ) );
-            response.headers().add( SET_COOKIE, ServerCookieEncoder.encode( "key2", "value2" ) );
-        }
-
-        // Write the response.
-        ctx.write( response );
-
-        return keepAlive;
+        response.headers().set( CONTENT_LENGTH, response.content().readableBytes() );
+        ctx.write( response ).addListener( ChannelFutureListener.CLOSE );
     }
 
-    private static void send100Continue( ChannelHandlerContext ctx ){
-        FullHttpResponse response = new DefaultFullHttpResponse( HTTP_1_1, CONTINUE );
-        ctx.write( response );
-    }
 
     @Override
     public void exceptionCaught( ChannelHandlerContext ctx, Throwable cause ) throws Exception{
-        cause.printStackTrace();
+
+        logger.error( cause.getMessage() );
         ctx.close();
+    }
+
+    private void dispatch( String signature, String data, String session ){
+        logger.info( "signature = [" + signature + "], data = [" + data + "], session = [" + session + "]" );
+        try {
+            JSONObject parse = (JSONObject) JSON.parse( data );
+            String handlerName = parse.get( "do" ).toString();
+            IGameHandler handler = HandlerManager.INSTANCE.getHandler( handlerName );
+
+            if( handler == null ) {
+                writeResponseError( ErrorCode.HANDLER_NOT_FOUND );
+                return;
+            }
+
+            responseJson.put( "s", ErrorCode.SUCCESS.toNum() );//缺省情况下为成功
+
+            if( session == null || session.trim().isEmpty() ) {
+                if( handler instanceof LoginHandler ||
+                        handler instanceof RegHandler ) {
+                    JSONObject request = (JSONObject) parse.get( "p" );
+                    handler.run( request, responseJson, null );
+                }
+            } else {
+                User user = GameWorld.INSTANCE.getUserBySession( session );
+                if( user == null ) {
+                    writeResponseError( ErrorCode.USER_NOT_LOGIN );
+                    return;
+                }
+                JSONObject request = (JSONObject) parse.get( "p" );
+                handler.run( request, responseJson, user );
+            }
+
+            writeResponse();
+            logger.info( "response = " + responseJson );
+
+        } catch( ClientException e ) {
+            logger.info( "ClientException = " + e.getCode() );
+            writeResponseError( e.getCode() );
+
+        } catch( Exception exception ) {
+            exception.printStackTrace();
+            logger.info( exception.toString() );
+            writeResponseError( ErrorCode.HTTP_INVALID_REQUEST );
+
+        }
+
+
     }
 }

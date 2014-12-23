@@ -9,22 +9,20 @@ import com.hz.dafeiji.ai.user.modules.recharge.RechargeModule;
 /**
  * user         LIUKUN
  * time         2014-4-3 14:35
- *
+ * <p/>
  * user的模块管理器
  */
 
 public class ModuleManager{
 
 
+    private UserBaseInfoModule userBaseInfoModule;
 
+    private PropertyModule propertyModule;
 
-    private UserBaseInfoModule      userBaseInfoModule;
+    private UserCounterModule userCounterModule;
 
-    private PropertyModule          propertyModule;
-
-    private UserCounterModule       userCounterModule;
-
-    private RechargeModule          rechargeModule;
+    private RechargeModule rechargeModule;
 
     public ModuleManager( String uname ){
         userBaseInfoModule = new UserBaseInfoModule( uname );
@@ -33,7 +31,7 @@ public class ModuleManager{
 
     }
 
-    public UserBaseInfoModule getUserLoginModule(){
+    public UserBaseInfoModule getUserBaseInfoModule(){
         return userBaseInfoModule;
     }
 
@@ -41,7 +39,6 @@ public class ModuleManager{
 
         return rechargeModule;
     }
-
 
 
     public UserCounterModule getUserCounterModule(){

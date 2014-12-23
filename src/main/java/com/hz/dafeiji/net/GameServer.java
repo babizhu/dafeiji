@@ -30,7 +30,7 @@ public class GameServer{public static void main( String[] args ){
                     .childHandler( new GameServerInitializer() )
                     .option( ChannelOption.SO_BACKLOG, 128 )
 
-                    .childOption( ChannelOption.SO_KEEPALIVE, true );
+                    .childOption( ChannelOption.SO_KEEPALIVE, false );
 
             // Bind and start to accept incoming connections.
             future = b.bind( ServerCfg.PORT ).sync(); // (7)

@@ -1,5 +1,13 @@
 package com.hz.dafeiji.net.handler;
 
+import com.bbz.tool.common.StrUtil;
+import com.google.common.collect.Maps;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * user         LIUKUN
  * time         2014-5-29 11:37
@@ -13,24 +21,60 @@ package com.hz.dafeiji.net.handler;
 
 public enum HandlerManager{
     INSTANCE;
+    private Logger logger = LoggerFactory.getLogger( HandlerManager.class );
 
     /**
      * handler包的字符串，根据实际情况来调整，后面的"."不要丢了
      */
-    public static final String HANDLER_PACKAGE = "com.hz.dafeiji.net.handler.";
+    public static final String HANDLER_PACKAGE = "com.hz.dafeiji.net.handler.all";
 
     /**
-     * 无需用户登录就能执行的handler
+     * handler
      */
-//    private Map<MSG, INoLoginHandler> map1 = Maps.newHashMap();
-//
+    private Map<String, IGameHandler> map = Maps.newHashMap();
+
 //    /**
 //     * 必须要用户登录才能执行的handler
 //     */
 //    private Map<MSG, IGameHandler> map2 = Maps.newHashMap();
+
+    HandlerManager(){
+
+
+        List<Class<?>> list = PackageUtil.getClasses( HANDLER_PACKAGE );
+        //int max = 1000;
+        //final EventBase[] packets = new EventBase[max];// 不存在0号包
+
+        // 生成所有包的实例数组，供后面调用
+        for( Class<?> c : list ) {
+
+//           logger.info( c.getName() );
+            try {
+                IGameHandler handler = (IGameHandler) c.newInstance();
+                String handlerName = handler.getClass().getSimpleName();
+                if( map.containsKey( handlerName ) ) {
+                    logger.error( handlerName + "重复了" );
+                    return;
+                }
+                map.put( buildHandlerName( handlerName ), handler );
+            } catch( InstantiationException | IllegalAccessException e ) {
+                e.printStackTrace();
+                logger.error( e.toString() );
+            }
+
+
+//                // System.out.println( c.getName() + " ：" + p1.getPacketNo() );
 //
-//    HandlerManager(){
+//                int packetNo = p1.getEventId();
+//                EventBase ip = packets[packetNo];
+//                if( ip == null ) {
+//                    packets[packetNo] = p1;
 //
+//                } else {
+//                    System.out.println( packetNo + " 重复了" );
+//                }
+        }
+//        }
 //        for( MSG msg : MSG.values() ) {
 //            IHandler handler = buildHandler( msg );
 //            if( handler instanceof INoLoginHandler ) {
@@ -39,44 +83,42 @@ public enum HandlerManager{
 //                map2.put( msg, (IGameHandler) handler );
 //            }
 //        }
-//
-////        System.out.println( "消息——句柄对应信息：" );
-////        System.out.println( map1 );
-////        System.out.println( map2 );
-//    }
-//
-//    public static void main( String[] args ){
-////        HandlerManager.INSTANCE.buildHandler( MSG.Login );
+
+//        System.out.println( "消息——句柄对应信息：" );
+//        System.out.println( map1 );
+//        System.out.println( map2 );
+    }
+
+    /**
+     * 通过类似LoginHandler的类名称，得到相应的索引(key)字符串“login”，
+     * 生成map后方便前端调用
+     *
+     * @param handlerName 类名称（LoginHandler）
+     * @return 相应的字符串
+     */
+    private String buildHandlerName( String handlerName ){
+        String name = handlerName.substring( 0, handlerName.length() - "Handler".length() );//去掉结尾的"Handler"
+        return StrUtil.firstCharacterToLower( name );
+
+    }
+
+
+    public IGameHandler getHandler( String msg ){
+        return map.get( msg );
+    }
+
+
+    public static void main( String[] args ){
+//        HandlerManager.INSTANCE.buildHandler( MSG.Login );
 //        for( Object o : HandlerManager.INSTANCE.map1.values() ) {
 //            System.out.println( o );
 //        }
-//    }
-//
-//    /**
-//     * 通过MSG，利用反射生成相应的处理句柄的实例，所以MSG对应的类是存在如下映射关系：
-//     * 例如MSG=MissionShow，那么相应的Handler类就是MissionShowHandler，所在的包由HANDLER_PACKAGE指定
-//     *
-//     * @param msg 通信包标示符，来自proto文件定义
-//     * @return 相应的的handler类实例
-//     */
-//    private IHandler buildHandler( MSG msg ){
-//
-//        IHandler handler = null;
-//        String className = String.format( "%s%sHandler", HANDLER_PACKAGE, StrUtil.firstCharacterToUpper( msg.toString() ) );
-//
-//        try {
-//            handler = (IHandler) Class.forName( className ).newInstance();
-//        } catch( ClassNotFoundException | InstantiationException | IllegalAccessException e ) {
-//            e.printStackTrace();
-//        }
-//        return handler;
-//    }
-//
-//    public IGameHandler getHandlerWithUser( MSG msg ){
-//        return map2.get( msg );
-//    }
-//
-//    public INoLoginHandler getHandlerWithoutUser( MSG msg ){
-//        return map1.get( msg );
-//    }
+
+        for( Map.Entry<String, IGameHandler> entry : HandlerManager.INSTANCE.map.entrySet() ) {
+            System.out.println( entry.getKey() + ":" + entry.getValue().getClass().getSimpleName() );
+        }
+
+        HandlerManager.INSTANCE.getHandler( "login" ).run( null, null, null );
+    }
+
 }

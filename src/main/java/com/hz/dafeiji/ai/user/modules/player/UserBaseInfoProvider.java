@@ -33,7 +33,7 @@ public class UserBaseInfoProvider extends AbstractDataProviderWithUserName<UserB
         info.setNickName( (String) obj.get( "nickName" ) );
         info.setUserName( (String) obj.get( "_id" ) );
         info.setPass( (String) obj.get( "pass" ) );
-        info.setUid( (int) obj.get( "uid" ) );
+        info.setUid( (long) obj.get( "uid" ) );
         info.setUserStatus( UserStatus.valueOf( (String) obj.get( "userStatus" ) ) );
 
         return info;
@@ -54,14 +54,14 @@ public class UserBaseInfoProvider extends AbstractDataProviderWithUserName<UserB
 
     /**
      * 判断数据库是否存在同名的昵称,用户名无需判断，在构造函数中已经判断过了
-     *
+     * <p/>
      * 非常的耗资源，取消判断可提升百倍效率
-
+     *
      * @param nickName
-     * @return  true：有重复
-     *          false：无重复
+     * @return true：有重复
+     * false：无重复
      */
-    boolean isDuplicate( String nickName ){
+    boolean userIsDuplicate( String nickName ){
         DBObject condition = new BasicDBObject( "nickName", nickName );
         return collection.findOne( condition ) != null;
 

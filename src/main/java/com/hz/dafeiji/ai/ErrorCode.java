@@ -10,24 +10,38 @@ import java.util.Map;
 public enum ErrorCode{
 
     SUCCESS( 0 ),
+
+    /**
+     * 无效的http请求
+     */
+    HTTP_INVALID_REQUEST( 100 ),
+
+    /**
+     * 处理句柄不存在
+     */
+    HANDLER_NOT_FOUND( 101 ),
     /**
      * 尚未登录
      */
-    USER_NOT_LOGIN(1000),
+    USER_NOT_LOGIN( 1000 ),
     /**
      * 用户名或昵称重复
      */
-    USER_DUPLICATE(1001),
+    USER_DUPLICATE( 1001 ),
     /**
      * 已经登录
      */
-    USER_HAS_LOGIN(1002),
+    USER_HAS_LOGIN( 1002 ),
+    /**
+     * 用户名或密码错误
+     */
+    USER_UNAME_PASS_INVALID( 1003 ),
     HERO_NOT_FOUND( 2000 ),
     EQUPMENT_NOT_FOUND( 3000 ),
     /**
      * 摇钱树今日运行次数超上限
      */
-    MONEY_TREE_RUN_UPPER_LIMIT(4000);
+    MONEY_TREE_RUN_UPPER_LIMIT( 4000 );
 
     private static final Map<Integer, ErrorCode> numToEnum = new HashMap<>();
 

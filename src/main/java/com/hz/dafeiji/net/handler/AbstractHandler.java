@@ -8,6 +8,6 @@ import com.alibaba.fastjson.JSONObject;
  * time         2014-5-28 19:54
  */
 
-public abstract class AbstractHandler{
-    public abstract void run( String request, JSONObject response );
+public abstract class AbstractHandler implements IGameHandler{
+    public abstract JSONObject run( JSONObject request, JSONObject response );
 }
