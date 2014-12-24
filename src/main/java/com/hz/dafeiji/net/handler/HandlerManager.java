@@ -1,6 +1,5 @@
 package com.hz.dafeiji.net.handler;
 
-import com.bbz.tool.common.StrUtil;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,7 +89,7 @@ public enum HandlerManager{
     }
 
     /**
-     * 通过类似LoginHandler的类名称，得到相应的索引(key)字符串“login”，
+     * 通过类似UserLoginHandler的类名称，得到相应的索引(key)字符串“userlogin”，
      * 生成map后方便前端调用
      *
      * @param handlerName 类名称（LoginHandler）
@@ -98,7 +97,7 @@ public enum HandlerManager{
      */
     private String buildHandlerName( String handlerName ){
         String name = handlerName.substring( 0, handlerName.length() - "Handler".length() );//去掉结尾的"Handler"
-        return StrUtil.firstCharacterToLower( name );
+        return name.toLowerCase();
 
     }
 

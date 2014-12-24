@@ -26,7 +26,7 @@ public class ModuleManager{
 
     public ModuleManager( String uname ){
         userBaseInfoModule = new UserBaseInfoModule( uname );
-        //propertyModule = new PropertyModule( uname );
+        propertyModule = new PropertyModule( uname );
         //userCounterModule = new UserCounterModule( uname );
 
     }

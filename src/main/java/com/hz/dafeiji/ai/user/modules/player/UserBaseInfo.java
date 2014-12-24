@@ -16,4 +16,8 @@ public class UserBaseInfo{
     private String nickName;
     private UserStatus userStatus;
     private String pass;
+    /**
+     * 是否成年
+     */
+    private boolean isAdult;
 }

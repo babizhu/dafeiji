@@ -11,15 +11,14 @@ import org.slf4j.LoggerFactory;
  * 铜钱
  * 元宝
  * 体力
- *
  */
 
 public class PropertyModule{
 
-    private static Logger logger = LoggerFactory.getLogger( PropertyModule.class );
+    private static final Logger logger = LoggerFactory.getLogger( PropertyModule.class );
 
-    private final PropertyDataProvider          db;
-    private final UserProperty                  property;
+    private final PropertyDataProvider db;
+    private final UserProperty property;
     private final String uname;
 
     public PropertyModule( String uname ){
@@ -32,22 +31,21 @@ public class PropertyModule{
 
     /**
      * 玩家涉及到属性的更改操作
-     * @param type              奖励类型
-     * @param change            改变的数值
-     * @param funcName          改变的方法名
-     * @return
-     * 		>=0	:返回此属性的当前值
-     * 		-1	:扣除失败，余值不足
      *
+     * @param type     奖励类型
+     * @param change   改变的数值
+     * @param funcName 改变的方法名
+     * @return >=0	:返回此属性的当前值
+     * -1	:扣除失败，余值不足
      */
     public int changeValue( UserPropertyType type, int change, String funcName ){
-        int result;
+        int result = 0;
         switch( type ) {
             case CASH:
-                result = property.addCash( change );
+                //result = property.addCash( change );
                 break;
             case GOLD:
-                result = property.addGold( change );
+                //result = property.addGold( change );
                 break;
             default:
                 throw new IllegalArgumentException( type + "属性不存在相应函数" );
@@ -59,6 +57,7 @@ public class PropertyModule{
         db.replace( property );
         return result;
     }
+
     /**
      * 构造关键数据的日志文件
      *
@@ -72,20 +71,26 @@ public class PropertyModule{
         logger.info( "{},{},{},{},{}", uname, at, change, current, funcName );
     }
 
-    public int getLevel(){
-        return property.getLevel();
+
+    ////////////////////////////////////以下为委托方法///////////////////////////////////
+    public int getStrength(){
+        return property.getStrength();
     }
 
-    public boolean isAdult(){
-        return property.isAdult();
+    public int getScore(){
+        return property.getScore();
     }
 
-    public int getGold(){
-        return property.getGold();
+    public int getScoreWeek(){
+        return property.getScoreWeek();
     }
 
-    public String getNickName(){
-        return property.getNickName();
+    public int getPower(){
+        return property.getPower();
+    }
+
+    public int getDiamond(){
+        return property.getDiamond();
     }
 
     public int getExp(){
@@ -95,4 +100,14 @@ public class PropertyModule{
     public int getCash(){
         return property.getCash();
     }
+
+    public void setScore( int score ){
+        property.setScore( score );
+    }
+
+    public void setScoreWeek( int score ){
+        property.setScoreWeek( score );
+    }
+
+
 }

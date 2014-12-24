@@ -12,7 +12,7 @@ import com.hz.dafeiji.net.handler.IGameHandler;
  * time         2014-5-28 14:02
  */
 
-public class LoginHandler implements IGameHandler{
+public class UserLoginHandler implements IGameHandler{
     @Override
     public void run( JSONObject request, JSONObject response, User user ){
         String uname = request.getString( "uName" );

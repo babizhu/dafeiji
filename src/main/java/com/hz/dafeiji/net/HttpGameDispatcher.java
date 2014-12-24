@@ -8,8 +8,8 @@ import com.hz.dafeiji.ai.user.GameWorld;
 import com.hz.dafeiji.ai.user.User;
 import com.hz.dafeiji.net.handler.HandlerManager;
 import com.hz.dafeiji.net.handler.IGameHandler;
-import com.hz.dafeiji.net.handler.all.LoginHandler;
-import com.hz.dafeiji.net.handler.all.RegHandler;
+import com.hz.dafeiji.net.handler.all.UserLoginHandler;
+import com.hz.dafeiji.net.handler.all.UserRegHandler;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -37,10 +37,11 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullHttpRequest>{
 
-    private static Logger logger = LoggerFactory.getLogger( HttpGameDispatcher.class );
+    private static final Logger logger = LoggerFactory.getLogger( HttpGameDispatcher.class );
     public static final String FUNCTION = "/do";//所有http的请求的响应地址，浏览器经常会请求一个/favicon.ico，因此需要区分一下
 
     private JSONObject responseJson = new JSONObject();
+    private String url;
     private ChannelHandlerContext ctx;
 
     /**
@@ -99,7 +100,8 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
 //            buf.append( "\r\n" );
 //        }
 
-        String url = msg.getUri();
+//        URL url1 = new URL( msg.getUri() );;
+        url = (msg.getUri()).replace( "%22", "\"" );
 
         if( url.length() < 3 || url.substring( 0, 3 ).equals( FUNCTION ) ) {
             QueryStringDecoder queryStringDecoder = new QueryStringDecoder( msg.getUri() );
@@ -107,7 +109,8 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
             String data = getQueryString( params, "data" );
             String signature = getQueryString( params, "s" );
             String session = getQueryString( params, "h" );
-            dispatch( signature, data, session );
+            String uname = getQueryString( params, "u" );
+            dispatch( signature, data, session, uname );
         } else {
             writeResponseError( ErrorCode.HTTP_INVALID_REQUEST );
         }
@@ -155,6 +158,8 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
         response.headers().set( CONTENT_TYPE, "text/plain; charset=UTF-8" );
         response.headers().set( CONTENT_LENGTH, response.content().readableBytes() );
         ctx.write( response ).addListener( ChannelFutureListener.CLOSE );
+
+        logger.info( "url=" + url + ",response=" + responseJson );
     }
 
 
@@ -165,11 +170,11 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
         ctx.close();
     }
 
-    private void dispatch( String signature, String data, String session ){
-        logger.info( "signature = [" + signature + "], data = [" + data + "], session = [" + session + "]" );
+    private void dispatch( String signature, String data, String session, String uname ){
+        //logger.info( "signature = [" + signature + "], data = [" + data + "], session = [" + session + "]" );
         try {
             JSONObject parse = (JSONObject) JSON.parse( data );
-            String handlerName = parse.get( "do" ).toString();
+            String handlerName = (parse.get( "mod" ).toString() + parse.get( "do" )).toLowerCase();
             IGameHandler handler = HandlerManager.INSTANCE.getHandler( handlerName );
 
             if( handler == null ) {
@@ -180,13 +185,20 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
             responseJson.put( "s", ErrorCode.SUCCESS.toNum() );//缺省情况下为成功
 
             if( session == null || session.trim().isEmpty() ) {
-                if( handler instanceof LoginHandler ||
-                        handler instanceof RegHandler ) {
+                if( handler instanceof UserLoginHandler ||
+                        handler instanceof UserRegHandler ) {
                     JSONObject request = (JSONObject) parse.get( "p" );
                     handler.run( request, responseJson, null );
+                } else {//玩家没有合法的session，却要请求登陆用户才可以请求的数据
+                    writeResponseError( ErrorCode.USER_NOT_LOGIN );
+                    return;
                 }
             } else {
-                User user = GameWorld.INSTANCE.getUserBySession( session );
+                if( uname == null || session == null ) {
+                    writeResponseError( ErrorCode.HTTP_INVALID_REQUEST );
+                    return;
+                }
+                User user = GameWorld.INSTANCE.getUserBySession( uname, session );
                 if( user == null ) {
                     writeResponseError( ErrorCode.USER_NOT_LOGIN );
                     return;
@@ -196,7 +208,7 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
             }
 
             writeResponse();
-            logger.info( "response = " + responseJson );
+
 
         } catch( ClientException e ) {
             logger.info( "ClientException = " + e.getCode() );

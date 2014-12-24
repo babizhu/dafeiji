@@ -1,6 +1,5 @@
 package com.hz.dafeiji.ai.user.modules.property;
 
-import com.bbz.tool.common.MiscUtil;
 import lombok.Data;
 
 /**
@@ -10,15 +9,36 @@ import lombok.Data;
 @Data
 class UserProperty{
 
-    /**
-     * 昵称
-     */
-    private String nickName;
 
     /**
-     * 金元宝
+     * 最大体力
      */
-    private int gold;
+    private int strengthMax;
+    /**
+     * 体力
+     */
+    private int strength;
+
+    /**
+     * 历史最高分
+     */
+    private int score;
+
+    /**
+     * 本周最高分
+     */
+    private int scoreWeek;
+
+    /**
+     * 战斗力
+     */
+    private int power;
+
+    /**
+     * 钻石
+     */
+    private int diamond;
+
 
     /**
      * 经验
@@ -31,26 +51,39 @@ class UserProperty{
     private int cash;
 
     /**
-     * 是否成年
+     * vip等级
      */
-    private boolean isAdult;
+    private int vip;
 
     //private INonBlockingConnection  con;
 
 
-    public int addGold( int changeValue ){
-        this.gold += changeValue;
-        return gold;
+//    int getLevel(){
+//        int[] data = new int[]{1, 10, 100, 100};
+//        return MiscUtil.calcLevel( data, exp, 1 );
+//    }
+
+
+    public void setScore( int score ){
+        if( this.score < score ) {
+            this.score = score;
+        }
     }
 
-    int getLevel(){
-        int[] data = new int[]{1, 10, 100, 100};
-        return MiscUtil.calcLevel( data, exp, 1 );
+    public void setScoreWeek( int score ){
+        if( this.scoreWeek < score ) {
+            this.scoreWeek = score;
+        }
     }
 
-    int addCash( int changeValue ){
-        this.cash += changeValue;
-        return cash;
+    public static void main( String[] args ){
+        UserProperty property = new UserProperty();
+        property.setScoreWeek( 100 );
+        ;
+        System.out.println( property.getScoreWeek() );
+        property.setScoreWeek( 10 );
+        ;
+        System.out.println( property.getScoreWeek() );
     }
 
 

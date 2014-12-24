@@ -15,7 +15,7 @@ import com.hz.dafeiji.net.handler.IGameHandler;
  * 注册模块
  */
 
-public class RegHandler implements IGameHandler{
+public class UserRegHandler implements IGameHandler{
     @Override
     public void run( JSONObject request, JSONObject response, User user ){
         String uname = request.getString( "uName" );

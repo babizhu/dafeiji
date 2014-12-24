@@ -27,12 +27,15 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
         if( obj == null ) {
             return property;
         }
-        property.setExp( (int) obj.get( "exp" ) );
-        property.setGold( (int) obj.get( "gold" ) );
-        property.setCash( (int) obj.get( "cash" ) );
+        //property.setExp( (int) obj.get( "exp" ) );
+        property.setDiamond( (int) obj.get( "diamond" ) );
+        property.setStrength( (int) obj.get( "strength" ) );
+        property.setScoreWeek( (int) obj.get( "scoreWeek" ) );
+        property.setScore( (int) obj.get( "score" ) );
+        property.setPower( (int) obj.get( "power" ) );
+        property.setVip( (int) obj.get( "vip" ) );
 
-        property.setAdult( (Boolean) obj.get( "isAdult" ) );
-        property.setNickName( (String) obj.get( "nickName" ) );
+
         return property;
     }
 
@@ -40,12 +43,18 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
     protected DBObject encode( UserProperty property ){
 
         DBObject obj = new BasicDBObject();
-        obj.put( "exp", property.getExp() );
-        obj.put( "gold", property.getGold() );
-        obj.put( "cash", property.getCash() );
-        obj.put( "isAdult", property.isAdult() );
-        obj.put( "nickName", property.getNickName() );
+        //obj.put( "exp", property.getExp() );
+        obj.put( "diamond", property.getDiamond() );
+        obj.put( "strength", property.getStrength() );
+        obj.put( "scoreWeek", property.getScoreWeek() );
+        obj.put( "score", property.getScore() );
+        obj.put( "strength", property.getStrength() );
+        obj.put( "power", property.getPower() );
+        obj.put( "vip", property.getVip() );
+
+
         return obj;
     }
+
 
 }
