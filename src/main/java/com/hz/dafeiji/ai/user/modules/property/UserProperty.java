@@ -1,23 +1,17 @@
 package com.hz.dafeiji.ai.user.modules.property;
 
-import lombok.Data;
-
 /**
  * user         LIUKUN
  * time         2014-4-9 20:30
  */
-@Data
+
 class UserProperty{
 
 
     /**
-     * 最大体力
-     */
-    private int strengthMax;
-    /**
      * 体力
      */
-    private int strength;
+    private Strength strength;
 
     /**
      * 历史最高分
@@ -55,6 +49,7 @@ class UserProperty{
      */
     private int vip;
 
+
     //private INonBlockingConnection  con;
 
 
@@ -63,6 +58,14 @@ class UserProperty{
 //        return MiscUtil.calcLevel( data, exp, 1 );
 //    }
 
+
+    /**
+     * 获取当前体力
+     */
+    public Strength getStrength(){
+
+        return strength;
+    }
 
     public void setScore( int score ){
         if( this.score < score ) {
@@ -76,15 +79,74 @@ class UserProperty{
         }
     }
 
-    public static void main( String[] args ){
-        UserProperty property = new UserProperty();
-        property.setScoreWeek( 100 );
-        ;
-        System.out.println( property.getScoreWeek() );
-        property.setScoreWeek( 10 );
-        ;
-        System.out.println( property.getScoreWeek() );
+
+    public int getScoreWeek(){
+        return scoreWeek;
     }
 
 
+    public void setDiamond( int diamond ){
+        this.diamond = diamond;
+    }
+
+    public void setStrength( Strength strength ){
+        this.strength = strength;
+    }
+
+    public void setPower( int power ){
+        this.power = power;
+    }
+
+    public void setVip( int vip ){
+        this.vip = vip;
+    }
+
+    public int getDiamond(){
+        return diamond;
+    }
+
+    public int getScore(){
+        return score;
+    }
+
+    public int getPower(){
+        return power;
+    }
+
+    public int getVip(){
+        return vip;
+    }
+
+    public int getExp(){
+        return exp;
+    }
+
+    public int getCash(){
+        return cash;
+    }
+
+
+    @Override
+    public String toString(){
+        return "UserProperty{" +
+                "strength=" + strength +
+                ", score=" + score +
+                ", scoreWeek=" + scoreWeek +
+                ", power=" + power +
+                ", diamond=" + diamond +
+                ", exp=" + exp +
+                ", cash=" + cash +
+                ", vip=" + vip +
+                '}';
+    }
+
+    public static void main( String[] args ){
+        UserProperty property = new UserProperty();
+        property.setScoreWeek( 100 );
+
+        System.out.println( property.getScoreWeek() );
+        property.setScoreWeek( 10 );
+
+        System.out.println( property.getScoreWeek() );
+    }
 }

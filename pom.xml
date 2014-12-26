@@ -71,11 +71,12 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.3</version>
         </dependency>
+
         <dependency>
-            <groupId>Tools</groupId>
-            <artifactId>Tools</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>test</scope>
+            <groupId>com.bbz.misc</groupId>
+            <artifactId>tool</artifactId>
+            <version>1.1</version>
+
         </dependency>
         <dependency>
             <groupId>org.codehaus.groovy</groupId>

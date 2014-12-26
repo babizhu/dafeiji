@@ -9,25 +9,27 @@ import com.hz.dafeiji.net.handler.IGameHandler;
 /**
  * user         LIUKUN
  * time         2014-5-28 14:02
+ * 获取玩家的关键数据
  */
 
 public class UserGetInfoHandler implements IGameHandler{
     @Override
     public void run( JSONObject request, JSONObject response, User user ){
 
-        //JSONObject content = new JSONObject(  );
+        JSONObject content = new JSONObject();
         PropertyModule propertyModule = user.getModuleManager().getPropertyModule();
         //UserBaseInfoModule userBaseInfoModule = user.getModuleManager().getUserBaseInfoModule();
         //content.put( "id", userBaseInfoModule.getInfo().getUid() );
-        response.put( "ca", propertyModule.getCash() );//金币
-        response.put( "di", propertyModule.getDiamond() );//钻石
-        response.put( "st", propertyModule.getStrength() );//体力
-        response.put( "stm", 5 );//最大体力，首先写死
-        response.put( "po", propertyModule.getPower() );//战斗力
-        response.put( "sc", propertyModule.getScore() );//最高积分
-        response.put( "sw", propertyModule.getScoreWeek() );//本周最高积分
+        content.put( "g", propertyModule.getCash() );//金币
+        content.put( "d", propertyModule.getDiamond() );//钻石
+        content.put( "s", propertyModule.getRealStrength() );//体力
+        content.put( "ss", propertyModule.getLastCalcStrengthSecond() );//最后一次更新体力的时间（秒）
+        content.put( "sm", propertyModule.getStengthMax() );//最大体力，首先写死
+        content.put( "p", propertyModule.getPower() );//战斗力
+        content.put( "sc", propertyModule.getScore() );//最高积分
+        content.put( "sw", propertyModule.getScoreWeek() );//本周最高积分
 
-        //response.put( "i", content );
+        response.put( "i", content );
 //        response.put( "uId", infoModule.getInfo().getUid() );
 //        System.out.println( "LoginHandler.run" );
     }

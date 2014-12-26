@@ -72,10 +72,27 @@ public class PropertyModule{
     }
 
 
-    ////////////////////////////////////以下为委托方法///////////////////////////////////
-    public int getStrength(){
-        return property.getStrength();
+    /**
+     * 扣除玩家体力
+     *
+     * @param reduceValue
+     * @return
+     */
+    public int reduceStrength( int reduceValue ){
+        int st = property.getStrength().reduceStrength( reduceValue );
+        db.replace( property );
+        return st;
     }
+
+    ////////////////////////////////////以下为委托方法///////////////////////////////////
+    public int getRealStrength(){
+        return property.getStrength().getRealStrength();
+    }
+
+    public int getLastCalcStrengthSecond(){
+        return property.getStrength().getLastCalcStrengthSecond();
+    }
+
 
     public int getScore(){
         return property.getScore();
@@ -110,4 +127,17 @@ public class PropertyModule{
     }
 
 
+    public int getStengthMax(){
+        return property.getStrength().getStrengthMax();
+    }
+
+
+    //////////////////////////////////////////测试用//////////////////////////////////////////////
+
+    /**
+     * 删除玩家的数据库记录，仅仅为测试用例使用
+     */
+    protected void remove(){
+        db.remove();
+    }
 }

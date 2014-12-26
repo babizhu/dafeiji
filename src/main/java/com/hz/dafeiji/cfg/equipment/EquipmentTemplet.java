@@ -4,133 +4,203 @@ import org.jdom2.Element;
 
 /**
  * 模版
- *
  * @author liukun
- *         2014-4-25 16:19:49
+ * 2014-12-26 18:07:02
  */
-public class EquipmentTemplet{
+public class EquipmentTemplet {
 
     /**
-     * 装备id
-     */
+	 * id
+	 */
     private final int id;
-    /**
-     * 装备名称
-     */
+
+
+
+	/**
+	 * id
+	 */
+	public int getId() {
+		return id;
+	}/**
+	 * 装备名称
+	 */
     private final String name;
-    /**
-     * 穿戴等级
-     */
-    private final int needLevel;
-    /**
-     * 资源格式
-     */
-    private final String format;
-    /**
-     * 装备品阶
-     */
+
+
+
+	/**
+	 * 装备名称
+	 */
+	public String getName() {
+		return name;
+	}/**
+	 * 类型（1主武器2副武器3护甲）
+	 */
+    private final int type;
+
+
+
+	/**
+	 * 类型（1主武器2副武器3护甲）
+	 */
+	public int getType() {
+		return type;
+	}/**
+	 * 当前品阶
+	 */
     private final int quality;
-    /**
-     * 装备类型（数据类型-1无 0气血 1物攻 2法攻 3物防 4法防 5速度 6暴击 7闪避 8格挡 9抗暴 10 命中 11破格 12会心）
-     */
-    private final int additionType;
-    /**
-     * 装备属性数值
-     */
-    private final int baseAdditionValue;
-    /**
-     * 装备强化成长数值
-     */
-    private final float additionGrow;
-    /**
-     * 装备附加属性1（数据类型-1无 0气血 1物攻 2法攻 3物防 4法防 5速度 6暴击 7闪避 8格挡 9抗暴 10 命中 11破格 12会心）
-     */
-    private final int additionType2;
 
 
-    public EquipmentTemplet( Element element ){
-        id = Integer.parseInt( element.getChildText( "id" ).trim() );
-        name = element.getChildText( "name" ).trim();
-        needLevel = Integer.parseInt( element.getChildText( "needLevel" ).trim() );
-        format = element.getChildText( "format" ).trim();
-        quality = Integer.parseInt( element.getChildText( "quality" ).trim() );
-        additionType = Integer.parseInt( element.getChildText( "additionType" ).trim() );
-        baseAdditionValue = Integer.parseInt( element.getChildText( "baseAdditionValue" ).trim() );
-        additionGrow = Float.parseFloat( element.getChildText( "additionGrow" ).trim() );
-        additionType2 = Integer.parseInt( element.getChildText( "additionType2" ).trim() );
 
-    }
-
-    /**
-     * 装备id
-     */
-    public int getId(){
-        return id;
-    }
+	/**
+	 * 当前品阶
+	 */
+	public int getQuality() {
+		return quality;
+	}/**
+	 * 最高品阶
+	 */
+    private final int qualityMax;
 
 
-    /**
-     * 装备名称
-     */
-    public String getName(){
-        return name;
-    }
 
-    /**
-     * 穿戴等级
-     */
-    public int getNeedLevel(){
-        return needLevel;
-    }
+	/**
+	 * 最高品阶
+	 */
+	public int getQualityMax() {
+		return qualityMax;
+	}/**
+	 * 当前等级
+	 */
+    private final int currentLv;
 
 
-    /**
-     * 资源格式
-     */
-    public String getFormat(){
-        return format;
-    }
 
-    /**
-     * 装备品阶
-     */
-    public int getQuality(){
-        return quality;
-    }
+	/**
+	 * 当前等级
+	 */
+	public int getCurrentLv() {
+		return currentLv;
+	}/**
+	 * 初始攻击加成
+	 */
+    private final float attackAdd;
 
 
-    /**
-     * 装备类型（数据类型-1无 0气血 1物攻 2法攻 3物防 4法防 5速度 6暴击 7闪避 8格挡 9抗暴 10 命中 11破格 12会心）
-     */
-    public int getAdditionType(){
-        return additionType;
-    }
 
-    /**
-     * 装备属性数值
-     */
-    public int getBaseAdditionValue(){
-        return baseAdditionValue;
-    }
+	/**
+	 * 初始攻击加成
+	 */
+	public float getAttackAdd() {
+		return attackAdd;
+	}/**
+	 * 初始技能冷却
+	 */
+    private final float skillCooling;
 
-    /**
-     * 装备强化成长数值
-     */
-    public float getAdditionGrow(){
-        return additionGrow;
-    }
 
-    /**
-     * 装备附加属性1（数据类型-1无 0气血 1物攻 2法攻 3物防 4法防 5速度 6暴击 7闪避 8格挡 9抗暴 10 命中 11破格 12会心）
-     */
-    public int getAdditionType2(){
-        return additionType2;
-    }
 
-    @Override
-    public String toString(){
-        return "EquipmentTemplet [id = " + id + ",name = " + name + ",needLevel = " + needLevel + ",format = " + format + ",quality = " + quality + ",additionType = " + additionType + ",baseAdditionValue = " + baseAdditionValue + ",additionGrow = " + additionGrow + ",additionType2 = " + additionType2 + "]";
-    }
+	/**
+	 * 初始技能冷却
+	 */
+	public float getSkillCooling() {
+		return skillCooling;
+	}/**
+	 * 初始生命值
+	 */
+    private final int hp;
+
+
+
+	/**
+	 * 初始生命值
+	 */
+	public int getHp() {
+		return hp;
+	}/**
+	 * 攻击加成成长
+	 */
+    private final float attackAddUp;
+
+
+
+	/**
+	 * 攻击加成成长
+	 */
+	public float getAttackAddUp() {
+		return attackAddUp;
+	}/**
+	 * 技能冷却成长
+	 */
+    private final float skillCoolingUp;
+
+
+
+	/**
+	 * 技能冷却成长
+	 */
+	public float getSkillCoolingUp() {
+		return skillCoolingUp;
+	}/**
+	 * 生命成长
+	 */
+    private final float hpUp;
+
+
+
+	/**
+	 * 生命成长
+	 */
+	public float getHpUp() {
+		return hpUp;
+	}/**
+	 * 技能id
+	 */
+    private final int skill;
+
+
+
+	/**
+	 * 技能id
+	 */
+	public int getSkill() {
+		return skill;
+	}/**
+	 * 装备描述
+	 */
+    private final String describe;
+
+
+
+	/**
+	 * 装备描述
+	 */
+	public String getDescribe() {
+		return describe;
+	}
+
+	public EquipmentTemplet( Element element ) {
+		id = Integer.parseInt( element.getChildText("id").trim() );
+name = element.getChildText("name").trim();
+type = Integer.parseInt( element.getChildText("type").trim() );
+quality = Integer.parseInt( element.getChildText("quality").trim() );
+qualityMax = Integer.parseInt( element.getChildText("qualityMax").trim() );
+currentLv = Integer.parseInt( element.getChildText("currentLv").trim() );
+attackAdd = Float.parseFloat( element.getChildText("attackAdd").trim() );
+skillCooling = Float.parseFloat( element.getChildText("skillCooling").trim() );
+hp = Integer.parseInt( element.getChildText("hp").trim() );
+attackAddUp = Float.parseFloat( element.getChildText("attackAddUp").trim() );
+skillCoolingUp = Float.parseFloat( element.getChildText("skillCoolingUp").trim() );
+hpUp = Float.parseFloat( element.getChildText("hpUp").trim() );
+skill = Integer.parseInt( element.getChildText("skill").trim() );
+describe = element.getChildText("describe").trim();
+
+	}
+
+	@Override
+	public String toString() {
+		return "EquipmentTemplet [id = " + id + ",name = " + name + ",type = " + type + ",quality = " + quality + ",qualityMax = " + qualityMax + ",currentLv = " + currentLv + ",attackAdd = " + attackAdd + ",skillCooling = " + skillCooling + ",hp = " + hp + ",attackAddUp = " + attackAddUp + ",skillCoolingUp = " + skillCoolingUp + ",hpUp = " + hpUp + ",skill = " + skill + ",describe = " + describe + "]";
+	}
 
 	/*自定义代码开始*//*自定义代码结束*/
 }

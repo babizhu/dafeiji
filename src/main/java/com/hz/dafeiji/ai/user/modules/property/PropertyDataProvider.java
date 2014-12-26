@@ -7,7 +7,7 @@ import com.mongodb.DBObject;
 /**
  * user         LIUKUN
  * time         2014-4-9 20:29
- *
+ * <p/>
  * 玩家常规属性的数据库实现
  */
 
@@ -25,11 +25,15 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
     protected UserProperty decode( DBObject obj ){
         UserProperty property = new UserProperty();
         if( obj == null ) {
+            property.setStrength( new Strength() );
             return property;
         }
         //property.setExp( (int) obj.get( "exp" ) );
         property.setDiamond( (int) obj.get( "diamond" ) );
-        property.setStrength( (int) obj.get( "strength" ) );
+        int strengthValue = (int) obj.get( "strength" );
+        int lastCalcStrengthSecond = (int) obj.get( "lastCalcStrengthSecond" );
+        Strength strength = new Strength( strengthValue, lastCalcStrengthSecond );
+        property.setStrength( strength );
         property.setScoreWeek( (int) obj.get( "scoreWeek" ) );
         property.setScore( (int) obj.get( "score" ) );
         property.setPower( (int) obj.get( "power" ) );
@@ -45,12 +49,13 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
         DBObject obj = new BasicDBObject();
         //obj.put( "exp", property.getExp() );
         obj.put( "diamond", property.getDiamond() );
-        obj.put( "strength", property.getStrength() );
+        obj.put( "strength", property.getStrength().getRealStrength() );
         obj.put( "scoreWeek", property.getScoreWeek() );
         obj.put( "score", property.getScore() );
-        obj.put( "strength", property.getStrength() );
+
         obj.put( "power", property.getPower() );
         obj.put( "vip", property.getVip() );
+        obj.put( "lastCalcStrengthSecond", property.getStrength().getLastCalcStrengthSecond() );
 
 
         return obj;

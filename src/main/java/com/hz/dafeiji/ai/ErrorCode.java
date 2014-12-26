@@ -20,6 +20,11 @@ public enum ErrorCode{
      * 处理句柄不存在
      */
     HANDLER_NOT_FOUND( 101 ),
+
+    /**
+     * 签名验证错误
+     */
+    SIGNATURE_ERROR( 102 ),
     /**
      * 尚未登录
      */
@@ -36,6 +41,10 @@ public enum ErrorCode{
      * 用户名或密码错误
      */
     USER_UNAME_PASS_INVALID( 1003 ),
+    /**
+     * 用户体力值不足
+     */
+    USER_STRENGTH_NOT_ENOUGH( 1004 ),
     HERO_NOT_FOUND( 2000 ),
     EQUPMENT_NOT_FOUND( 3000 ),
     /**

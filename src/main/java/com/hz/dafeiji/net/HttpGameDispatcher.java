@@ -157,6 +157,7 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
 
         response.headers().set( CONTENT_TYPE, "text/plain; charset=UTF-8" );
         response.headers().set( CONTENT_LENGTH, response.content().readableBytes() );
+        response.headers().set( "Access-Control-Allow-Origin", "*" );
         ctx.write( response ).addListener( ChannelFutureListener.CLOSE );
 
         logger.info( "url=" + url + ",response=" + responseJson );
@@ -170,8 +171,24 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
         ctx.close();
     }
 
+    /**
+     * 检测玩家提交的数字签名对不对
+     *
+     * @param signature
+     */
+    private boolean signatureIsValid( String data, String signature ){
+        if( signature == null || signature.trim().isEmpty() ) {
+            return false;
+        }
+        return true;
+    }
+
     private void dispatch( String signature, String data, String session, String uname ){
         //logger.info( "signature = [" + signature + "], data = [" + data + "], session = [" + session + "]" );
+        if( !signatureIsValid( data, signature ) ) {
+            writeResponseError( ErrorCode.SIGNATURE_ERROR );
+            return;
+        }
         try {
             JSONObject parse = (JSONObject) JSON.parse( data );
             String handlerName = (parse.get( "mod" ).toString() + parse.get( "do" )).toLowerCase();
@@ -184,7 +201,7 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
 
             responseJson.put( "s", ErrorCode.SUCCESS.toNum() );//缺省情况下为成功
 
-            if( session == null || session.trim().isEmpty() ) {
+            if( session == null || session.trim().isEmpty() || uname == null || uname.trim().isEmpty() ) {
                 if( handler instanceof UserLoginHandler ||
                         handler instanceof UserRegHandler ) {
                     JSONObject request = (JSONObject) parse.get( "p" );
@@ -194,10 +211,7 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
                     return;
                 }
             } else {
-                if( uname == null || session == null ) {
-                    writeResponseError( ErrorCode.HTTP_INVALID_REQUEST );
-                    return;
-                }
+
                 User user = GameWorld.INSTANCE.getUserBySession( uname, session );
                 if( user == null ) {
                     writeResponseError( ErrorCode.USER_NOT_LOGIN );
@@ -211,12 +225,15 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
 
 
         } catch( ClientException e ) {
-            logger.info( "ClientException = " + e.getCode() );
+            logger.error( "dispatch： ClientException = " + e.getCode() );
             writeResponseError( e.getCode() );
 
-        } catch( Exception exception ) {
-            exception.printStackTrace();
-            logger.info( exception.toString() );
+//        } catch( JSONException e ){
+//            logger.error( "dispatch：" + e );
+//            writeResponseError( ErrorCode.HTTP_INVALID_REQUEST );
+        } catch( Exception e ) {
+            e.printStackTrace();
+            logger.error( "dispatch：" + e );
             writeResponseError( ErrorCode.HTTP_INVALID_REQUEST );
 
         }

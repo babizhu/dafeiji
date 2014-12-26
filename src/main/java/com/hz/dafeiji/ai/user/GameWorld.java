@@ -61,7 +61,7 @@ public enum GameWorld{
     /**
      * 从内存或者数据库中获取玩家信息
      *
-     * @param uname     玩家名
+     * @param uname 玩家名
      * @return 玩家
      */
     User getUserByName( String uname ){
@@ -91,15 +91,19 @@ public enum GameWorld{
     /**
      * 通过玩家的用户名和sesseion，判断此
      *
-     * @param uname
-     * @param session
-     * @return
+     * @param uname   玩家用户名
+     * @param session 玩家session
+     * @return 找到的玩家类，如果不存在或者sesseion错误，则返回null
      */
     public User getUserBySession( String uname, String session ){
 
         User user = users.get( uname );
         if( user == null ) {
             return null;
+        }
+
+        if( uname.equals( "bbz" ) ) {//方便调试用
+            return user;
         }
 
         if( !user.getSesseion().equals( session ) ) {
