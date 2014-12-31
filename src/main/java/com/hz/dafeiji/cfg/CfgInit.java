@@ -1,16 +1,16 @@
 package com.hz.dafeiji.cfg;
 
-import com.bbz.sanguo.cfg.equipment.EquipmentExpTempletCfg;
-import com.bbz.sanguo.cfg.equipment.EquipmentQurlityTempletCfg;
-import com.bbz.sanguo.cfg.equipment.EquipmentTempletCfg;
-import com.bbz.sanguo.cfg.equipment.EquipmentTypeTempletCfg;
-import com.bbz.sanguo.cfg.plane.PlaneQurlityTempletCfg;
-import com.bbz.sanguo.cfg.plane.PlaneTempletCfg;
-import com.bbz.sanguo.cfg.reward.BaseRewardTempletCfg;
-import com.bbz.sanguo.cfg.skill.SikllTempletCfg;
-import com.bbz.sanguo.cfg.wing.WingExpTempletCfg;
-import com.bbz.sanguo.cfg.wing.WingQurlityTempletCfg;
-import com.bbz.sanguo.cfg.wing.WingTempletCfg;
+import com.hz.dafeiji.cfg.equipment.EquipmentExpTempletCfg;
+import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTempletCfg;
+import com.hz.dafeiji.cfg.equipment.EquipmentTempletCfg;
+import com.hz.dafeiji.cfg.equipment.EquipmentTypeTempletCfg;
+import com.hz.dafeiji.cfg.plane.PlaneQurlityTempletCfg;
+import com.hz.dafeiji.cfg.plane.PlaneTempletCfg;
+import com.hz.dafeiji.cfg.reward.BaseRewardTempletCfg;
+import com.hz.dafeiji.cfg.skill.SikllTempletCfg;
+import com.hz.dafeiji.cfg.wing.WingExpTempletCfg;
+import com.hz.dafeiji.cfg.wing.WingQurlityTempletCfg;
+import com.hz.dafeiji.cfg.wing.WingTempletCfg;
 
 
 /**

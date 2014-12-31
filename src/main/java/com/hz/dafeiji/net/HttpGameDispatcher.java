@@ -225,6 +225,7 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
 
 
         } catch( ClientException e ) {
+            e.printStackTrace();
             logger.error( "dispatch： ClientException = " + e.getCode() );
             writeResponseError( e.getCode() );
 

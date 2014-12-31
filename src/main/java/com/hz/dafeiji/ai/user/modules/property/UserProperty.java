@@ -140,13 +140,8 @@ class UserProperty{
                 '}';
     }
 
-    public static void main( String[] args ){
-        UserProperty property = new UserProperty();
-        property.setScoreWeek( 100 );
 
-        System.out.println( property.getScoreWeek() );
-        property.setScoreWeek( 10 );
-
-        System.out.println( property.getScoreWeek() );
+    public void setCash( int cash ){
+        this.cash = cash;
     }
 }

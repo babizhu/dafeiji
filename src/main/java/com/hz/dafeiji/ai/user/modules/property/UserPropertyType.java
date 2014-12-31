@@ -10,8 +10,9 @@ import java.util.Map;
  */
 
 public enum UserPropertyType{
-    CASH( 100001 ),
-    GOLD( 100002 ),;
+    CASH( 500001 ),
+    DIAMOND( 500002 ),
+    STRENGTH( 500007 );
     private static final Map<Integer, UserPropertyType> numToEnum = Maps.newHashMap();
 
     static{

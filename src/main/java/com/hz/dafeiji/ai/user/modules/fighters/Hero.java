@@ -5,7 +5,6 @@ import com.bbz.tool.common.MiscUtil;
 import com.bbz.tool.db.IdentityObj;
 import com.google.common.collect.Sets;
 import com.hz.dafeiji.ai.user.modules.equipments.Equipment;
-import com.hz.dafeiji.cfg.fighter.FighterTemplet;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -49,8 +48,8 @@ public class Hero extends BaseFighter implements IdentityObj{
      */
     private int exp;
 
-    public Hero( long id, FighterTemplet templet ){
-        super( templet );
+    public Hero( long id ){
+        //super( templet );
         this.id = id;
     }
 

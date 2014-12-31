@@ -6,7 +6,7 @@ import org.jdom2.Element;
  * 模版
  *
  * @author liukun
- *         2014-12-26 18:07:02
+ *         2014-12-29 17:29:32
  */
 public class WingExpTemplet{
 

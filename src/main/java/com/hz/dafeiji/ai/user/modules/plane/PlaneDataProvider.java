@@ -29,6 +29,8 @@ public class PlaneDataProvider extends AbstractDataProviderWithIdentity<Plane>{
         int templetId = (int) object.get( "templetId" );
         PlaneTemplet templet = PlaneTempletCfg.getPlaneTempletById( templetId );
         Plane plane = new Plane( (Long) object.get( "_id" ), templet );
+        plane.setLevel( (int) object.get( "level" ) );
+        plane.setCurrent( (boolean) object.get( "current" ) );
 //        hero.setName( (String) object.get( "name" ) );
 //        Set<Equipment> equipments = Sets.newHashSet();
 //        long[] arr = Transform.ArrayType.toLongs( (String) object.get( "equipmentS" ) );
@@ -44,13 +46,16 @@ public class PlaneDataProvider extends AbstractDataProviderWithIdentity<Plane>{
 //
 //        return hero;
 
-        return null;
+        return plane;
     }
 
     @Override
     protected DBObject encode( Plane plane ){
         DBObject obj = new BasicDBObject();
-//        obj.put( "_id", hero.getId() );
+        obj.put( "_id", plane.getId() );
+        obj.put( "level", plane.getLevel() );
+        obj.put( "templetId", plane.getTemplet().getId() );
+        obj.put( "current", plane.isCurrent() );
 //        //obj.put( "uname", getUname() );
 //        obj.put( "name", hero.getName() );
 //        obj.put( "position", hero.getPosition() );
@@ -62,6 +67,15 @@ public class PlaneDataProvider extends AbstractDataProviderWithIdentity<Plane>{
 //        obj.put( "equipmentS", equipmentStr );
 //        obj.put( "templetId", hero.getTemplet().getId() );
         return obj;
+    }
+
+    /**
+     * 更新战机的当前字段
+     *
+     * @param plane
+     */
+    void updateCurrentPlaneField( Plane plane ){
+        updateWithField( plane, "current", plane.isCurrent() );
     }
 
 

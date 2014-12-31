@@ -25,11 +25,11 @@ public class PropertyModuleTest{
     public void testReduceStrength() throws Exception{
         //1、数据库尚无玩家信息时候
         assertEquals( 0, module.getLastCalcStrengthSecond() );
-        assertEquals( module.getStengthMax(), module.getRealStrength() );
+        assertEquals( module.getStengthMax(), module.getStrength() );
 
-        int remainStrength = module.reduceStrength( 2 );
-        assertEquals( module.getStengthMax() - 2, module.getRealStrength() );
-        assertEquals( remainStrength, module.getRealStrength() );
+        int remainStrength = module.changeStrength( -2 );
+        assertEquals( module.getStengthMax() - 2, module.getStrength() );
+        assertEquals( remainStrength, module.getStrength() );
 
 
     }

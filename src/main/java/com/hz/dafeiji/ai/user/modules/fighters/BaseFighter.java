@@ -1,7 +1,6 @@
 package com.hz.dafeiji.ai.user.modules.fighters;
 
 
-import com.hz.dafeiji.cfg.fighter.FighterTemplet;
 import lombok.Data;
 
 /**
@@ -11,7 +10,7 @@ import lombok.Data;
 
 @Data
 public class BaseFighter{
-    protected final FighterTemplet templet;
+    // protected final FighterTemplet templet;
     private int hp;
     private int hpMax;
     private int sp;

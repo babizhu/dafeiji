@@ -4,10 +4,9 @@ package com.hz.dafeiji.ai.user.modules.moneytree;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.award.AwardModule;
 import com.hz.dafeiji.ai.user.modules.misc.MiscDataKey;
 import com.hz.dafeiji.ai.user.modules.misc.usercounter.UserCounterModule;
-import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
-import com.hz.dafeiji.ai.user.modules.property.UserPropertyType;
 
 /**
  * user         LIUKUN
@@ -18,11 +17,12 @@ import com.hz.dafeiji.ai.user.modules.property.UserPropertyType;
 public class MoneyTreeSpecialModule{
     public static final String FUNC_NAME = MoneyTreeSpecialModule.class + "recharge";
     public final UserCounterModule userCounterModule;
-    private final PropertyModule propModule;
+    //    private final PropertyModule propModule;
+    private final AwardModule awardModule;
 
     public MoneyTreeSpecialModule( ModuleManager moduleManager ){
         this.userCounterModule = moduleManager.getUserCounterModule();
-        this.propModule = moduleManager.getPropertyModule();
+        this.awardModule = null;
     }
 
     /**
@@ -34,7 +34,8 @@ public class MoneyTreeSpecialModule{
         int money = 100;
 
         userCounterModule.add( MiscDataKey.MONEY_TREE, 1 );//今日摇钱次数加1
-        propModule.changeValue( UserPropertyType.CASH, money, FUNC_NAME );
+
+//        propModule.changeValue( UserPropertyType.CASH, money, FUNC_NAME );
         return money;
     }
 

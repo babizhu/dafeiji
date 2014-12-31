@@ -1,6 +1,12 @@
 package com.hz.dafeiji.ai.user.modules.plane;
 
-import java.util.List;
+import com.bbz.tool.identity.IdentityGen;
+import com.hz.dafeiji.ai.ClientException;
+import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.dafeiji.cfg.plane.PlaneTemplet;
+import com.hz.dafeiji.cfg.plane.PlaneTempletCfg;
+
+import java.util.Map;
 
 /**
  * user         LIUKUN
@@ -12,13 +18,154 @@ import java.util.List;
 public class PlaneModule{
     private final PlaneDataProvider db;
 
+    //final CurrentPlaneDataProvider db1;
+
     /**
      * 所有的英雄
      */
-    private List<Plane> planes;
+    private Map<Long, Plane> planes;
+
+    /**
+     * 当前出战的飞机
+     */
+    private Plane currentPlane;
+    //private CurrentPlaneData currentPlaneData;
 
     public PlaneModule( String uname ){
         db = new PlaneDataProvider( uname );
-        planes = db.getListAll();
+        //db1 = new CurrentPlaneDataProvider( uname );
+
+        planes = db.getMapAll();
+        //currentPlaneData = db1.findOne();
+
+        findCurrentPlane();
+    }
+
+    public Map<Long, Plane> getAll(){
+        return planes;
+    }
+
+    /**
+     * 根据唯一id查找飞机，如果不存在会自动抛出异常
+     *
+     * @param planeId 飞机的唯一id
+     * @return plane
+     */
+    private Plane getPlaneById( long planeId ){
+        Plane plane = planes.get( planeId );
+        if( plane == null ) {
+            throw new ClientException( ErrorCode.PLANE_NOT_FOUND );
+        }
+        return plane;
+    }
+
+    void levelUp( long planeId ){
+        Plane plane = getPlaneById( planeId );
+        plane.setLevel( plane.getLevel() + 1 );
+    }
+
+    /**
+     * 检测相同模板的飞机是否已经存在
+     *
+     * @param planeTempletId 需要检测的模板id
+     * @return true：存在
+     * false：不存在
+     */
+    private boolean isDuplicate( int planeTempletId ){
+        for( Plane plane : planes.values() ) {
+            if( plane.getTemplet().getId() == planeTempletId ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 根据指定的planeTempletId为玩家创建一架飞机
+     * 这里并没有检测是否存在相同模板的飞机，因此不允许外部直接调用
+     *
+     * @param templet 指定的飞机模板
+     */
+    private Plane create( PlaneTemplet templet ){
+
+        long id = IdentityGen.INSTANCE.incrementAndGet();
+        Plane plane = new Plane( id, templet );
+        planes.put( id, plane );
+        db.add( plane );
+        return plane;
+
+    }
+
+
+    public Plane buy( int planeTempletId ){
+        if( isDuplicate( planeTempletId ) ) {
+            throw new ClientException( ErrorCode.PLANE_TEMPLET_DUPLICATE );
+        }
+
+        PlaneTemplet pt = PlaneTempletCfg.getPlaneTempletById( planeTempletId );
+        if( pt == null ) {
+            throw new ClientException( ErrorCode.PLANE_TEMPLET_NOT_FOUND );
+        }
+
+
+        Plane plane = create( pt );
+
+        return plane;
+
+
+    }
+
+
+    /**
+     * 测试用
+     */
+    void remove(){
+        planes.clear();
+        db.removeAll();
+    }
+
+    /**
+     * 查找当前出战的飞机，设置到成员变量上
+     */
+    private void findCurrentPlane(){
+        for( Map.Entry<Long, Plane> planeEntry : planes.entrySet() ) {
+            Plane plane = planeEntry.getValue();
+            if( plane.isCurrent() ) {
+                currentPlane = plane;
+            }
+        }
+
+    }
+
+
+    /**
+     * 设置出战飞机
+     *
+     * @param planeId 要出战飞机的id
+     */
+    public void setCurrentPlane( long planeId ){
+        Plane newCurrentPlane = getPlaneById( planeId );//如果没有飞机存在，会报异常
+        setCurrentPlane( newCurrentPlane );
+
+    }
+
+    /**
+     * 设置出战飞机
+     *
+     * @param newCurrentPlane 要出战飞机
+     */
+    public void setCurrentPlane( Plane newCurrentPlane ){
+        if( currentPlane != null ) {
+            currentPlane.setCurrent( false );
+            db.updateCurrentPlaneField( currentPlane );
+        }
+
+        currentPlane = newCurrentPlane;
+        currentPlane.setCurrent( true );
+        db.updateCurrentPlaneField( currentPlane );
+    }
+
+    public Plane getCurrentPlane(){
+        return currentPlane;
     }
 }

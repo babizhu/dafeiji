@@ -15,4 +15,10 @@ public class D{
      * test时所采用的用户名
      */
     public static final String TEST_USER_NAME = "test_bbz";
+
+
+    /**
+     * 玩家注册时候赠送的飞机模板ID
+     */
+    public static final int DEFAULT_PLANE_ID = 100101;
 }

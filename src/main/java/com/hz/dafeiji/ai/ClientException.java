@@ -1,6 +1,5 @@
 package com.hz.dafeiji.ai;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,15 +11,21 @@ import lombok.EqualsAndHashCode;
  */
 
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
+
 @Data
 public class ClientException extends RuntimeException{
 
     private final ErrorCode code;
+    private String desc;
 
+    public ClientException( ErrorCode code, String desc ){
+        this.code = code;
+        this.desc = desc;
+    }
 
-    public static void main( String[] args ){
-        System.out.println();
+    public ClientException( ErrorCode code ){
+        this.code = code;
+
     }
 
 }

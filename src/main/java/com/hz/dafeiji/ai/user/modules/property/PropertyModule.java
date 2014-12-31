@@ -29,64 +29,51 @@ public class PropertyModule{
     }
 
 
+//    public boolean isEnough()
     /**
      * 玩家涉及到属性的更改操作
      *
-     * @param type     奖励类型
-     * @param change   改变的数值
-     * @param funcName 改变的方法名
+     *
      * @return >=0	:返回此属性的当前值
      * -1	:扣除失败，余值不足
      */
-    public int changeValue( UserPropertyType type, int change, String funcName ){
-        int result = 0;
-        switch( type ) {
-            case CASH:
-                //result = property.addCash( change );
-                break;
-            case GOLD:
-                //result = property.addGold( change );
-                break;
-            default:
-                throw new IllegalArgumentException( type + "属性不存在相应函数" );
-        }
-        if( result == -1 ) {
-            logger.debug( uname + "奖励类型：" + type + "欲改变数值：" + change + "，出现负数，调用函数为" + funcName );
-        }
-        buildLog( type, change, result, funcName );
-        db.replace( property );
-        return result;
-    }
+//    public int changeValue( UserPropertyType type, int change ){
+//        int result = 0;
+//        switch( type ) {
+//            case CASH:
+//                //result = property.addCash( change );
+//                break;
+//            case GOLD:
+//                //result = property.addGold( change );
+//                break;
+//            default:
+//                throw new IllegalArgumentException( type + "属性不存在相应函数" );
+//        }
+//        if( result == -1 ) {
+//            logger.debug( uname + "奖励类型：" + type + "欲改变数值：" + change + "，出现负数，调用函数为" + funcName );
+//        }
+//        buildLog( type, change, result, funcName );
+//        db.replace( property );
+//        return result;
+//    }
 
-    /**
-     * 构造关键数据的日志文件
-     *
-     * @param at       奖励类型
-     * @param change   改动的数值
-     * @param current  改动后的当前数值
-     * @param funcName 改动函数
-     */
-    private void buildLog( UserPropertyType at, int change, int current, String funcName ){
-        //{}依次为 用户名，物品类型，变化值，当前值，调用的方法名
-        logger.info( "{},{},{},{},{}", uname, at, change, current, funcName );
-    }
+//    /**
+//     * 构造关键数据的日志文件
+//     *
+//     * @param at       奖励类型
+//     * @param change   改动的数值
+//     * @param current  改动后的当前数值
+//     * @param funcName 改动函数
+//     */
+//    private void buildLog( UserPropertyType at, int change, int current, String funcName ){
+//        //{}依次为 用户名，物品类型，变化值，当前值，调用的方法名
+//        logger.info( "{},{},{},{},{}", uname, at, change, current, funcName );
+//    }
 
-
-    /**
-     * 扣除玩家体力
-     *
-     * @param reduceValue
-     * @return
-     */
-    public int reduceStrength( int reduceValue ){
-        int st = property.getStrength().reduceStrength( reduceValue );
-        db.replace( property );
-        return st;
-    }
 
     ////////////////////////////////////以下为委托方法///////////////////////////////////
-    public int getRealStrength(){
-        return property.getStrength().getRealStrength();
+    public int getStrength(){
+        return property.getStrength().getStrength();
     }
 
     public int getLastCalcStrengthSecond(){
@@ -131,6 +118,44 @@ public class PropertyModule{
         return property.getStrength().getStrengthMax();
     }
 
+    /**
+     * 如果是扣除，changeValue请用负数，同时无需考虑是否够扣的问题，AwardModule会统一处理
+     *
+     * @param changeValue 变化值
+     * @return 变化之后的钻石数量
+     */
+    public int changeDiamond( int changeValue ){
+        int count = property.getDiamond() + changeValue;
+        property.setDiamond( count );
+        db.updateWithField( db.DIAMOND_FIELD, count );
+        return count;
+    }
+
+    /**
+     * 如果是扣除，changeValue请用负数，同时无需考虑是否够扣的问题，AwardModule会统一处理
+     *
+     * @param changeValue 变化值
+     * @return 变化之后的金币数量
+     */
+    public int changeCash( int changeValue ){
+        int count = property.getCash() + changeValue;
+        property.setCash( count );
+        db.updateWithField( db.CASH_FIELD, count );
+        return count;
+    }
+
+    /**
+     * 修改玩家体力，如果是扣除，changeValue请用负数，同时无需考虑是否够扣的问题，AwardModule会统一处理
+     *
+     * @param changeValue 变化值
+     * @return 变化之后的体力数量
+     */
+    public int changeStrength( int changeValue ){
+
+        int st = property.getStrength().changeStrength( changeValue );
+        db.replace( property );//体力比较特殊，这里简化处理先
+        return st;
+    }
 
     //////////////////////////////////////////测试用//////////////////////////////////////////////
 
@@ -140,4 +165,6 @@ public class PropertyModule{
     protected void remove(){
         db.remove();
     }
+
+
 }

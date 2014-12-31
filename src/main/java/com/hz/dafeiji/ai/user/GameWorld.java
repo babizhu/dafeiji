@@ -3,10 +3,15 @@ package com.hz.dafeiji.ai.user;
 import com.bbz.tool.time.SystemTimer;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.dafeiji.ai.user.modules.plane.Plane;
+import com.hz.dafeiji.ai.user.modules.plane.PlaneModule;
+import com.hz.dafeiji.ai.user.modules.player.UserBaseInfoModule;
+import com.hz.util.D;
 
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  * user         LIUKUN
@@ -46,7 +51,7 @@ public enum GameWorld{
             user.setLoginTime( SystemTimer.currentTimeSecond() );
             user.setActiveTimeNow();
 
-            users.put( uname, user );
+
             return user;
         } else {
             throw new ClientException( eCode );
@@ -54,8 +59,33 @@ public enum GameWorld{
     }
 
     public ErrorCode regist( String uname, String pass ){
-        User user = getUserByName( uname );
-        return user.getModuleManager().getUserBaseInfoModule().regist( uname, uname + "nick", pass );
+        //这个地方怎么处理呢，难道这里的玩家也放在users里面，明显有问题
+        //好像解决了，明天在测试把
+        UserBaseInfoModule module = new UserBaseInfoModule( uname );
+
+        ErrorCode eCode = module.regist( uname, uname + "nick", pass );
+
+        if( eCode == ErrorCode.SUCCESS ) {
+            User user = getUserByName( uname );
+            initNewUser( user );
+        }
+        return eCode;
+
+
+    }
+
+    /**
+     * 玩家注册后紧接着的一些初始化操作，包括：
+     * 1、生成一架飞机，并设置未出战
+     *
+     * @param user      用户
+     */
+    private void initNewUser( User user ){
+        PlaneModule planeModule = user.getModuleManager().getPlaneModule();
+        Plane plane = planeModule.buy( D.DEFAULT_PLANE_ID );
+        planeModule.setCurrentPlane( plane );
+
+
     }
 
     /**
@@ -70,6 +100,7 @@ public enum GameWorld{
             return user;
         }
         user = new User( uname );
+        users.put( uname, user );
         return user;
     }
 

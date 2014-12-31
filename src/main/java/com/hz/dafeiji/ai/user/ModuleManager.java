@@ -2,6 +2,7 @@ package com.hz.dafeiji.ai.user;
 
 
 import com.hz.dafeiji.ai.user.modules.misc.usercounter.UserCounterModule;
+import com.hz.dafeiji.ai.user.modules.plane.PlaneModule;
 import com.hz.dafeiji.ai.user.modules.player.UserBaseInfoModule;
 import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
 import com.hz.dafeiji.ai.user.modules.recharge.RechargeModule;
@@ -20,6 +21,8 @@ public class ModuleManager{
 
     private PropertyModule propertyModule;
 
+    private PlaneModule planeModule;
+
     private UserCounterModule userCounterModule;
 
     private RechargeModule rechargeModule;
@@ -27,6 +30,7 @@ public class ModuleManager{
     public ModuleManager( String uname ){
         userBaseInfoModule = new UserBaseInfoModule( uname );
         propertyModule = new PropertyModule( uname );
+        planeModule = new PlaneModule( uname );
         //userCounterModule = new UserCounterModule( uname );
 
     }
@@ -47,5 +51,9 @@ public class ModuleManager{
 
     public PropertyModule getPropertyModule(){
         return propertyModule;
+    }
+
+    public PlaneModule getPlaneModule(){
+        return planeModule;
     }
 }

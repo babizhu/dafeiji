@@ -22,7 +22,7 @@ public enum ErrorCode{
     HANDLER_NOT_FOUND( 101 ),
 
     /**
-     * 签名验证错误
+     * 客户端发送的签名字段验证错误
      */
     SIGNATURE_ERROR( 102 ),
     /**
@@ -50,7 +50,33 @@ public enum ErrorCode{
     /**
      * 摇钱树今日运行次数超上限
      */
-    MONEY_TREE_RUN_UPPER_LIMIT( 4000 );
+    MONEY_TREE_RUN_UPPER_LIMIT( 4000 ),
+
+    /**
+     * 玩家指定id的飞机没有找到
+     */
+    PLANE_NOT_FOUND( 5000 ),
+    /**
+     * 相同模板的飞机已经存在了
+     */
+    PLANE_TEMPLET_DUPLICATE( 5001 ),
+    /**
+     * 飞机模板没找到
+     */
+    PLANE_TEMPLET_NOT_FOUND( 5002 ),
+
+    /**
+     * 道具不足
+     */
+    AWARD_NOT_ENOUGH( 6500 ),
+    /**
+     * 道具扣除数字不合法（小于0）
+     */
+    AWARD_REDUCE_COUNT_ILLEGAL( 6501 ),
+    /**
+     * 要变化数量的道具没找到
+     */
+    AWARD_PROP_NOT_FOUND( 6502 );
 
     private static final Map<Integer, ErrorCode> numToEnum = new HashMap<>();
 

@@ -13,6 +13,13 @@ import com.mongodb.DBObject;
 
 class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty>{
     private static final String TABLE_NAME = "property";
+    public static final String DIAMOND_FIELD = "diamond";
+    public static final String CASH_FIELD = "cash";
+    public static final String STRENGTH_FIELD = "strength";
+    public static final String SCORE_FIELD = "score";
+    public static final String SCORE_WEEK_FIELD = "scoreWeek";
+    public static final String VIP_FIELD = "vip";
+    public static final String POWER_FIELD = "power";
 
     /**
      * @param uname 玩家名称
@@ -29,15 +36,16 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
             return property;
         }
         //property.setExp( (int) obj.get( "exp" ) );
-        property.setDiamond( (int) obj.get( "diamond" ) );
-        int strengthValue = (int) obj.get( "strength" );
+        property.setDiamond( (int) obj.get( DIAMOND_FIELD ) );
+        property.setCash( (int) obj.get( CASH_FIELD ) );
+        int strengthValue = (int) obj.get( STRENGTH_FIELD );
         int lastCalcStrengthSecond = (int) obj.get( "lastCalcStrengthSecond" );
         Strength strength = new Strength( strengthValue, lastCalcStrengthSecond );
         property.setStrength( strength );
-        property.setScoreWeek( (int) obj.get( "scoreWeek" ) );
-        property.setScore( (int) obj.get( "score" ) );
-        property.setPower( (int) obj.get( "power" ) );
-        property.setVip( (int) obj.get( "vip" ) );
+        property.setScoreWeek( (int) obj.get( SCORE_WEEK_FIELD ) );
+        property.setScore( (int) obj.get( SCORE_FIELD ) );
+        property.setPower( (int) obj.get( POWER_FIELD ) );
+        property.setVip( (int) obj.get( VIP_FIELD ) );
 
 
         return property;
@@ -48,13 +56,14 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
 
         DBObject obj = new BasicDBObject();
         //obj.put( "exp", property.getExp() );
-        obj.put( "diamond", property.getDiamond() );
-        obj.put( "strength", property.getStrength().getRealStrength() );
-        obj.put( "scoreWeek", property.getScoreWeek() );
-        obj.put( "score", property.getScore() );
+        obj.put( DIAMOND_FIELD, property.getDiamond() );
+        obj.put( CASH_FIELD, property.getCash() );
+        obj.put( STRENGTH_FIELD, property.getStrength().getStrength() );
+        obj.put( SCORE_WEEK_FIELD, property.getScoreWeek() );
+        obj.put( SCORE_FIELD, property.getScore() );
 
-        obj.put( "power", property.getPower() );
-        obj.put( "vip", property.getVip() );
+        obj.put( POWER_FIELD, property.getPower() );
+        obj.put( VIP_FIELD, property.getVip() );
         obj.put( "lastCalcStrengthSecond", property.getStrength().getLastCalcStrengthSecond() );
 
 

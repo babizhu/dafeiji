@@ -7,7 +7,7 @@ import lombok.Data;
 /**
  * user         LIUKUN
  * time         2014-12-25 17:21
- * 飞机
+ * 飞机也就是机甲
  */
 
 @Data
@@ -18,10 +18,14 @@ public class Plane implements IdentityObj{
     private int attack;
     private int level;
     private PlaneTemplet templet;
+    /**
+     * 是否当前的出战飞机
+     */
+    private boolean isCurrent;
 
 
     public Plane( Long id, PlaneTemplet templet ){
         this.id = id;
-        templet = this.templet;
+        this.templet = templet;
     }
 }

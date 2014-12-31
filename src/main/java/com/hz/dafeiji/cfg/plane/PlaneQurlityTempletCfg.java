@@ -14,7 +14,7 @@ import java.util.Map;
  * 模版配置
  *
  * @author liukun
- *         2014-12-26 18:07:02
+ *         2014-12-29 17:29:32
  */
 public class PlaneQurlityTempletCfg{
     private static final Map<Integer, PlaneQurlityTemplet> planeQurlityTemplets = new HashMap<>();
