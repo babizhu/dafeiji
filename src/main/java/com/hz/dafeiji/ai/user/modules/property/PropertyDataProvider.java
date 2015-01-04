@@ -33,6 +33,7 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
         UserProperty property = new UserProperty();
         if( obj == null ) {
             property.setStrength( new Strength() );
+            replace( property );
             return property;
         }
         //property.setExp( (int) obj.get( "exp" ) );

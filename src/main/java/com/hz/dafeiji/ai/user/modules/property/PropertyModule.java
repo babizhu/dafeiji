@@ -156,12 +156,19 @@ public class PropertyModule{
         return st;
     }
 
+    @Override
+    public String toString(){
+        return "PropertyModule{" +
+                "property=" + property +
+                '}';
+    }
+
     //////////////////////////////////////////测试用//////////////////////////////////////////////
 
     /**
      * 删除玩家的数据库记录，仅仅为测试用例使用
      */
-    protected void remove(){
+    public void remove(){
         db.remove();
     }
 
