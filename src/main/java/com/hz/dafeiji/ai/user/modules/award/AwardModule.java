@@ -76,7 +76,7 @@ public class AwardModule{
                     remainCount = propertyModule.changeStrength( prop.count );
                     break;
                 default:
-                    throw new ClientException( ErrorCode.AWARD_REDUCE_COUNT_ILLEGAL, prop.propId + "," + prop.count );
+                    throw new ClientException( ErrorCode.AWARD_PROP_NOT_FOUND, prop.propId + "," + prop.count );
 
 
             }
@@ -115,7 +115,7 @@ public class AwardModule{
                     }
                     break;
                 default:
-                    throw new ClientException( ErrorCode.AWARD_REDUCE_COUNT_ILLEGAL, prop.propId + "," + prop.count );
+                    throw new ClientException( ErrorCode.AWARD_PROP_NOT_FOUND, prop.propId + "," + prop.count );
 
 
             }
