@@ -14,7 +14,7 @@ import java.util.Map;
  * 模版配置
  *
  * @author liukun
- *         2014-12-29 17:29:32
+ *         2015-1-4 13:44:25
  */
 public class EquipmentTypeTempletCfg{
     private static final Map<Integer, EquipmentTypeTemplet> equipmentTypeTemplets = new HashMap<>();

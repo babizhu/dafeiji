@@ -19,10 +19,9 @@ public class PropertyModule{
 
     private final PropertyDataProvider db;
     private final UserProperty property;
-    private final String uname;
 
     public PropertyModule( String uname ){
-        this.uname = uname;
+        //String uname1 = uname;
         db = new PropertyDataProvider( uname );
         property = db.findOne();
         //this.moduleManager = moduleManager;
@@ -30,9 +29,9 @@ public class PropertyModule{
 
 
 //    public boolean isEnough()
+
     /**
      * 玩家涉及到属性的更改操作
-     *
      *
      * @return >=0	:返回此属性的当前值
      * -1	:扣除失败，余值不足
@@ -127,7 +126,7 @@ public class PropertyModule{
     public int changeDiamond( int changeValue ){
         int count = property.getDiamond() + changeValue;
         property.setDiamond( count );
-        db.updateWithField( db.DIAMOND_FIELD, count );
+        db.updateWithField( PropertyDataProvider.DIAMOND_FIELD, count );
         return count;
     }
 
@@ -140,7 +139,7 @@ public class PropertyModule{
     public int changeCash( int changeValue ){
         int count = property.getCash() + changeValue;
         property.setCash( count );
-        db.updateWithField( db.CASH_FIELD, count );
+        db.updateWithField( PropertyDataProvider.CASH_FIELD, count );
         return count;
     }
 

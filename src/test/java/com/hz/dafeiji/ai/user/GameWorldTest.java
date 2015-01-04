@@ -1,9 +1,25 @@
 package com.hz.dafeiji.ai.user;
 
-import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.util.D;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class GameWorldTest{
+
+    private static String uname = D.TEST_USER_NAME;
+
+    @BeforeClass
+    public static void init(){
+        //PlaneTempletCfg.init();
+//        CfgInit.init();
+    }
+
+    @AfterClass
+    public static void removeUser(){
+        User user = new User( uname );
+        user.getModuleManager().getUserBaseInfoModule().removeUser();
+    }
 
     @Test
     public void testBuildSession() throws Exception{
@@ -11,27 +27,20 @@ public class GameWorldTest{
     }
 
     @Test
-    public void testLogin() throws Exception{
-        int count = 10;
-        for( int i = 0; i < count; i++ ) {
-            String uname = "eabdcdeqfd" + i;
-            User loginUser = GameWorld.INSTANCE.login( uname, "papss" );
-            System.out.println( loginUser + "登陆" );
-
-        }
-
-    }
-
-    @Test
-    public void testRegist() throws Exception{
-        long begin = System.nanoTime();
-        for( int i = 0; i < 10; i++ ) {
-            ErrorCode code = GameWorld.INSTANCE.regist( "eabdcdeqfd" + i, "pass" );
-            if( code != ErrorCode.SUCCESS ) {
-                System.out.println( code );
-            }
-        }
-        System.out.println( "操作耗时：" + (System.nanoTime() - begin) / 1000000000f + "秒" );
+    public void testRegistAndLogin() throws Exception{
+//        ErrorCode code = GameWorld.INSTANCE.regist( uname, "pass" );
+//        if( code != ErrorCode.SUCCESS ) {
+//            System.out.println( code );
+//        }
+//        User loginUser = GameWorld.INSTANCE.login( uname, "pass" );
+//        long begin = System.nanoTime();
+//        for( int i = 0; i < 10; i++ ) {
+//            ErrorCode code = GameWorld.INSTANCE.regist( "eabdcdeqfd" + i, "pass" );
+//            if( code != ErrorCode.SUCCESS ) {
+//                System.out.println( code );
+//            }
+//        }
+//        System.out.println( "操作耗时：" + (System.nanoTime() - begin) / 1000000000f + "秒" );
     }
 
     @Test

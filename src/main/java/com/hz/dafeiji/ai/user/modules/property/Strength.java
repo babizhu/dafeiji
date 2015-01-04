@@ -103,8 +103,7 @@ class Strength{
      * 体力是否满了
      *
      * @param strength 要检测的体力
-     * @return true：满了
-     * false:没满
+     * @return true：满了 false:没满
      */
     private boolean isFull( int strength ){
         return strength >= strengthMax;

@@ -59,8 +59,7 @@ public enum GameWorld{
     }
 
     public ErrorCode regist( String uname, String pass ){
-        //这个地方怎么处理呢，难道这里的玩家也放在users里面，明显有问题
-        //好像解决了，明天在测试把
+
         UserBaseInfoModule module = new UserBaseInfoModule( uname );
 
         ErrorCode eCode = module.regist( uname, uname + "nick", pass );

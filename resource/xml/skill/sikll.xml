@@ -1,178 +1,220 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Siklls>
     <Sikll>
-        <id>710001</id>
+        <id>720001</id>
         <name>雷切</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>1</type>
         <describe>发射6枚炫光电轮和大量小型电轮，摧毁所有敌机、子弹、导弹分别对BOSS或首领造成55440伤害及4746伤害</describe>
     </Sikll>
     <Sikll>
-        <id>710002</id>
+        <id>720002</id>
         <name>裂雷</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>1</type>
         <describe>每次使用“雷切”时，增加每个电轮5000点伤害</describe>
     </Sikll>
     <Sikll>
-        <id>710003</id>
+        <id>720003</id>
         <name>雷鸣</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>每次使用“雷切”时，回复300点生命。</describe>
     </Sikll>
     <Sikll>
-        <id>710004</id>
+        <id>720004</id>
         <name>死亡光线</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>1</type>
         <describe>发射一道强力的激光束，每秒36000点伤害，持续10秒</describe>
     </Sikll>
     <Sikll>
-        <id>710005</id>
+        <id>720005</id>
         <name>超级死光</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>1</type>
         <describe>每次使用“死亡光线”击杀敌机时，增加光束每秒12000点伤害</describe>
     </Sikll>
     <Sikll>
-        <id>710006</id>
+        <id>720006</id>
         <name>死光反哺</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>每次使用“死亡光线”时，回复250点生命。</describe>
     </Sikll>
     <Sikll>
-        <id>710007</id>
+        <id>720007</id>
         <name>无敌声波</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>1</type>
         <describe>召唤两道无敌声波由后向前进行攻击，基础伤害为64000点伤害，距离战机越远伤害越大，最高96000点伤害，总共释放4次，</describe>
     </Sikll>
     <Sikll>
-        <id>710008</id>
+        <id>720008</id>
         <name>声波增强</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>1</type>
         <describe>每次使用“无敌声波”时，增加光斩其18000点伤害</describe>
     </Sikll>
     <Sikll>
-        <id>710009</id>
+        <id>720009</id>
         <name>音波护盾</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>每次使用“无敌声波”时，战机可获得10秒无敌的音波护盾</describe>
     </Sikll>
     <Sikll>
-        <id>710010</id>
+        <id>720010</id>
         <name>天网巡航</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>1</type>
         <describe>召唤5架无人机组成卫队，可抵挡敌机子弹并发射子弹攻击，无人机每秒12000点伤害，持续12秒</describe>
     </Sikll>
     <Sikll>
-        <id>710011</id>
+        <id>720011</id>
         <name>意外之喜</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>7</type>
         <describe>每次使用“天网巡航”时，即可获得2枚免费核弹，上限12枚。</describe>
     </Sikll>
     <Sikll>
-        <id>710012</id>
+        <id>720012</id>
         <name>超级巡航</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>6</type>
         <describe>每次使用“天网巡航”时，无人机持续时间增加4秒</describe>
     </Sikll>
     <Sikll>
-        <id>710013</id>
+        <id>720013</id>
         <name>致命幻影</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>1</type>
         <describe>召唤2个具备无数的幻影战机出战，复制战机的弹幕。具备84%的攻击力，持续10秒</describe>
     </Sikll>
     <Sikll>
-        <id>710014</id>
+        <id>720014</id>
         <name>终极秀场</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>3</type>
         <describe>每次使用“致命幻影”时，附加战机60%攻击力分数加成。</describe>
     </Sikll>
     <Sikll>
-        <id>710015</id>
+        <id>720015</id>
         <name>幻影分身</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>4</type>
         <describe>每次使用“致命幻影”时，增加分身存在时间6秒</describe>
     </Sikll>
     <Sikll>
-        <id>710016</id>
+        <id>720016</id>
         <name>绝对禁锢</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>在同样降低所有敌机、子弹及导弹速度至原速度40%的效果上，延长至15秒</describe>
     </Sikll>
     <Sikll>
-        <id>710017</id>
+        <id>720017</id>
         <name>火力全开</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>6</type>
         <describe>每次使用“绝对禁锢”时，战机可获得15秒火力全开的效果</describe>
     </Sikll>
     <Sikll>
-        <id>710018</id>
+        <id>720018</id>
         <name>绝对领域</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>4</type>
         <describe>每次使用“绝对禁锢”时，增加空间持续时间5秒</describe>
     </Sikll>
     <Sikll>
-        <id>710019</id>
+        <id>720019</id>
         <name>战场救援</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>每6秒回复18点生命值</describe>
     </Sikll>
     <Sikll>
-        <id>710020</id>
+        <id>720020</id>
         <name>装甲免伤</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>降低子弹对战机所造成的伤害18%</describe>
     </Sikll>
     <Sikll>
-        <id>710021</id>
+        <id>720021</id>
         <name>以战养战</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>5</type>
         <describe>击杀敌机后，有概率回复18点生命值</describe>
     </Sikll>
     <Sikll>
-        <id>710022</id>
+        <id>720022</id>
         <name>陨石护盾</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>每60秒自动生成一个7秒无敌护盾</describe>
     </Sikll>
     <Sikll>
-        <id>710023</id>
+        <id>720023</id>
         <name>破釜沉舟</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>增加战机1000点生命上限</describe>
     </Sikll>
     <Sikll>
-        <id>710024</id>
+        <id>720024</id>
         <name>棱镜衍射</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>每60秒自动生成一个10秒无敌护盾，降低子弹对战机所造成的伤害10%</describe>
     </Sikll>
     <Sikll>
-        <id>710025</id>
+        <id>720025</id>
         <name>星云护罩</name>
-        <purpose>1</purpose>
+        <purpose>2</purpose>
         <type>2</type>
         <describe>降低子弹对战机所造成的伤害15%，且每6秒回复15点生命值。</describe>
+    </Sikll>
+    <Sikll>
+        <id>730001</id>
+        <name>生命回复</name>
+        <purpose>3</purpose>
+        <type>5</type>
+        <describe>击杀敌机后，主机有概率（8%）恢复生命12点。</describe>
+    </Sikll>
+    <Sikll>
+        <id>730002</id>
+        <name>燃烧弹射</name>
+        <purpose>3</purpose>
+        <type>5</type>
+        <describe>击中目标后有8%的几率，使其在3秒内持续受到4500点伤害</describe>
+    </Sikll>
+    <Sikll>
+        <id>730003</id>
+        <name>火力屏蔽</name>
+        <purpose>3</purpose>
+        <type>5</type>
+        <describe>击中敌机时有12%概率使其无法发射子弹，持续2秒</describe>
+    </Sikll>
+    <Sikll>
+        <id>730004</id>
+        <name>白鲸强击</name>
+        <purpose>3</purpose>
+        <type>5</type>
+        <describe>击中敌机时，有12%概率击退目标200码</describe>
+    </Sikll>
+    <Sikll>
+        <id>730005</id>
+        <name>暴力成长</name>
+        <purpose>3</purpose>
+        <type>1</type>
+        <describe>主机攻击力提升150点</describe>
+    </Sikll>
+    <Sikll>
+        <id>730006</id>
+        <name>生命破限</name>
+        <purpose>3</purpose>
+        <type>2</type>
+        <describe>主机生命上限增加200点</describe>
     </Sikll>
 </Siklls>

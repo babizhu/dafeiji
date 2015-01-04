@@ -2,7 +2,7 @@
 <Wings>
     <Wing>
         <id>200401</id>
-        <name>红莲\自走炮艇</name>
+        <name>红莲</name>
         <quality>1</quality>
         <qualityMax>4</qualityMax>
         <currentLv>1</currentLv>
@@ -18,7 +18,7 @@
     </Wing>
     <Wing>
         <id>200402</id>
-        <name>紫电\武装卫星</name>
+        <name>紫电</name>
         <quality>1</quality>
         <qualityMax>4</qualityMax>
         <currentLv>1</currentLv>
@@ -34,7 +34,7 @@
     </Wing>
     <Wing>
         <id>200701</id>
-        <name>岚枫\飞雁战机</name>
+        <name>岚枫</name>
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
@@ -43,7 +43,7 @@
         <attackUp>7.7</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
-        <skill1>0</skill1>
+        <skill1>730001</skill1>
         <skill2>0</skill2>
         <source></source>
         <describe></describe>
@@ -59,7 +59,7 @@
         <attackUp>7.7</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
-        <skill1>0</skill1>
+        <skill1>730002</skill1>
         <skill2>0</skill2>
         <source></source>
         <describe></describe>
@@ -75,7 +75,7 @@
         <attackUp>7.8</attackUp>
         <compound>60</compound>
         <allPurpose>30</allPurpose>
-        <skill1>0</skill1>
+        <skill1>730003</skill1>
         <skill2>0</skill2>
         <source></source>
         <describe></describe>
@@ -91,7 +91,7 @@
         <attackUp>7.8</attackUp>
         <compound>80</compound>
         <allPurpose>40</allPurpose>
-        <skill1>0</skill1>
+        <skill1>730004</skill1>
         <skill2>0</skill2>
         <source></source>
         <describe></describe>
@@ -107,7 +107,7 @@
         <attackUp>8</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
-        <skill1>0</skill1>
+        <skill1>730005</skill1>
         <skill2>0</skill2>
         <source></source>
         <describe></describe>
@@ -123,7 +123,7 @@
         <attackUp>8</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
-        <skill1>0</skill1>
+        <skill1>730006</skill1>
         <skill2>0</skill2>
         <source></source>
         <describe></describe>

@@ -55,10 +55,6 @@ public class UserBaseInfoModule{
         return ErrorCode.SUCCESS;
     }
 
-    public static void main( String[] args ){
-        UserBaseInfoModule module = new UserBaseInfoModule( "bbz" );
-        System.out.println( module.regist( "bbz1", "bbz1", "pass" ) );
-    }
 
 
     public ErrorCode login( String pass ){
@@ -72,4 +68,17 @@ public class UserBaseInfoModule{
 
         return info;
     }
+
+    public String getNickName(){
+        return info.getNickName();
+    }
+
+    /**
+     * 删除玩家
+     * tester用，其他谨慎调用
+     */
+    public void removeUser(){
+        db.remove();
+    }
+
 }

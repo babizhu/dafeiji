@@ -6,7 +6,7 @@ import org.jdom2.Element;
  * 模版
  *
  * @author liukun
- *         2014-12-29 17:29:32
+ *         2015-1-4 13:44:26
  */
 public class SikllTemplet{
 
@@ -37,13 +37,13 @@ public class SikllTemplet{
     }
 
     /**
-     * 技能用处（也是属于僚机2还是装备1）
+     * 技能用处（机甲1 装备2  僚机3）
      */
     private final int purpose;
 
 
     /**
-     * 技能用处（也是属于僚机2还是装备1）
+     * 技能用处（机甲1 装备2  僚机3）
      */
     public int getPurpose(){
         return purpose;

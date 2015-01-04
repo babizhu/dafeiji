@@ -24,6 +24,7 @@ public class PlaneModuleTest{
      */
     @BeforeClass
     public static void init(){
+
         PlaneTempletCfg.init();
 
     }
@@ -64,6 +65,7 @@ public class PlaneModuleTest{
 
     @Test
     public void testBuy() throws Exception{
+        module.remove();
         module.buy( 100501 );
         assertEquals( 1, module.getAll().size() );
 

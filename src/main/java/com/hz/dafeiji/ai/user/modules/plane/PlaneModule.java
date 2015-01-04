@@ -104,7 +104,7 @@ public class PlaneModule{
 
         PlaneTemplet pt = PlaneTempletCfg.getPlaneTempletById( planeTempletId );
         if( pt == null ) {
-            throw new ClientException( ErrorCode.PLANE_TEMPLET_NOT_FOUND );
+            throw new ClientException( ErrorCode.PLANE_TEMPLET_NOT_FOUND, "planTempletId=" + planeTempletId );
         }
 
 

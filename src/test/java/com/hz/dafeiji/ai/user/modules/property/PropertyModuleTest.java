@@ -31,6 +31,5 @@ public class PropertyModuleTest{
         assertEquals( module.getStengthMax() - 2, module.getStrength() );
         assertEquals( remainStrength, module.getStrength() );
 
-
     }
 }

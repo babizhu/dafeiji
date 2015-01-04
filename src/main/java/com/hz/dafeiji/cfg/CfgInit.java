@@ -4,6 +4,7 @@ import com.hz.dafeiji.cfg.equipment.EquipmentExpTempletCfg;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTempletCfg;
 import com.hz.dafeiji.cfg.equipment.EquipmentTempletCfg;
 import com.hz.dafeiji.cfg.equipment.EquipmentTypeTempletCfg;
+import com.hz.dafeiji.cfg.misc.PropIdTempletCfg;
 import com.hz.dafeiji.cfg.plane.PlaneQurlityTempletCfg;
 import com.hz.dafeiji.cfg.plane.PlaneTempletCfg;
 import com.hz.dafeiji.cfg.reward.BaseRewardTempletCfg;
@@ -26,6 +27,7 @@ public class CfgInit{
         EquipmentQurlityTempletCfg.init();
         EquipmentTypeTempletCfg.init();
         EquipmentTempletCfg.init();
+        PropIdTempletCfg.init();
         PlaneQurlityTempletCfg.init();
         PlaneTempletCfg.init();
         BaseRewardTempletCfg.init();

@@ -31,9 +31,11 @@ public class AwardModule{
      * 给玩家发放物品或者属性
      *
      * @param awardStr 发放道具的字符串,例如100021,2,100938,200。即ID为100021的物品发放2个，道具ID为100938的物品发放200个
+     * @param func      导致属性变化的原因，方便后台查询
      */
-    public void addAward( String awardStr ){
-
+    public void addAward( String awardStr, String func ){
+        List<PropItem> props = transform( awardStr );
+        changeValue( props, func );
     }
 
 
@@ -54,9 +56,15 @@ public class AwardModule{
                 throw new ClientException( ErrorCode.AWARD_REDUCE_COUNT_ILLEGAL, prop.propId + "," + prop.count );
             }
 
-            int count = -prop.count;//因为是扣除，因此把数量全转为负值
+            prop.count = -prop.count;//因为是扣除，因此把数量全转为负值
+        }
+        changeValue( props, func );
+    }
 
-            int remainCount = 0;//变化之后的值，log用
+    private void changeValue( List<PropItem> props, String func ){
+        for( PropItem prop : props ) {
+
+            int remainCount;//变化之后的值，log用
             switch( prop.propId ) {
                 case 500001:
                     remainCount = propertyModule.changeCash( prop.count );
@@ -72,7 +80,7 @@ public class AwardModule{
 
 
             }
-            buildLog( prop.propId, count, remainCount, func );
+            buildLog( prop.propId, prop.count, remainCount, func );
 
         }
     }
