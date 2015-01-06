@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Created by Valen on 2015/1/5.
  * 邮件系统类
  */
+@SuppressWarnings("UnusedDeclaration")
 public enum MailStore {
     INSTANCE;
 
@@ -92,7 +93,7 @@ public enum MailStore {
     /**
      * 根据收件人用户名获取邮件
      * @param uname 用户名
-     * @return
+     * @return List<Mail>
      */
     public List<Mail> getUserMail(String uname){
         List<Mail> list = new ArrayList<>();
@@ -108,7 +109,7 @@ public enum MailStore {
     /**
      * 获取系统邮件列表
      * @param ctrlMail 用户的系统邮件管理列表
-     * @return
+     * @return List<Mail>
      */
     public List<Mail> getSysMail(Map<Long, MailCtrl> ctrlMail){
         List<Mail> list = new ArrayList<>();

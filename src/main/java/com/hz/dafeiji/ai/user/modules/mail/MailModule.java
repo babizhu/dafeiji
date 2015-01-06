@@ -1,15 +1,13 @@
 package com.hz.dafeiji.ai.user.modules.mail;
-
-import com.hz.dafeiji.ai.user.GameWorld;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
  * Created by Valen on 2015/1/5.
+ *
  */
 
+@SuppressWarnings("UnusedDeclaration")
 public class MailModule {
     final MailCtrlDataProvider ctrlDb;
     private Map<Long, MailCtrl> ctrlMail;
@@ -66,13 +64,12 @@ public class MailModule {
      * @return List<Mail>
      */
     public List<Mail> getSysMails(){
-        List<Mail> list = MailStore.INSTANCE.getSysMail(ctrlMail);
-        return list;
+        return MailStore.INSTANCE.getSysMail(ctrlMail);
     }
 
     /**
      * 检查邮件控制器是否已经对某条系统邮件做了记录
-     * @return
+     * @return MailCtrl
      */
     private MailCtrl getMailCtrlByMailId(long mailId){
         MailCtrl ctrl = null;

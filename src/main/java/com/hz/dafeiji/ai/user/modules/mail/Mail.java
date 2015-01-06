@@ -9,6 +9,7 @@ import com.bbz.tool.time.SystemTimer;
  *
  * 标准邮件类, 收件人为单一用户
  */
+@SuppressWarnings("UnusedDeclaration")
 public class Mail implements IdentityObj {
     /**
      * 唯一标识
