@@ -3,6 +3,8 @@ package com.hz.dafeiji.ai.user.modules.plane;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.User;
+import com.hz.dafeiji.cfg.plane.PlaneQurlityTemplet;
+import com.hz.dafeiji.cfg.plane.PlaneQurlityTempletCfg;
 import com.hz.dafeiji.cfg.plane.PlaneTempletCfg;
 import com.hz.util.D;
 import org.junit.Before;
@@ -29,6 +31,7 @@ public class PlaneModuleTest{
     public static void init(){
 
         PlaneTempletCfg.init();
+        PlaneQurlityTempletCfg.init();
 
     }
 
@@ -49,20 +52,57 @@ public class PlaneModuleTest{
 
         Map<Long, Plane> all = module.getAll();
         assertEquals( 0, all.size() );
-
-
     }
 
-//    private void printAll( Map<Long, Plane> planes ){
-//        for( Map.Entry<Long, Plane> entry : planes.entrySet() ) {
-//            System.out.println( "key=" + entry.getKey() + "|value=" + entry.getValue() );
-//
-//        }
-//    }
+    @Test
+    public void testCalcLevelUpCash() throws Exception{
+        Plane plane = module.create( 100201 );
+        int qurlityId = plane.getTemplet().getQuality();
+        PlaneQurlityTemplet pqt = PlaneQurlityTempletCfg.getPlaneQurlityTempletById( qurlityId );
+        System.out.println( plane );
+        for( int i = 0; i < 35; i++ ) {
+
+            System.out.println( module.calcLevelUpCash( plane, pqt ) );
+            plane.setLevel( plane.getLevel() + 1 );
+        }
+
+        //module.levelUp( D.DEFAULT_PLANE_ID );
+    }
 
     @Test
     public void testLevelUp() throws Exception{
+        //清空玩家的钱
+        int cash = user.getModuleManager().getPropertyModule().getCash();
+        user.getModuleManager().getAwardModule().reduceAward( "500001," + cash, "testLevelUp" );
 
+        Plane plane = module.create( 100201 );
+        try {
+            module.levelUp( plane.getId() );
+        } catch( ClientException exception ) {
+            assertEquals( ErrorCode.AWARD_NOT_ENOUGH, exception.getCode() );
+        }
+
+        int qurlityId = plane.getTemplet().getQuality();
+        PlaneQurlityTemplet pqt = PlaneQurlityTempletCfg.getPlaneQurlityTempletById( qurlityId );
+
+        int maxLevel = pqt.getMaxLv();
+        for( int i = 0; i < maxLevel - 1; i++ ) {
+
+
+            //给点钱，方便扣除
+            int needCash = module.calcLevelUpCash( plane, pqt );
+            user.getModuleManager().getAwardModule().addAward( "500001," + needCash, "testLevelUp" );
+            module.levelUp( plane.getId() );
+            assertEquals( plane.getLevel(), i + 2 );
+        }
+        System.out.println( "飞机等级=" + plane.getLevel() + "允许升级的最大等级是" + pqt.getMaxLv() );
+        ErrorCode errorCode = null;
+        try {
+            module.levelUp( plane.getId() );
+        } catch( ClientException exception ) {
+            errorCode = exception.getCode();
+        }
+        assertEquals( ErrorCode.PLANE_REACH_MAX_LEVEL, errorCode );
     }
 
 

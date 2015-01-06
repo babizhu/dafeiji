@@ -9,9 +9,8 @@ import java.util.Properties;
 /**
  * user         LIUKUN
  * time         2014-4-7 13:38
- *
+ * <p/>
  * 服务器的整体配置文件
- *
  */
 
 public class ServerCfg{
@@ -19,31 +18,40 @@ public class ServerCfg{
     /**
      * 监听ip
      */
-    public static final String          IP;
+    public static final String IP;
 
     /**
      * 监听端口
      */
-    public static final int             PORT;
+    public static final int PORT;
 
     /**
      * 管理端口
      */
-    public static final int             GM_PORT;
+    public static final int GM_PORT;
 
     /**
      * 游戏区
      */
-    public static final int             SERVER_ID;
+    public static final int SERVER_ID;
 
-    static {
+    static{
         Properties prop = new Properties();
+        InputStream in = null;
         try {
-            InputStream in = new BufferedInputStream( new FileInputStream( "resource/server.properties" ) );
+            in = new BufferedInputStream( new FileInputStream( "resource/server.properties" ) );
             prop.load( in );
 
         } catch( IOException e ) {
             e.printStackTrace();
+        } finally {
+            if( in != null ) {
+                try {
+                    in.close();
+                } catch( IOException e ) {
+                    e.printStackTrace();
+                }
+            }
         }
         IP = prop.getProperty( "ip" ).trim();
         PORT = Integer.parseInt( prop.getProperty( "port" ).trim() );

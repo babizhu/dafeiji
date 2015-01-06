@@ -5,6 +5,9 @@ import com.bbz.tool.identity.IdentityGen;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.award.AwardModule;
+import com.hz.dafeiji.cfg.plane.PlaneQurlityTemplet;
+import com.hz.dafeiji.cfg.plane.PlaneQurlityTempletCfg;
 import com.hz.dafeiji.cfg.plane.PlaneTemplet;
 import com.hz.dafeiji.cfg.plane.PlaneTempletCfg;
 import org.slf4j.Logger;
@@ -35,14 +38,13 @@ public class PlaneModule{
     //private CurrentPlaneData currentPlaneData;
 
     private final ModuleManager moduleManager;
+    private final AwardModule awardModule;
 
     public PlaneModule( String uname, ModuleManager moduleManager ){
         this.moduleManager = moduleManager;
+        awardModule = moduleManager.getAwardModule();
         db = new PlaneDataProvider( uname );
-        //db1 = new CurrentPlaneDataProvider( uname );
-
         planes = db.getMapAll();
-        //currentPlaneData = db1.findOne();
 
         findCurrentPlane();
     }
@@ -65,11 +67,36 @@ public class PlaneModule{
         return plane;
     }
 
+    /**
+     * 飞机升级
+     * 消耗公式=round(基础消耗+（当前等级-1）*品阶消耗系数*int（（当前等级-1）/10+1）,-2)
+     *
+     * @param planeId
+     */
     void levelUp( long planeId ){
         Plane plane = getPlaneById( planeId );
+        int qurlityId = plane.getTemplet().getQuality();
+        PlaneQurlityTemplet pqt = PlaneQurlityTempletCfg.getPlaneQurlityTempletById( qurlityId );
+        if( plane.getLevel() >= pqt.getMaxLv() ) {
+            throw new ClientException( ErrorCode.PLANE_REACH_MAX_LEVEL );
+        }
+
+        int needCash = calcLevelUpCash( plane, pqt );
+        awardModule.reduceAward( "500001," + needCash, "Plane.levelUp" );
         plane.setLevel( plane.getLevel() + 1 );
     }
 
+    int calcLevelUpCash( Plane plane, PlaneQurlityTemplet pqt ){
+        int needCash = (plane.getLevel() - 1) / 10 + 1;
+
+        needCash *= pqt.getConsumeFactor();
+        needCash *= plane.getLevel() - 1;
+        needCash += pqt.getConsumeBasis();
+
+        needCash = Math.round( needCash / 100F ) * 100;
+
+        return needCash;
+    }
     /**
      * 检测相同模板的飞机是否已经存在
      *

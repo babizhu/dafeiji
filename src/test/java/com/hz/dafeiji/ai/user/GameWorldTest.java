@@ -13,7 +13,6 @@ import static junit.framework.Assert.assertEquals;
 public class GameWorldTest{
 
     private static String uname = D.TEST_USER_NAME;
-    private static int count = 100000;
 
     @BeforeClass
     public static void init(){
@@ -55,9 +54,9 @@ public class GameWorldTest{
      * @throws Exception
      */
 
-//    @Test
+    @Test
     public void testPerformance() throws Exception{
-
+        int count = 100000;
         UserBaseInfoModule module = new UserBaseInfoModule();
         for( int i = 0; i < count; i++ ) {
             User user = new User( uname + i );
@@ -76,16 +75,17 @@ public class GameWorldTest{
             User loginUser = GameWorld.INSTANCE.login( uname + i, "pass" );
             if( i % 1000 == 0 ) {
                 System.out.println( uname + i + "[" + loginUser.getUserBaseInfo().getNickName() + "]注册并登陆完毕" );
+
             }
         }
         System.out.println( "操作耗时：" + (System.nanoTime() - begin) / 1000000000f + "秒" );
-        System.out.println( );
+        System.out.println( "当前在线人数：" + GameWorld.INSTANCE.getOnlineUser() );
     }
 
     @Test
     public void testRegist() throws Exception{
-        String name = "xtestUserbbz";
-        removeUser( name );
+        //String name = "xtestUserbbz";
+        removeUser( uname );
         ErrorCode code = GameWorld.INSTANCE.regist( uname, "pass" );
         assertEquals( ErrorCode.SUCCESS, code );
         code = GameWorld.INSTANCE.regist( uname, "pass" );

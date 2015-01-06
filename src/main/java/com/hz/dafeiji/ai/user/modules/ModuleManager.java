@@ -36,8 +36,8 @@ public class ModuleManager{
         this.uname = uname;
 
         propertyModule = new PropertyModule( uname );
+        awardModule = new AwardModule( uname, this );//注意先后顺序
         planeModule = new PlaneModule( uname, this );
-        awardModule = new AwardModule( uname, this );
         //userCounterModule = new UserCounterModule( uname );
 
     }

@@ -16,7 +16,7 @@ public class Plane implements IdentityObj{
     private long id;
     private int hp;
     private int attack;
-    private int level;
+    private int level = 1;
     private PlaneTemplet templet;
     /**
      * 是否当前的出战飞机

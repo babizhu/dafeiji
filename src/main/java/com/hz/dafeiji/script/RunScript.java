@@ -11,22 +11,6 @@ import groovy.lang.GroovyObject;
  */
 public class RunScript{
 
-    public static void main( String[] args ){
-        //GroovyObject o = new Gro;
-        String script = "import com.hz.dafeiji.ai.user.GameWorld;" +
-                "public class TestCode {\n" +
-                "\n" +
-                "\tpublic String run() {\n" +
-                "\t\treturn GameWorld.INSTANCE.getUserByName(\"eabdcdeqfd0\").getLoginTime();\n" +
-                "\t}}";
-
-
-//        System.out.println(GameWorld.INSTANCE.getOnlineUser() );
-        new RunScript().run( script );
-
-
-    }
-
     public void run( String script ){
 
         ClassLoader parent = ClassLoader.getSystemClassLoader();
@@ -43,5 +27,21 @@ public class RunScript{
         } finally {
             loader.clearCache();
         }
+    }
+
+    public static void main( String[] args ){
+        //GroovyObject o = new Gro;
+        String script = "import com.hz.dafeiji.ai.user.GameWorld;" +
+                "public class TestCode {\n" +
+                "\n" +
+                "\tpublic String run() {\n" +
+                "\t\treturn GameWorld.INSTANCE.getOnlineUser();\n" +
+                "\t}}";
+
+
+//        System.out.println(GameWorld.INSTANCE.getOnlineUser() );
+        new RunScript().run( script );
+
+
     }
 }
