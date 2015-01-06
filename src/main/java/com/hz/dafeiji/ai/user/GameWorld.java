@@ -42,8 +42,12 @@ public enum GameWorld{
 
     public User login( String uname, String pass ){
 
+
         User user = getUserByName( uname );
-        ErrorCode eCode = user.getModuleManager().getUserBaseInfoModule().login( pass );
+        if( user == null ) {
+            throw new ClientException( ErrorCode.USER_NOT_FOUND );
+        }
+        ErrorCode eCode = user.getUserBaseInfoModule().login( pass );
         if( eCode == ErrorCode.SUCCESS ) {
             String session = buildSession();
 
@@ -75,13 +79,13 @@ public enum GameWorld{
 
     /**
      * 玩家注册后紧接着的一些初始化操作，包括：
-     * 1、生成一架飞机，并设置未出战
+     * 1、生成一架飞机，并设置为出战
      *
      * @param user      用户
      */
     private void initNewUser( User user ){
         PlaneModule planeModule = user.getModuleManager().getPlaneModule();
-        Plane plane = planeModule.buy( D.DEFAULT_PLANE_ID );
+        Plane plane = planeModule.create( D.DEFAULT_PLANE_ID );
         planeModule.setCurrentPlane( plane );
 
 
@@ -91,16 +95,22 @@ public enum GameWorld{
      * 从内存或者数据库中获取玩家信息
      *
      * @param uname 玩家名
-     * @return 玩家
+     * @return 玩家       如果玩家不存在，则返回null
      */
     User getUserByName( String uname ){
         User user = users.get( uname );
         if( user != null ) {
             return user;
         }
-        user = new User( uname );
-        users.put( uname, user );
-        return user;
+
+        UserBaseInfoModule userBaseInfoModule = new UserBaseInfoModule( uname );
+
+        if( userBaseInfoModule.existInDB() ) {
+            user = new User( userBaseInfoModule );
+            users.put( uname, user );
+            return user;
+        }
+        return null;
     }
 
     User getUserByNickName( String uname ){

@@ -1,6 +1,7 @@
 package com.hz.dafeiji.ai.user;
 
 import com.bbz.tool.time.SystemTimer;
+import com.hz.dafeiji.ai.user.modules.player.UserBaseInfoModule;
 
 /**
  * user         LIUKUN
@@ -17,13 +18,30 @@ public class User{
      */
     private static final int ONLINE_TIME = 1000;
 
+    private UserBaseInfoModule userBaseInfoModule;
     private final ModuleManager moduleManager;
     private String session;
     private int loginTime;
     private int activeTime;
 
+//    public User( String uname ){
+//        userBaseInfoModule = new UserBaseInfoModule( uname );
+//        this.moduleManager = new ModuleManager( uname );
+//    }
+
+    public User( UserBaseInfoModule userBaseInfoModule ){
+        this.userBaseInfoModule = userBaseInfoModule;
+        this.moduleManager = new ModuleManager( userBaseInfoModule.getUserName() );
+    }
+
+    /**
+     * 用于测试，可以不去检测玩家是否真的存在于数据库中
+     *
+     * @param uname
+     */
     public User( String uname ){
-        this.moduleManager = new ModuleManager( uname );
+        this.userBaseInfoModule = new UserBaseInfoModule( uname );
+        this.moduleManager = new ModuleManager( userBaseInfoModule.getUserName() );
     }
 
     public ModuleManager getModuleManager(){
@@ -57,5 +75,9 @@ public class User{
 
     public void setActiveTimeNow(){
         this.activeTime = SystemTimer.currentTimeSecond();
+    }
+
+    public UserBaseInfoModule getUserBaseInfoModule(){
+        return userBaseInfoModule;
     }
 }

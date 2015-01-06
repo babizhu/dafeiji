@@ -1,10 +1,14 @@
 package com.hz.dafeiji.ai.user.modules.plane;
 
+
 import com.bbz.tool.identity.IdentityGen;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.dafeiji.ai.user.ModuleManager;
 import com.hz.dafeiji.cfg.plane.PlaneTemplet;
 import com.hz.dafeiji.cfg.plane.PlaneTempletCfg;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -16,12 +20,11 @@ import java.util.Map;
  */
 
 public class PlaneModule{
+    private static final Logger logger = LoggerFactory.getLogger( PlaneModule.class );
     private final PlaneDataProvider db;
 
-    //final CurrentPlaneDataProvider db1;
-
     /**
-     * 所有的英雄
+     * 所有的飞机
      */
     private Map<Long, Plane> planes;
 
@@ -31,7 +34,10 @@ public class PlaneModule{
     private Plane currentPlane;
     //private CurrentPlaneData currentPlaneData;
 
-    public PlaneModule( String uname ){
+    private final ModuleManager moduleManager;
+
+    public PlaneModule( String uname, ModuleManager moduleManager ){
+        this.moduleManager = moduleManager;
         db = new PlaneDataProvider( uname );
         //db1 = new CurrentPlaneDataProvider( uname );
 
@@ -86,8 +92,7 @@ public class PlaneModule{
      *
      * @param templet 指定的飞机模板
      */
-    private Plane create( PlaneTemplet templet ){
-
+    private Plane doCreate( PlaneTemplet templet ){
         long id = IdentityGen.INSTANCE.incrementAndGet();
         Plane plane = new Plane( id, templet );
         planes.put( id, plane );
@@ -96,8 +101,38 @@ public class PlaneModule{
 
     }
 
+    /**
+     * 通过奖励的方式获取一架飞机
+     *
+     * @param planeTempletId 要奖励的飞机的模板id
+     */
+    public Plane create( int planeTempletId ){
+        PlaneTemplet pt = check( planeTempletId );
+        return doCreate( pt );
+    }
 
-    public Plane buy( int planeTempletId ){
+    /**
+     * 玩家购买飞机
+     *
+     * @param planeTempletId 要购买的飞机的模板id
+     * @return 购买的飞机
+     */
+    Plane buy( int planeTempletId ){
+        PlaneTemplet pt = check( planeTempletId );
+        moduleManager.getAwardModule().reduceAward( pt.getPrice(), "PlaneModule.buy" );
+        return doCreate( pt );
+        //AWARD_LOG.info(  );
+    }
+
+
+    /**
+     * 通过如下条件检测玩家是否可以拥有此飞机
+     * 1、模板要存在
+     * 2、模板不能重复
+     *
+     * @param planeTempletId 飞机模板id
+     */
+    private PlaneTemplet check( int planeTempletId ){
         if( isDuplicate( planeTempletId ) ) {
             throw new ClientException( ErrorCode.PLANE_TEMPLET_DUPLICATE );
         }
@@ -106,16 +141,8 @@ public class PlaneModule{
         if( pt == null ) {
             throw new ClientException( ErrorCode.PLANE_TEMPLET_NOT_FOUND, "planTempletId=" + planeTempletId );
         }
-
-
-        Plane plane = create( pt );
-
-        return plane;
-
-
+        return pt;
     }
-
-
     /**
      * 测试用
      */
@@ -168,4 +195,6 @@ public class PlaneModule{
     public Plane getCurrentPlane(){
         return currentPlane;
     }
+
+
 }

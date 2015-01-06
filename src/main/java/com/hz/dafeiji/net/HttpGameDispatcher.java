@@ -174,7 +174,7 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
     /**
      * 检测玩家提交的数字签名对不对
      *
-     * @param signature
+     * @param signature     签名
      */
     private boolean signatureIsValid( String data, String signature ){
         if( signature == null || signature.trim().isEmpty() ) {

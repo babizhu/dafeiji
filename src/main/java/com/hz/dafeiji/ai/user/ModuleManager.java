@@ -4,7 +4,6 @@ package com.hz.dafeiji.ai.user;
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
 import com.hz.dafeiji.ai.user.modules.misc.usercounter.UserCounterModule;
 import com.hz.dafeiji.ai.user.modules.plane.PlaneModule;
-import com.hz.dafeiji.ai.user.modules.player.UserBaseInfoModule;
 import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
 import com.hz.dafeiji.ai.user.modules.recharge.RechargeModule;
 
@@ -18,8 +17,6 @@ import com.hz.dafeiji.ai.user.modules.recharge.RechargeModule;
 public class ModuleManager{
 
 
-    private UserBaseInfoModule userBaseInfoModule;
-
     private PropertyModule propertyModule;
 
     private PlaneModule planeModule;
@@ -29,20 +26,19 @@ public class ModuleManager{
     private RechargeModule rechargeModule;
     private AwardModule awardModule;
 
+
     public final String uname;
 
     public ModuleManager( String uname ){
         this.uname = uname;
-        userBaseInfoModule = new UserBaseInfoModule( uname );
+
         propertyModule = new PropertyModule( uname );
-        planeModule = new PlaneModule( uname );
+        planeModule = new PlaneModule( uname, this );
+        awardModule = new AwardModule( uname, this );
         //userCounterModule = new UserCounterModule( uname );
 
     }
 
-    public UserBaseInfoModule getUserBaseInfoModule(){
-        return userBaseInfoModule;
-    }
 
     public RechargeModule getRechargeModule(){
 
@@ -63,9 +59,8 @@ public class ModuleManager{
     }
 
     public AwardModule getAwardModule(){
-        if( awardModule != null ) {
-            return awardModule;
-        }
-        return new AwardModule( uname, propertyModule );
+
+        return awardModule;
+
     }
 }

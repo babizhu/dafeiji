@@ -28,7 +28,7 @@ public class UserRegHandler implements IGameHandler{
         }
 
         User loginUser = GameWorld.INSTANCE.login( uname, pass );
-        UserBaseInfoModule infoModule = loginUser.getModuleManager().getUserBaseInfoModule();
+        UserBaseInfoModule infoModule = loginUser.getUserBaseInfoModule();
 
 
         response.put( "h", loginUser.getSesseion() );

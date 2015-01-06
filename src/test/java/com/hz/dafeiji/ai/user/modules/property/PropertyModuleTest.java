@@ -2,7 +2,7 @@ package com.hz.dafeiji.ai.user.modules.property;
 
 import com.hz.dafeiji.ai.user.ModuleManager;
 import com.hz.util.D;
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -16,20 +16,22 @@ public class PropertyModuleTest{
     /**
      * 清空测试数据
      */
-    @After
+    @Before
     public void clear(){
         module.remove();
     }
 
     @Test
     public void testReduceStrength() throws Exception{
+
         //1、数据库尚无玩家信息时候
-        assertEquals( 0, module.getLastCalcStrengthSecond() );
+
         assertEquals( module.getStengthMax(), module.getStrength() );
 
         int remainStrength = module.changeStrength( -2 );
         assertEquals( module.getStengthMax() - 2, module.getStrength() );
         assertEquals( remainStrength, module.getStrength() );
+
 
     }
 }

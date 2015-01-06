@@ -25,11 +25,14 @@ public class UserBaseInfoProvider extends AbstractDataProviderWithUserName<UserB
 
     @Override
     protected UserBaseInfo decode( DBObject obj ){
-        UserBaseInfo info = new UserBaseInfo();
-        if( obj == null ) {
-            return info;
-        }
 
+        /**
+         * 数据库中不存在此用户
+         */
+        if( obj == null ) {
+            return null;
+        }
+        UserBaseInfo info = new UserBaseInfo();
         info.setNickName( (String) obj.get( "nickName" ) );
         info.setUserName( (String) obj.get( "_id" ) );
         info.setPass( (String) obj.get( "pass" ) );
@@ -57,7 +60,7 @@ public class UserBaseInfoProvider extends AbstractDataProviderWithUserName<UserB
      * <p/>
      * 非常的耗资源，取消判断可提升百倍效率
      *
-     * @param nickName
+     * @param nickName 昵称
      * @return true：有重复
      * false：无重复
      */

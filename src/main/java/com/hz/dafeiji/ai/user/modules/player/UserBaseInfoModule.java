@@ -15,11 +15,12 @@ public class UserBaseInfoModule{
 
     private UserBaseInfoProvider db;
     private UserBaseInfo info;
+    private String userName;
 
-    public UserBaseInfoModule( String uname ){
+    public UserBaseInfoModule( String userName ){
 
-
-        db = new UserBaseInfoProvider( uname );
+        this.userName = userName;
+        db = new UserBaseInfoProvider( userName );
 
         info = db.findOne();
     }
@@ -33,8 +34,7 @@ public class UserBaseInfoModule{
      * @return 结果码
      */
     public ErrorCode regist( String uname, String nickName, String pass ){
-        if( info.getUserName() != null ) {
-
+        if( info != null ) {//此用户名已经存在
             return ErrorCode.USER_DUPLICATE;
         }
 
@@ -42,7 +42,7 @@ public class UserBaseInfoModule{
 
             return ErrorCode.USER_DUPLICATE;
         }
-
+        info = new UserBaseInfo();
         info.setUid( IdentityGen.INSTANCE.incrementAndGet() );
         info.setUserStatus( UserStatus.SUCCESS );
         info.setPass( pass );
@@ -54,7 +54,6 @@ public class UserBaseInfoModule{
 
         return ErrorCode.SUCCESS;
     }
-
 
 
     public ErrorCode login( String pass ){
@@ -74,6 +73,15 @@ public class UserBaseInfoModule{
     }
 
     /**
+     * 此用户是否存在DB中
+     *
+     * @return true 存在     false   不存在
+     */
+    public boolean existInDB(){
+        return info != null;
+    }
+
+    /**
      * 删除玩家
      * tester用，其他谨慎调用
      */
@@ -81,4 +89,7 @@ public class UserBaseInfoModule{
         db.remove();
     }
 
+    public String getUserName(){
+        return userName;
+    }
 }

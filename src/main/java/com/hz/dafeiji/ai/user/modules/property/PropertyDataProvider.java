@@ -13,13 +13,14 @@ import com.mongodb.DBObject;
 
 class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty>{
     private static final String TABLE_NAME = "property";
-    public static final String DIAMOND_FIELD = "diamond";
-    public static final String CASH_FIELD = "cash";
-    public static final String STRENGTH_FIELD = "strength";
-    public static final String SCORE_FIELD = "score";
-    public static final String SCORE_WEEK_FIELD = "scoreWeek";
-    public static final String VIP_FIELD = "vip";
-    public static final String POWER_FIELD = "power";
+
+    static final String DIAMOND_FIELD = "diamond";
+    static final String CASH_FIELD = "cash";
+    static final String STRENGTH_FIELD = "strength";
+    static final String SCORE_FIELD = "score";
+    static final String SCORE_WEEK_FIELD = "scoreWeek";
+    static final String VIP_FIELD = "vip";
+    static final String POWER_FIELD = "power";
 
     /**
      * @param uname 玩家名称

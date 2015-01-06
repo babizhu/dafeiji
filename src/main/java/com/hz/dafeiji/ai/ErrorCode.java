@@ -38,14 +38,20 @@ public enum ErrorCode{
      */
     USER_HAS_LOGIN( 1002 ),
     /**
+     * 用户不存在
+     */
+    USER_NOT_FOUND( 1003 ),
+    /**
      * 用户名或密码错误
      */
-    USER_UNAME_PASS_INVALID( 1003 ),
+    USER_UNAME_PASS_INVALID( 1004 ),
     /**
      * 用户体力值不足
      */
-    USER_STRENGTH_NOT_ENOUGH( 1004 ),
+    USER_STRENGTH_NOT_ENOUGH( 1020 ),
+
     HERO_NOT_FOUND( 2000 ),
+
     EQUPMENT_NOT_FOUND( 3000 ),
     /**
      * 摇钱树今日运行次数超上限

@@ -18,7 +18,7 @@ public class GameWorldTest{
     @AfterClass
     public static void removeUser(){
         User user = new User( uname );
-        user.getModuleManager().getUserBaseInfoModule().removeUser();
+        user.getUserBaseInfoModule().removeUser();
     }
 
     @Test
