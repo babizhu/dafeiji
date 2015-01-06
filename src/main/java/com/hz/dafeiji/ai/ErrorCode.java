@@ -25,6 +25,12 @@ public enum ErrorCode{
      * 客户端发送的签名字段验证错误
      */
     SIGNATURE_ERROR( 102 ),
+
+    /**
+     * 客户端发送请求参数错误
+     */
+    PARAMETER_ERROR(103),
+
     /**
      * 尚未登录
      */

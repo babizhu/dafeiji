@@ -1,4 +1,7 @@
 package com.hz.dafeiji.ai.user.modules.mail;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.List;
 import java.util.Map;
 
@@ -50,13 +53,44 @@ public class MailModule {
         }
     }
 
+
+    /**
+     * 用户删除邮件
+     * @param id 邮件ID
+     * @param uname 用户名
+     */
+    public void deleteMail(long id, String uname){
+        boolean isSysMail = true;
+        Mail mail = MailStore.INSTANCE.getSysMailByMailId(id);
+        if(mail == null){
+            mail = MailStore.INSTANCE.getUserMailByMailId(id);
+            isSysMail = false;
+        }
+        if(mail != null){
+            if(isSysMail){      //系统邮件的处理
+                MailCtrl ctrl = getMailCtrlByMailId(id);
+                if(ctrl != null){
+                    ctrl.setDeleted(1);
+                }else{
+                    ctrl = new MailCtrl(uname, mail.getId(), 0, 0, 1);
+                    ctrlMail.put(ctrl.getId(), ctrl);
+                }
+                ctrlDb.replace(ctrl);
+            }else{              //玩家邮件处理
+                mail.setIsDelete(1);
+                MailStore.INSTANCE.updateUserMail(mail);
+            }
+        }
+    }
+
+
     /**
      * 获取用户邮件列表
      * @param  uname 收件人用户名
      * @return List<Mail>
      */
     public List<Mail> getUserMails(String uname){
-        return MailStore.INSTANCE.getUserMail(uname);
+       return MailStore.INSTANCE.getUserMail(uname);
     }
 
     /**
@@ -80,5 +114,20 @@ public class MailModule {
             }
         }
         return ctrl;
+    }
+
+    /**
+     * 转换发送给前端的Mail对象成JSONObject
+     * @param mail Mail对象
+     * @return JSONObject
+     */
+    private JSONObject toJSON(Mail mail){
+        JSONObject obj = new JSONObject();
+        obj.put("i", mail.getId());
+        obj.put("s", mail.getSender());
+        obj.put("t", mail.getTitle());
+        obj.put("c", mail.getContent());
+        obj.put("it", mail.getAward());
+        return obj;
     }
 }
