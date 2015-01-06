@@ -3,7 +3,7 @@ package com.hz.dafeiji.net.handler.all;
 import com.alibaba.fastjson.JSONObject;
 import com.hz.dafeiji.ai.user.GameWorld;
 import com.hz.dafeiji.ai.user.User;
-import com.hz.dafeiji.ai.user.modules.player.UserBaseInfoModule;
+import com.hz.dafeiji.ai.user.player.UserBaseInfo;
 import com.hz.dafeiji.net.handler.IGameHandler;
 
 
@@ -20,11 +20,11 @@ public class UserLoginHandler implements IGameHandler{
 //        String devId = request.getString( "uDevId" );
 
         User loginUser = GameWorld.INSTANCE.login( uname, pass );
-        UserBaseInfoModule infoModule = loginUser.getUserBaseInfoModule();
+        UserBaseInfo info = loginUser.getUserBaseInfo();
 
 
         response.put( "h", loginUser.getSesseion() );
-        response.put( "uId", infoModule.getInfo().getUid() );
+        response.put( "uId", info.getUid() );
 //        System.out.println( "LoginHandler.run" );
     }
 

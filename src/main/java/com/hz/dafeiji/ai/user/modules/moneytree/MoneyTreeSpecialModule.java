@@ -3,7 +3,7 @@ package com.hz.dafeiji.ai.user.modules.moneytree;
 
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
-import com.hz.dafeiji.ai.user.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
 import com.hz.dafeiji.ai.user.modules.misc.MiscDataKey;
 import com.hz.dafeiji.ai.user.modules.misc.usercounter.UserCounterModule;

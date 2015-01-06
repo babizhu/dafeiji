@@ -23,7 +23,7 @@ public class UserGetInfoHandler implements IGameHandler{
         PropertyModule propertyModule = user.getModuleManager().getPropertyModule();
         //UserBaseInfoModule userBaseInfoModule = user.getModuleManager().getUserBaseInfoModule();
         //content.put( "id", userBaseInfoModule.getInfo().getUid() );
-        content.put( "n", user.getUserBaseInfoModule().getNickName() );//vip等级
+        content.put( "n", user.getUserBaseInfo().getNickName() );//vip等级
         content.put( "g", propertyModule.getCash() );//金币
         content.put( "d", propertyModule.getDiamond() );//钻石
         content.put( "s", propertyModule.getStrength() );//体力

@@ -1,4 +1,4 @@
-package com.hz.dafeiji.ai.user;
+package com.hz.dafeiji.ai.user.modules;
 
 
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
@@ -67,11 +67,11 @@ public class ModuleManager{
 
     }
 
-    public MailModule getMailModule() {
-        if( mailModule != null ){
+    public MailModule getMailModule(){
+        if( mailModule != null ) {
             return mailModule;
         }
-        mailModule = new MailModule(uname);
+        mailModule = new MailModule( uname );
         return mailModule;
     }
 }

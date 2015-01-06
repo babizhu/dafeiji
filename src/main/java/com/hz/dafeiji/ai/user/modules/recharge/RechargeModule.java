@@ -1,7 +1,7 @@
 package com.hz.dafeiji.ai.user.modules.recharge;
 
 
-import com.hz.dafeiji.ai.user.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
 
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
 public class RechargeModule{
 
     public static final String FUNC_NAME = RechargeModule.class + "recharge";
-   // private final PropertyModule propModule;
-   // private final RechargeDataProvider db;
+    // private final PropertyModule propModule;
+    // private final RechargeDataProvider db;
     private List<RechargeRecord> rechargeRecordList;
     /**
      * 玩家的充值金额(RMB)

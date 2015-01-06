@@ -4,7 +4,7 @@ package com.hz.dafeiji.ai.user.modules.plane;
 import com.bbz.tool.identity.IdentityGen;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
-import com.hz.dafeiji.ai.user.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.cfg.plane.PlaneTemplet;
 import com.hz.dafeiji.cfg.plane.PlaneTempletCfg;
 import org.slf4j.Logger;
@@ -143,10 +143,11 @@ public class PlaneModule{
         }
         return pt;
     }
+
     /**
      * 测试用
      */
-    void remove(){
+    public void remove(){
         planes.clear();
         db.removeAll();
     }

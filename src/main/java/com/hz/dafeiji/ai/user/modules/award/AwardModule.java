@@ -3,7 +3,7 @@ package com.hz.dafeiji.ai.user.modules.award;
 import com.google.common.collect.Lists;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
-import com.hz.dafeiji.ai.user.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

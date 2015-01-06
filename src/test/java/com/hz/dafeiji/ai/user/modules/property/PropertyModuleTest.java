@@ -1,6 +1,6 @@
 package com.hz.dafeiji.ai.user.modules.property;
 
-import com.hz.dafeiji.ai.user.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.util.D;
 import org.junit.Before;
 import org.junit.Test;

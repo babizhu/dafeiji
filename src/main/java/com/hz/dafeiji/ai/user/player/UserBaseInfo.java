@@ -1,5 +1,6 @@
-package com.hz.dafeiji.ai.user.modules.player;
+package com.hz.dafeiji.ai.user.player;
 
+import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.UserStatus;
 import lombok.Data;
 
@@ -20,4 +21,12 @@ public class UserBaseInfo{
      * 是否成年
      */
     private boolean isAdult;
+
+    public ErrorCode login( String pass ){
+
+        if( getPass().equals( pass ) ) {
+            return ErrorCode.SUCCESS;
+        }
+        return ErrorCode.USER_UNAME_PASS_INVALID;
+    }
 }

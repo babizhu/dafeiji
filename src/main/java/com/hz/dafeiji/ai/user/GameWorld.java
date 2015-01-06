@@ -5,7 +5,8 @@ import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.modules.plane.Plane;
 import com.hz.dafeiji.ai.user.modules.plane.PlaneModule;
-import com.hz.dafeiji.ai.user.modules.player.UserBaseInfoModule;
+import com.hz.dafeiji.ai.user.player.UserBaseInfo;
+import com.hz.dafeiji.ai.user.player.UserBaseInfoModule;
 import com.hz.util.D;
 
 import java.util.Map;
@@ -29,6 +30,7 @@ public enum GameWorld{
      * 所有内存中的用户，不一定是在线的,uname, 用户信息
      */
     private Map<String, User> users = new ConcurrentHashMap<>();
+    private final UserBaseInfoModule userBaseInfoModule = new UserBaseInfoModule();
 
     /**
      * 获取玩家的唯一验证码
@@ -41,33 +43,34 @@ public enum GameWorld{
 
 
     public User login( String uname, String pass ){
-
-
         User user = getUserByName( uname );
-        if( user == null ) {
-            throw new ClientException( ErrorCode.USER_NOT_FOUND );
-        }
-        ErrorCode eCode = user.getUserBaseInfoModule().login( pass );
-        if( eCode == ErrorCode.SUCCESS ) {
-            String session = buildSession();
 
-            user.setSession( session );
-            user.setLoginTime( SystemTimer.currentTimeSecond() );
-            user.setActiveTimeNow();
-
-
-            return user;
+        if( user != null ) {
+            ErrorCode eCode = user.getUserBaseInfo().login( pass );
+            if( eCode != ErrorCode.SUCCESS ) {
+                throw new ClientException( eCode );
+            }
         } else {
-            throw new ClientException( eCode );
+
+            ErrorCode eCode = userBaseInfoModule.login( uname, pass );
+            if( eCode != ErrorCode.SUCCESS ) {
+                throw new ClientException( eCode );
+            }
+            user = getUserByName( uname );
+
         }
+
+        user.setSession( buildSession() );
+        user.setLoginTime( SystemTimer.currentTimeSecond() );
+        user.setActiveTimeNow();
+        return user;
+
     }
 
     public ErrorCode regist( String uname, String pass ){
 
-        UserBaseInfoModule module = new UserBaseInfoModule( uname );
-
-        ErrorCode eCode = module.regist( uname, uname + "nick", pass );
-
+        //UserBaseInfoModule module = new UserBaseInfoModule( uname );
+        ErrorCode eCode = userBaseInfoModule.regist( uname, uname + "nick", pass );
         if( eCode == ErrorCode.SUCCESS ) {
             User user = getUserByName( uname );
             initNewUser( user );
@@ -81,7 +84,7 @@ public enum GameWorld{
      * 玩家注册后紧接着的一些初始化操作，包括：
      * 1、生成一架飞机，并设置为出战
      *
-     * @param user      用户
+     * @param user 用户
      */
     private void initNewUser( User user ){
         PlaneModule planeModule = user.getModuleManager().getPlaneModule();
@@ -98,23 +101,31 @@ public enum GameWorld{
      * @return 玩家       如果玩家不存在，则返回null
      */
     User getUserByName( String uname ){
+
         User user = users.get( uname );
         if( user != null ) {
             return user;
         }
 
-        UserBaseInfoModule userBaseInfoModule = new UserBaseInfoModule( uname );
+        UserBaseInfo userBaseInfo = userBaseInfoModule.getUserByName( uname );
 
-        if( userBaseInfoModule.existInDB() ) {
-            user = new User( userBaseInfoModule );
+        if( userBaseInfo != null ) {
+            user = new User( userBaseInfo );
             users.put( uname, user );
             return user;
         }
         return null;
     }
 
-    User getUserByNickName( String uname ){
-        return null;
+    /**
+     * 通过用户名获取玩家信息
+     *
+     * @param nickName 玩家昵称
+     * @return 玩家       如果玩家不存在，则返回null
+     */
+    User getUserByNickName( String nickName ){
+        UserBaseInfo info = userBaseInfoModule.getUserByNick( nickName );
+        return getUserByName( info.getUserName() );
     }
 
     public int getOnlineUser(){
@@ -129,7 +140,7 @@ public enum GameWorld{
     }
 
     /**
-     * 通过玩家的用户名和sesseion，判断此
+     * 通过玩家的用户名和sesseion，判断此玩家是否合法在线
      *
      * @param uname   玩家用户名
      * @param session 玩家session
@@ -151,10 +162,5 @@ public enum GameWorld{
         }
         return user;
     }
-
-//    public User getUserBySession( String session ){
-//        return users.get( session );
-//    }
-
 
 }

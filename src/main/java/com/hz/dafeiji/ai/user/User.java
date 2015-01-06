@@ -1,7 +1,8 @@
 package com.hz.dafeiji.ai.user;
 
 import com.bbz.tool.time.SystemTimer;
-import com.hz.dafeiji.ai.user.modules.player.UserBaseInfoModule;
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
+import com.hz.dafeiji.ai.user.player.UserBaseInfo;
 
 /**
  * user         LIUKUN
@@ -18,7 +19,7 @@ public class User{
      */
     private static final int ONLINE_TIME = 1000;
 
-    private UserBaseInfoModule userBaseInfoModule;
+    private UserBaseInfo userBaseInfo;
     private final ModuleManager moduleManager;
     private String session;
     private int loginTime;
@@ -29,9 +30,9 @@ public class User{
 //        this.moduleManager = new ModuleManager( uname );
 //    }
 
-    public User( UserBaseInfoModule userBaseInfoModule ){
-        this.userBaseInfoModule = userBaseInfoModule;
-        this.moduleManager = new ModuleManager( userBaseInfoModule.getUserName() );
+    public User( UserBaseInfo userBaseInfo ){
+        this.userBaseInfo = userBaseInfo;
+        this.moduleManager = new ModuleManager( userBaseInfo.getUserName() );
     }
 
     /**
@@ -40,8 +41,9 @@ public class User{
      * @param uname
      */
     public User( String uname ){
-        this.userBaseInfoModule = new UserBaseInfoModule( uname );
-        this.moduleManager = new ModuleManager( userBaseInfoModule.getUserName() );
+        this.userBaseInfo = new UserBaseInfo();
+        userBaseInfo.setUserName( uname );
+        this.moduleManager = new ModuleManager( uname );
     }
 
     public ModuleManager getModuleManager(){
@@ -77,7 +79,15 @@ public class User{
         this.activeTime = SystemTimer.currentTimeSecond();
     }
 
-    public UserBaseInfoModule getUserBaseInfoModule(){
-        return userBaseInfoModule;
+    public UserBaseInfo getUserBaseInfo(){
+        return userBaseInfo;
     }
+
+    /**
+     * 删除玩家的所有信息，通常是测试用，这里要谨慎又谨慎
+     */
+    public void remove(){
+        moduleManager.getPlaneModule().remove();
+    }
+
 }

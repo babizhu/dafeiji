@@ -1,6 +1,6 @@
 package com.hz.dafeiji.ai.user.modules.misc.usercounter;
 
-import com.hz.dafeiji.ai.user.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.misc.MiscDataKey;
 import com.hz.util.D;
 import org.junit.After;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class UserCounterModuleTest{
     String uname = D.TEST_USER_NAME;
-    private ModuleManager manager = new ModuleManager(uname );
+    private ModuleManager manager = new ModuleManager( uname );
     private final UserCounterModule module = new UserCounterModule( uname );
 
     @Before

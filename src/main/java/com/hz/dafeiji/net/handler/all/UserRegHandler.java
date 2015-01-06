@@ -5,7 +5,7 @@ import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.GameWorld;
 import com.hz.dafeiji.ai.user.User;
-import com.hz.dafeiji.ai.user.modules.player.UserBaseInfoModule;
+import com.hz.dafeiji.ai.user.player.UserBaseInfo;
 import com.hz.dafeiji.net.handler.IGameHandler;
 
 
@@ -28,11 +28,11 @@ public class UserRegHandler implements IGameHandler{
         }
 
         User loginUser = GameWorld.INSTANCE.login( uname, pass );
-        UserBaseInfoModule infoModule = loginUser.getUserBaseInfoModule();
+        UserBaseInfo info = loginUser.getUserBaseInfo();
 
 
         response.put( "h", loginUser.getSesseion() );
-        response.put( "uId", infoModule.getInfo().getUid() );
+        response.put( "uId", info.getUid() );
         //System.out.println( "LoginHandler.run" );
     }
 
