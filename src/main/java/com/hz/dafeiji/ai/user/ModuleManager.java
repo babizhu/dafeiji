@@ -2,6 +2,7 @@ package com.hz.dafeiji.ai.user;
 
 
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
+import com.hz.dafeiji.ai.user.modules.mail.MailModule;
 import com.hz.dafeiji.ai.user.modules.misc.usercounter.UserCounterModule;
 import com.hz.dafeiji.ai.user.modules.plane.PlaneModule;
 import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
@@ -25,6 +26,8 @@ public class ModuleManager{
 
     private RechargeModule rechargeModule;
     private AwardModule awardModule;
+
+    private MailModule mailModule;
 
 
     public final String uname;
@@ -62,5 +65,13 @@ public class ModuleManager{
 
         return awardModule;
 
+    }
+
+    public MailModule getMailModule() {
+        if( mailModule != null ){
+            return mailModule;
+        }
+        mailModule = new MailModule(uname);
+        return mailModule;
     }
 }
