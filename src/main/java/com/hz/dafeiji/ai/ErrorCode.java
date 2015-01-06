@@ -76,7 +76,10 @@ public enum ErrorCode{
      * 飞机模板没找到
      */
     PLANE_TEMPLET_NOT_FOUND( 5002 ),
-
+    /**
+     * 飞机已经升到最大等级
+     */
+    PLANE_REACH_MAX_LEVEL( 5003 ),
     /**
      * 道具不足
      */
