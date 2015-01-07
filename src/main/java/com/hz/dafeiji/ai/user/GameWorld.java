@@ -71,13 +71,11 @@ public enum GameWorld{
 
         //UserBaseInfoModule module = new UserBaseInfoModule( uname );
         ErrorCode eCode = userBaseInfoModule.regist( uname, uname + "nick", pass );
-        if( eCode == ErrorCode.SUCCESS ) {
+        if( eCode.isSuccess() ) {
             User user = getUserByName( uname );
             initNewUser( user );
         }
         return eCode;
-
-
     }
 
     /**

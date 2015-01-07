@@ -14,8 +14,8 @@ import lombok.Data;
 public class Plane implements IdentityObj{
 
     private long id;
-    private int hp;
-    private int attack;
+    //private int hp;
+    //private int attack;
     private int level = 1;
     private PlaneTemplet templet;
     /**
@@ -27,5 +27,13 @@ public class Plane implements IdentityObj{
     public Plane( Long id, PlaneTemplet templet ){
         this.id = id;
         this.templet = templet;
+    }
+
+    public int getAttack(){
+        return (int) (templet.getAttack() + (level - 1) * templet.getAttackUp());
+    }
+
+    public int getHp(){
+        return (int) (templet.getHp() + (level - 1) * templet.getHpUp());
     }
 }

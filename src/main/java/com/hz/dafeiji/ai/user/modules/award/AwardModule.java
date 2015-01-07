@@ -86,7 +86,7 @@ public class AwardModule{
                 remainCount = propertyModule.changeDiamond( prop.count );
             } else if( propId == 500007 ) {
                 remainCount = propertyModule.changeStrength( prop.count );
-            } else if( propId >= 100101 && propId <= 100501 ) {//飞机
+            } else if( propId >= 100101 && propId <= 199999 ) {//飞机
                 moduleManager.getPlaneModule().create( propId );
             } else {
                 throw new ClientException( ErrorCode.AWARD_PROP_NOT_FOUND, prop.propId + "," + prop.count );
@@ -122,7 +122,8 @@ public class AwardModule{
                 if( propertyModule.getStrength() < prop.count ) {
                     return false;
                 }
-            } else if( propId >= 100101 && propId <= 100501 ) {//飞机
+            } else if( propId >= 100101 && propId <= 199999 ) {//飞机
+                throw new ClientException( ErrorCode.NOT_IMPLENMENT, "无法扣除飞机" + prop.propId );
 
             } else {
                 throw new ClientException( ErrorCode.AWARD_PROP_NOT_FOUND, prop.propId + "," + prop.count );

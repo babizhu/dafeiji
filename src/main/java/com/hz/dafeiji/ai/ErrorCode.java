@@ -29,7 +29,12 @@ public enum ErrorCode{
     /**
      * 客户端发送请求参数错误
      */
-    PARAMETER_ERROR(103),
+    PARAMETER_ERROR( 103 ),
+
+    /**
+     * 方法未实现
+     */
+    NOT_IMPLENMENT( 104 ),
 
     /**
      * 尚未登录
@@ -103,6 +108,15 @@ public enum ErrorCode{
                 throw new RuntimeException( t.number + "重复了" );
             }
         }
+    }
+
+    /**
+     * 判断当前枚举是否成功
+     *
+     * @return
+     */
+    public boolean isSuccess(){
+        return number == 0;
     }
 
     private final int number;

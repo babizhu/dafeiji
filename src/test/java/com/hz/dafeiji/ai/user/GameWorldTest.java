@@ -74,7 +74,8 @@ public class GameWorldTest{
             }
             User loginUser = GameWorld.INSTANCE.login( uname + i, "pass" );
             if( i % 1000 == 0 ) {
-                System.out.println( uname + i + "[" + loginUser.getUserBaseInfo().getNickName() + "]注册并登陆完毕" );
+//                System.out.println( uname + i + "[" + loginUser.getUserBaseInfo().getNickName() + "]注册并登陆完毕" );
+                System.out.println( uname + i + "[" + "]注册并登陆完毕" );
 
             }
         }

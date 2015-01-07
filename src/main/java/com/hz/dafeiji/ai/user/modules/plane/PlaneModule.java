@@ -71,9 +71,9 @@ public class PlaneModule{
      * 飞机升级
      * 消耗公式=round(基础消耗+（当前等级-1）*品阶消耗系数*int（（当前等级-1）/10+1）,-2)
      *
-     * @param planeId
+     * @param planeId   飞机id
      */
-    void levelUp( long planeId ){
+    public void levelUp( long planeId ){
         Plane plane = getPlaneById( planeId );
         int qurlityId = plane.getTemplet().getQuality();
         PlaneQurlityTemplet pqt = PlaneQurlityTempletCfg.getPlaneQurlityTempletById( qurlityId );
@@ -144,7 +144,7 @@ public class PlaneModule{
      * @param planeTempletId 要购买的飞机的模板id
      * @return 购买的飞机
      */
-    Plane buy( int planeTempletId ){
+    public Plane buy( int planeTempletId ){
         PlaneTemplet pt = check( planeTempletId );
         moduleManager.getAwardModule().reduceAward( pt.getPrice(), "PlaneModule.buy" );
         return doCreate( pt );

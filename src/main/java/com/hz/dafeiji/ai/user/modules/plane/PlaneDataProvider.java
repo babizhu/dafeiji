@@ -34,7 +34,7 @@ public class PlaneDataProvider extends AbstractDataProviderWithIdentity<Plane>{
 //        hero.setName( (String) object.get( "name" ) );
 //        Set<Equipment> equipments = Sets.newHashSet();
 //        long[] arr = Transform.ArrayType.toLongs( (String) object.get( "equipmentS" ) );
-//        EquipmentModule em = new EquipmentModule( "lk" );//TODO 需要考虑实际如何操作
+//        EquipmentModule em = new EquipmentModule( "lk" );//
 //        for( long id : arr ) {
 //            Equipment e = em.getEquipmentById( id );
 //            equipments.add( e );
@@ -66,13 +66,14 @@ public class PlaneDataProvider extends AbstractDataProviderWithIdentity<Plane>{
 //        }
 //        obj.put( "equipmentS", equipmentStr );
 //        obj.put( "templetId", hero.getTemplet().getId() );
+
         return obj;
     }
 
     /**
      * 更新战机的当前字段
      *
-     * @param plane
+     * @param plane 要更新的飞机
      */
     void updateCurrentPlaneField( Plane plane ){
         updateWithField( plane, "current", plane.isCurrent() );

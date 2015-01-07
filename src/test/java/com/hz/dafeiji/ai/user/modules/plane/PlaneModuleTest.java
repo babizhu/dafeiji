@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import java.util.Map;
 
-import static com.hz.dafeiji.cfg.plane.PlaneTempletCfg.getPlaneTempletById;
 import static junit.framework.Assert.assertEquals;
 
 public class PlaneModuleTest{
@@ -69,6 +68,11 @@ public class PlaneModuleTest{
         //module.levelUp( D.DEFAULT_PLANE_ID );
     }
 
+    /**
+     * 测试升级，以及升级之后的各项数值
+     *
+     * @throws Exception
+     */
     @Test
     public void testLevelUp() throws Exception{
         //清空玩家的钱
@@ -88,12 +92,12 @@ public class PlaneModuleTest{
         int maxLevel = pqt.getMaxLv();
         for( int i = 0; i < maxLevel - 1; i++ ) {
 
-
             //给点钱，方便扣除
             int needCash = module.calcLevelUpCash( plane, pqt );
             user.getModuleManager().getAwardModule().addAward( "500001," + needCash, "testLevelUp" );
             module.levelUp( plane.getId() );
             assertEquals( plane.getLevel(), i + 2 );
+            System.out.println( "attack=" + plane.getAttack() + ",hp=" + plane.getHp());
         }
         System.out.println( "飞机等级=" + plane.getLevel() + "允许升级的最大等级是" + pqt.getMaxLv() );
         ErrorCode errorCode = null;
@@ -117,7 +121,8 @@ public class PlaneModuleTest{
 
         //给点钱，方便扣除
         int planeTempletId = 100201;
-        user.getModuleManager().getAwardModule().addAward( getPlaneTempletById( planeTempletId ).getPrice(), "test" );
+        String price = PlaneTempletCfg.getPlaneTempletById( planeTempletId ).getPrice();
+        user.getModuleManager().getAwardModule().addAward( price, "test" );
         Plane newPlane = module.buy( planeTempletId );
         module.setCurrentPlane( newPlane );
 
@@ -158,7 +163,8 @@ public class PlaneModuleTest{
         }
 
         //测试钱够，正常购买的情况
-        user.getModuleManager().getAwardModule().addAward( getPlaneTempletById( planeTempletId ).getPrice(), "test" );//给点钱，方便扣除
+        String price = PlaneTempletCfg.getPlaneTempletById( planeTempletId ).getPrice();
+        user.getModuleManager().getAwardModule().addAward( price, "test" );//给点钱，方便扣除
         System.out.println( module.buy( planeTempletId ) );
 
         assertEquals( 2, module.getAll().size() );
