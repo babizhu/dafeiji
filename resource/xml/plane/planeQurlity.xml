@@ -2,7 +2,6 @@
 <PlaneQurlitys>
     <PlaneQurlity>
         <id>1</id>
-        <quality>1</quality>
         <step>1</step>
         <starCount>1</starCount>
         <starNumber>5</starNumber>
@@ -13,7 +12,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>2</id>
-        <quality>2</quality>
         <step>1</step>
         <starCount>2</starCount>
         <starNumber>5</starNumber>
@@ -24,7 +22,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>3</id>
-        <quality>3</quality>
         <step>1</step>
         <starCount>3</starCount>
         <starNumber>5</starNumber>
@@ -35,7 +32,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>4</id>
-        <quality>4</quality>
         <step>1</step>
         <starCount>4</starCount>
         <starNumber>5</starNumber>
@@ -46,7 +42,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>5</id>
-        <quality>5</quality>
         <step>1</step>
         <starCount>5</starCount>
         <starNumber>5</starNumber>
@@ -57,7 +52,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>6</id>
-        <quality>6</quality>
         <step>2</step>
         <starCount>1</starCount>
         <starNumber>5</starNumber>
@@ -68,7 +62,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>7</id>
-        <quality>7</quality>
         <step>2</step>
         <starCount>2</starCount>
         <starNumber>5</starNumber>
@@ -79,7 +72,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>8</id>
-        <quality>8</quality>
         <step>2</step>
         <starCount>3</starCount>
         <starNumber>5</starNumber>
@@ -90,7 +82,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>9</id>
-        <quality>9</quality>
         <step>2</step>
         <starCount>4</starCount>
         <starNumber>5</starNumber>
@@ -101,7 +92,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>10</id>
-        <quality>10</quality>
         <step>2</step>
         <starCount>5</starCount>
         <starNumber>5</starNumber>
@@ -112,7 +102,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>11</id>
-        <quality>11</quality>
         <step>3</step>
         <starCount>1</starCount>
         <starNumber>5</starNumber>
@@ -123,7 +112,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>12</id>
-        <quality>12</quality>
         <step>3</step>
         <starCount>2</starCount>
         <starNumber>5</starNumber>
@@ -134,7 +122,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>13</id>
-        <quality>13</quality>
         <step>3</step>
         <starCount>3</starCount>
         <starNumber>5</starNumber>
@@ -145,7 +132,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>14</id>
-        <quality>14</quality>
         <step>3</step>
         <starCount>4</starCount>
         <starNumber>5</starNumber>
@@ -156,7 +142,6 @@
     </PlaneQurlity>
     <PlaneQurlity>
         <id>15</id>
-        <quality>15</quality>
         <step>3</step>
         <starCount>5</starCount>
         <starNumber>5</starNumber>

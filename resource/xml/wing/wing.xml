@@ -6,11 +6,14 @@
         <quality>1</quality>
         <qualityMax>4</qualityMax>
         <currentLv>1</currentLv>
+        <attribute>0</attribute>
         <attack>30</attack>
         <aspd>40</aspd>
         <attackUp>7.5</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
+        <resId></resId>
+        <barrage>0</barrage>
         <skill1>0</skill1>
         <skill2>0</skill2>
         <source></source>
@@ -22,11 +25,14 @@
         <quality>1</quality>
         <qualityMax>4</qualityMax>
         <currentLv>1</currentLv>
+        <attribute>0</attribute>
         <attack>30</attack>
         <aspd>45</aspd>
         <attackUp>7.6</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
+        <resId></resId>
+        <barrage>0</barrage>
         <skill1>0</skill1>
         <skill2>0</skill2>
         <source></source>
@@ -38,11 +44,14 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
+        <attribute>0</attribute>
         <attack>35</attack>
         <aspd>55</aspd>
         <attackUp>7.7</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
+        <resId></resId>
+        <barrage>0</barrage>
         <skill1>730001</skill1>
         <skill2>0</skill2>
         <source></source>
@@ -54,11 +63,14 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
+        <attribute>0</attribute>
         <attack>35</attack>
         <aspd>50</aspd>
         <attackUp>7.7</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
+        <resId></resId>
+        <barrage>0</barrage>
         <skill1>730002</skill1>
         <skill2>0</skill2>
         <source></source>
@@ -70,11 +82,14 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
+        <attribute>0</attribute>
         <attack>50</attack>
         <aspd>45</aspd>
         <attackUp>7.8</attackUp>
         <compound>60</compound>
         <allPurpose>30</allPurpose>
+        <resId></resId>
+        <barrage>0</barrage>
         <skill1>730003</skill1>
         <skill2>0</skill2>
         <source></source>
@@ -86,11 +101,14 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
+        <attribute>0</attribute>
         <attack>50</attack>
         <aspd>50</aspd>
         <attackUp>7.8</attackUp>
         <compound>80</compound>
         <allPurpose>40</allPurpose>
+        <resId></resId>
+        <barrage>0</barrage>
         <skill1>730004</skill1>
         <skill2>0</skill2>
         <source></source>
@@ -102,11 +120,14 @@
         <quality>1</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
+        <attribute>0</attribute>
         <attack>30</attack>
         <aspd>50</aspd>
         <attackUp>8</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
+        <resId></resId>
+        <barrage>0</barrage>
         <skill1>730005</skill1>
         <skill2>0</skill2>
         <source></source>
@@ -118,11 +139,14 @@
         <quality>1</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
+        <attribute>0</attribute>
         <attack>30</attack>
         <aspd>55</aspd>
         <attackUp>8</attackUp>
         <compound>0</compound>
         <allPurpose>0</allPurpose>
+        <resId></resId>
+        <barrage>0</barrage>
         <skill1>730006</skill1>
         <skill2>0</skill2>
         <source></source>

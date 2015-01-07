@@ -12,62 +12,60 @@ import java.util.Map;
 
 /**
  * 模版配置
- *
  * @author liukun
- *         2015-1-4 13:44:26
+ * 2015-1-7 16:45:28
  */
-public class WingExpTempletCfg{
-    private static final Map<Integer, WingExpTemplet> wingExpTemplets = new HashMap<>();
+public class WingExpTempletCfg {
+	private static final Map<Integer,WingExpTemplet> wingExpTemplets = new HashMap<>();
 
 
-    static{
-        //init();
+	static{
+		//init();
 
-    }
+	}
+	private static final String FILE = "./resource/xml/wing/wingExp.xml";
 
-    private static final String FILE = "./resource/xml/wing/wingExp.xml";
 
 
-    public static void init(){
+	public static void init(){
 
-        SAXBuilder builder = new SAXBuilder();
-        Document document;
-        try {
-            document = builder.build( FILE );
-            Element root = document.getRootElement();
-            List<?> list = root.getChildren( "WingExp" );
+		SAXBuilder builder = new SAXBuilder();
+		Document document;
+		try {
+			document = builder.build( FILE );
+			Element root = document.getRootElement();
+			List<?> list = root.getChildren( "WingExp" );
 
-            for( Object o : list ) {
-                WingExpTemplet templet = new WingExpTemplet( (Element) o );
-                WingExpTemplet temp = wingExpTemplets.put( templet.getId(), templet );
-                if( temp != null ) {
-                    throw new RuntimeException( "WingExpTemplet id [" + temp.getId() + "] 重复了" );
-                }
+			for (Object o : list) {
+				WingExpTemplet templet = new WingExpTemplet( (Element) o );
+				WingExpTemplet temp = wingExpTemplets.put( templet.getId(), templet );
+				if( temp != null ){
+					throw new RuntimeException( "WingExpTemplet id [" + temp.getId() + "] 重复了" );
+				}
 
-            }
-        } catch( JDOMException | IOException e ) {
-            e.printStackTrace();
+			}
+		} catch (JDOMException | IOException e) {
+		    e.printStackTrace();
         }
 
-        System.out.println( "WingExpTemplet xml配置文件解析完毕" );
-    }
+		System.out.println( "WingExpTemplet xml配置文件解析完毕" );
+	}
 
 
-    /**
-     * 通过id获取WingExpTemplet的引用
-     *
-     * @param templetId id
-     * @return 返回一个引用
-     */
-    public static WingExpTemplet getWingExpTempletById( int templetId ){
-        return wingExpTemplets.get( templetId );
-    }
+	/**
+	 * 通过id获取WingExpTemplet的引用
+	 * @param   templetId   id
+	 * @return  返回一个引用
+	 */
+	public static WingExpTemplet getWingExpTempletById( int templetId ){
+		return wingExpTemplets.get( templetId );
+	}
 
 	/*自定义代码开始*//*自定义代码结束*/
 
-    public static void main( String[] args ){
+	public static void main(String[] args) {
 
-        int id = 100001;
-        System.out.println( getWingExpTempletById( id ) );
-    }
+		int id = 100001;
+		System.out.println( getWingExpTempletById( id ) );
+	}
 }

@@ -14,6 +14,8 @@
         <attackAddUpInc>0</attackAddUpInc>
         <skillCoolingUpInc>0</skillCoolingUpInc>
         <hpUpInc>0</hpUpInc>
+        <energyCoe>20</energyCoe>
+        <energyBasis>100</energyBasis>
         <advanceDraw>1</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
         <advanceGold>5000</advanceGold>
@@ -34,6 +36,8 @@
         <attackAddUpInc>0.0001</attackAddUpInc>
         <skillCoolingUpInc>0.0004</skillCoolingUpInc>
         <hpUpInc>0.9</hpUpInc>
+        <energyCoe>30</energyCoe>
+        <energyBasis>200</energyBasis>
         <advanceDraw>2</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
         <advanceGold>10000</advanceGold>
@@ -54,6 +58,8 @@
         <attackAddUpInc>0.0002</attackAddUpInc>
         <skillCoolingUpInc>0.0005</skillCoolingUpInc>
         <hpUpInc>2.01</hpUpInc>
+        <energyCoe>45</energyCoe>
+        <energyBasis>300</energyBasis>
         <advanceDraw>3</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
         <advanceGold>15000</advanceGold>
@@ -74,6 +80,8 @@
         <attackAddUpInc>0.0005</attackAddUpInc>
         <skillCoolingUpInc>0.0007</skillCoolingUpInc>
         <hpUpInc>3.54</hpUpInc>
+        <energyCoe>68</energyCoe>
+        <energyBasis>400</energyBasis>
         <advanceDraw>4</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
         <advanceGold>20000</advanceGold>
@@ -94,6 +102,8 @@
         <attackAddUpInc>0.0003</attackAddUpInc>
         <skillCoolingUpInc>0.0006</skillCoolingUpInc>
         <hpUpInc>4.15</hpUpInc>
+        <energyCoe>102</energyCoe>
+        <energyBasis>450</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>1</advanceEquipment>
         <advanceGold>20000</advanceGold>
@@ -114,6 +124,8 @@
         <attackAddUpInc>0.0009</attackAddUpInc>
         <skillCoolingUpInc>0.0009</skillCoolingUpInc>
         <hpUpInc>5.89</hpUpInc>
+        <energyCoe>153</energyCoe>
+        <energyBasis>500</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>2</advanceEquipment>
         <advanceGold>20000</advanceGold>
@@ -134,6 +146,8 @@
         <attackAddUpInc>0.002</attackAddUpInc>
         <skillCoolingUpInc>0.0017</skillCoolingUpInc>
         <hpUpInc>8.05</hpUpInc>
+        <energyCoe>230</energyCoe>
+        <energyBasis>550</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>3</advanceEquipment>
         <advanceGold>20000</advanceGold>
@@ -154,6 +168,8 @@
         <attackAddUpInc>0.0034</attackAddUpInc>
         <skillCoolingUpInc>0.0025</skillCoolingUpInc>
         <hpUpInc>9</hpUpInc>
+        <energyCoe>345</energyCoe>
+        <energyBasis>600</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>4</advanceEquipment>
         <advanceGold>20000</advanceGold>
@@ -174,6 +190,8 @@
         <attackAddUpInc>0.0017</attackAddUpInc>
         <skillCoolingUpInc>0.0007</skillCoolingUpInc>
         <hpUpInc>15.86</hpUpInc>
+        <energyCoe>518</energyCoe>
+        <energyBasis>450</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
         <advanceGold>30000</advanceGold>
@@ -194,6 +212,8 @@
         <attackAddUpInc>0.0024</attackAddUpInc>
         <skillCoolingUpInc>0.001</skillCoolingUpInc>
         <hpUpInc>16.91</hpUpInc>
+        <energyCoe>777</energyCoe>
+        <energyBasis>500</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
         <advanceGold>40000</advanceGold>
@@ -214,6 +234,8 @@
         <attackAddUpInc>0.0032</attackAddUpInc>
         <skillCoolingUpInc>0.0013</skillCoolingUpInc>
         <hpUpInc>17.78</hpUpInc>
+        <energyCoe>1166</energyCoe>
+        <energyBasis>550</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
         <advanceGold>50000</advanceGold>
@@ -234,6 +256,8 @@
         <attackAddUpInc>0.0044</attackAddUpInc>
         <skillCoolingUpInc>0.0018</skillCoolingUpInc>
         <hpUpInc>18.49</hpUpInc>
+        <energyCoe>1749</energyCoe>
+        <energyBasis>600</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
         <advanceGold>60000</advanceGold>

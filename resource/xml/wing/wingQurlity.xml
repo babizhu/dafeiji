@@ -10,6 +10,8 @@
         <score>0.01</score>
         <aspdUpInc>0</aspdUpInc>
         <attackUpInc>0</attackUpInc>
+        <expGap>25</expGap>
+        <expInitial>100</expInitial>
         <advanceCard>1</advanceCard>
         <advanceWing>0</advanceWing>
         <advanceGold>3000</advanceGold>
@@ -26,6 +28,8 @@
         <score>0.02</score>
         <aspdUpInc>10</aspdUpInc>
         <attackUpInc>1</attackUpInc>
+        <expGap>50</expGap>
+        <expInitial>100</expInitial>
         <advanceCard>2</advanceCard>
         <advanceWing>0</advanceWing>
         <advanceGold>5000</advanceGold>
@@ -42,6 +46,8 @@
         <score>0.03</score>
         <aspdUpInc>20</aspdUpInc>
         <attackUpInc>2</attackUpInc>
+        <expGap>100</expGap>
+        <expInitial>100</expInitial>
         <advanceCard>3</advanceCard>
         <advanceWing>0</advanceWing>
         <advanceGold>8000</advanceGold>
@@ -58,6 +64,8 @@
         <score>0.04</score>
         <aspdUpInc>30</aspdUpInc>
         <attackUpInc>3</attackUpInc>
+        <expGap>150</expGap>
+        <expInitial>100</expInitial>
         <advanceCard>4</advanceCard>
         <advanceWing>0</advanceWing>
         <advanceGold>10000</advanceGold>
@@ -74,6 +82,8 @@
         <score>0.05</score>
         <aspdUpInc>40</aspdUpInc>
         <attackUpInc>4</attackUpInc>
+        <expGap>200</expGap>
+        <expInitial>500</expInitial>
         <advanceCard>0</advanceCard>
         <advanceWing>1</advanceWing>
         <advanceGold>15000</advanceGold>
@@ -90,6 +100,8 @@
         <score>0.06</score>
         <aspdUpInc>50</aspdUpInc>
         <attackUpInc>5</attackUpInc>
+        <expGap>250</expGap>
+        <expInitial>500</expInitial>
         <advanceCard>0</advanceCard>
         <advanceWing>2</advanceWing>
         <advanceGold>20000</advanceGold>
@@ -106,6 +118,8 @@
         <score>0.07</score>
         <aspdUpInc>60</aspdUpInc>
         <attackUpInc>6</attackUpInc>
+        <expGap>300</expGap>
+        <expInitial>500</expInitial>
         <advanceCard>0</advanceCard>
         <advanceWing>3</advanceWing>
         <advanceGold>25000</advanceGold>
@@ -122,6 +136,8 @@
         <score>0.08</score>
         <aspdUpInc>70</aspdUpInc>
         <attackUpInc>7</attackUpInc>
+        <expGap>350</expGap>
+        <expInitial>500</expInitial>
         <advanceCard>0</advanceCard>
         <advanceWing>4</advanceWing>
         <advanceGold>30000</advanceGold>
@@ -138,6 +154,8 @@
         <score>0.09</score>
         <aspdUpInc>60</aspdUpInc>
         <attackUpInc>8</attackUpInc>
+        <expGap>400</expGap>
+        <expInitial>500</expInitial>
         <advanceCard>0</advanceCard>
         <advanceWing>0</advanceWing>
         <advanceGold>40000</advanceGold>
@@ -154,6 +172,8 @@
         <score>0.1</score>
         <aspdUpInc>70</aspdUpInc>
         <attackUpInc>9</attackUpInc>
+        <expGap>450</expGap>
+        <expInitial>500</expInitial>
         <advanceCard>0</advanceCard>
         <advanceWing>0</advanceWing>
         <advanceGold>44000</advanceGold>
@@ -170,6 +190,8 @@
         <score>0.11</score>
         <aspdUpInc>80</aspdUpInc>
         <attackUpInc>10</attackUpInc>
+        <expGap>500</expGap>
+        <expInitial>500</expInitial>
         <advanceCard>0</advanceCard>
         <advanceWing>0</advanceWing>
         <advanceGold>48000</advanceGold>
@@ -186,6 +208,8 @@
         <score>0.12</score>
         <aspdUpInc>90</aspdUpInc>
         <attackUpInc>11</attackUpInc>
+        <expGap>550</expGap>
+        <expInitial>500</expInitial>
         <advanceCard>0</advanceCard>
         <advanceWing>0</advanceWing>
         <advanceGold>0</advanceGold>
