@@ -18,7 +18,7 @@ public class Tools {
     public static boolean reqParamCheck(JSONObject request, String args){
         boolean chk = true;
         for(String key : args.split(",")){
-            if(!request.containsKey(key)){
+            if(!request.containsKey(key.trim())){
                 chk = false;
                 break;
             }

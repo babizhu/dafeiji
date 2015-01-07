@@ -99,7 +99,7 @@ public enum MailStore {
         List<Mail> list = new ArrayList<>();
         for(Map.Entry<Long, Mail> entry : userMail.entrySet()){
             Mail mail = entry.getValue();
-            if(mail.getReceive().equals(uname)){
+            if(mail.getReceive().equals(uname) && mail.getIsDelete() == 0){
                 list.add(mail);
             }
         }

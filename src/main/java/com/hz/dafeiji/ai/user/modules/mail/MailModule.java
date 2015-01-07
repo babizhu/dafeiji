@@ -53,36 +53,36 @@ public class MailModule {
         }
     }
 
+    /**
+     * 用户删除系统邮件
+     * @param id 系统邮件ID
+     * @param uname 用户名
+     */
+    public void deleteSysMail(long id, String uname){
+        Mail mail = MailStore.INSTANCE.getSysMailByMailId(id);
+        if(mail != null){
+            MailCtrl ctrl = getMailCtrlByMailId(id);
+            if(ctrl != null){
+                ctrl.setDeleted(1);
+            }else{
+                ctrl = new MailCtrl(uname, mail.getId(), 0, 0, 1);
+                ctrlMail.put(ctrl.getId(), ctrl);
+            }
+            ctrlDb.replace(ctrl);
+        }
+    }
 
     /**
      * 用户删除邮件
      * @param id 邮件ID
-     * @param uname 用户名
      */
-    public void deleteMail(long id, String uname){
-        boolean isSysMail = true;
-        Mail mail = MailStore.INSTANCE.getSysMailByMailId(id);
-        if(mail == null){
-            mail = MailStore.INSTANCE.getUserMailByMailId(id);
-            isSysMail = false;
-        }
+    public void deleteUserMail(long id){
+        Mail mail = MailStore.INSTANCE.getUserMailByMailId(id);
         if(mail != null){
-            if(isSysMail){      //系统邮件的处理
-                MailCtrl ctrl = getMailCtrlByMailId(id);
-                if(ctrl != null){
-                    ctrl.setDeleted(1);
-                }else{
-                    ctrl = new MailCtrl(uname, mail.getId(), 0, 0, 1);
-                    ctrlMail.put(ctrl.getId(), ctrl);
-                }
-                ctrlDb.replace(ctrl);
-            }else{              //玩家邮件处理
-                mail.setIsDelete(1);
-                MailStore.INSTANCE.updateUserMail(mail);
-            }
+            mail.setIsDelete(1);
+            MailStore.INSTANCE.updateUserMail(mail);
         }
     }
-
 
     /**
      * 获取用户邮件列表
