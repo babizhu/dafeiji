@@ -74,4 +74,17 @@ public class Equipment implements IdentityObj{
         this.isDelete = 0;
     }
 
+    /**
+     * 装备升级
+     */
+    public void levelUp(){
+        this.level++;
+    }
+
+    /**
+     * 装备进阶
+     */
+    public void upgradeQuality(){
+        this.quality++;
+    }
 }

@@ -1,6 +1,9 @@
 package com.hz.dafeiji.ai.user.modules.equipments;
 
+import com.hz.dafeiji.ai.ClientException;
+import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.User;
+import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTempletCfg;
 import com.hz.dafeiji.cfg.equipment.EquipmentTempletCfg;
@@ -57,7 +60,6 @@ public class EquipmentModule{
                 int equipTempleteId = Integer.valueOf(id);
                 if(EquipmentTempletCfg.getEquipmentTempletById(equipTempleteId) != null){
                     Equipment equip = new Equipment(equipTempleteId);
-
                     equipments.put(equip.getId(), equip);
                     db.add(equip);
                 }
@@ -73,20 +75,12 @@ public class EquipmentModule{
     public void splitEquip(String equipIds, User user){
         for(String id : equipIds.split(",")){
             if(!id.equals("")){
-                Equipment equip = getEquipmentById(Integer.valueOf(id));
-                if(equip != null){
-                    if(equip.getIsDelete() == 0){
-                        int energy = EquipExpCfg.getSplitExp(equip.getQuality(), equip.getLevel(), equip.getTemplet().getType());  //分解装备获取的能源
+                Equipment equip = equipments.get(Integer.valueOf(id));
+                if(checkEquipExsit(equip, "分解装备", user)){
+                    int energy = EquipExpCfg.getSplitExp(equip.getQuality(), equip.getLevel(), equip.getTemplet().getType());  //分解装备获取的能源
 
-                        //删除该装备, 品质太阳级的装备只修改状态，不删数据
-                        equipments.remove(equip.getId());
-                        if(equip.getQuality() >= 9){
-                            db.updateWithField(equip, EquipmentDataProvider.FIELD_ISDELETE, 1);
-                        }else{
-                            db.remove((int)equip.getId());
-                        }
-                        user.getModuleManager().getPropertyModule().changeEnergy(energy);       //添加用户能源数据
-                    }
+                    deleteEquip(equip);         //删除装备
+                    user.getModuleManager().getPropertyModule().changeEnergy(energy);       //添加用户能源数据
                 }
             }
         }
@@ -99,14 +93,30 @@ public class EquipmentModule{
      */
     public void EquipLevelUp(long equipId, User user){
         Equipment equip = equipments.get(equipId);
-        if(equip != null){
-            EquipmentQurlityTemplet et = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());
-            if(et != null){
 
+        if(checkEquipExsit(equip, "升级装备", user)){
+            EquipmentQurlityTemplet et = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());
+            if(equip.getLevel() >= et.getMaxLv()){
+                throw new ClientException(ErrorCode.EQUIPMENT_LEVEL_OVER_LIMIT,"装备升级超出等级限制,品质:"+equip.getQuality()
+                        +",当前等级:"+equip.getLevel()
+                        +",上限:"+et.getMaxLv());
             }
 
+            //计算升级装备需要的能源
             int energyCost = EquipExpCfg.getExp(equip.getQuality(), equip.getLevel(), equip.getTemplet().getType());
+            PropertyModule propertyModule = user.getModuleManager().getPropertyModule();
 
+            if(propertyModule.getEnergy() < energyCost){
+                throw new ClientException(ErrorCode.USER_ENERGY_NOT_ENOUGH, "装备升级能源值不够,需要:"+energyCost
+                        +",拥有:"+propertyModule.getEnergy());
+            }
+
+            //装备升级
+            equip.levelUp();
+            db.updateWithField(equip, EquipmentDataProvider.FIELD_LEVEL, equip.getLevel());
+
+            //扣除能源
+            propertyModule.changeEnergy(energyCost * -1);
         }
     }
 
@@ -117,48 +127,70 @@ public class EquipmentModule{
      */
     public void EquipUpgrade(long equipId, User user){
         Equipment equip = equipments.get(equipId);
-        if(equip != null){
+        if(checkEquipExsit(equip, "进阶装备", user)){
+            EquipmentQurlityTemplet et = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());
 
-        }
-    }
+            if(equip.getQuality() >= equip.getTemplet().getQualityMax()){
+                throw new ClientException(ErrorCode.EQUIPMENT_UPGRADE_OVER_LIMIT, "进阶装备已经达到品质上限,当前阶级:"+equip.getQuality()
+                        +",上限:"+equip.getTemplet().getQualityMax());
+            }
 
+            if(equip.getLevel() < et.getMaxLv()){
+                throw new ClientException(ErrorCode.EQUIPMENT_LEVEL_UNDER_LIMIT, "进阶装备未达到等级要求,进阶装备等级:"
+                        +equip.getLevel()+",要求等级:"+et.getMaxLv());
+            }
 
+            int costDraw = et.getAdvanceDraw();         //消耗图纸
+            int costEquip = et.getAdvanceEquipment();   //消耗装备数量
+            int costGold = et.getAdvanceGold();         //消耗金币
+            int costJewel = et.getAdvanceJewel();       //消耗钻石
 
-    /**
-     * 根据装备ID获取用户装备
-      * @param equipmentId 装备数据库ID
-     * @return Equipment
-     */
-    public Equipment getEquipmentById(long equipmentId){
-        return equipments.get( equipmentId );
-    }
+            PropertyModule propertyModule = user.getModuleManager().getPropertyModule();
+            List<Equipment> deleteEquips = new ArrayList<>();
+            if(costGold > 0 && costGold > propertyModule.getCash()){
+                throw new ClientException(ErrorCode.USER_GOLD_NOT_ENOUGH, "进阶装备金币不够,需要:"+costGold+",拥有:"+propertyModule.getCash());
+            }
 
-    /**
-     * 根据装备类型获取已穿戴上的装备
-     * @param type 类型 1:主武器,2:副武器,3:护甲
-     * @return Equipment
-     */
-    public Equipment getLoadedEquipByType(int type){
-        Equipment equip = null;
-        for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
-            if(entry.getValue().getIsDelete() == 0){
-                if(entry.getValue().getTemplet().getType() == type && entry.getValue().getLoaded() == 1){
-                    equip = entry.getValue();
-                    break;
+            if(costJewel > 0 && costJewel > propertyModule.getDiamond()){
+                throw new ClientException(ErrorCode.USER_DIAMOND_NOT_ENOUGH, "进阶装备钻石不够,需要:"+costJewel+",拥有:"+propertyModule.getDiamond());
+            }
+
+            if(costEquip > 0){
+                deleteEquips = getEquipCountByArgs(et.getAdvanceEquipmentQue(), equip.getTemplet().getId());
+                if(deleteEquips.size() < costEquip){
+                    throw new ClientException(ErrorCode.EQUIPMENT_UPGRADE_EQUIP_NOT_ENOUGH
+                            , "进阶需要的装备不够,需要品质"+et.getAdvanceEquipmentQue()+"的装备"+costEquip+"件,拥有:"+deleteEquips.size()+"件");
                 }
             }
-        }
-        return equip;
-    }
 
+            //扣除金币
+            if(costGold > 0){
+                propertyModule.changeCash(costGold * -1);
+            }
+
+            //扣除钻石
+            if(costJewel > 0){
+                propertyModule.changeDiamond(costJewel * -1);
+            }
+
+            //删除消耗的装备
+            for(Equipment de : deleteEquips){
+                deleteEquip(de);            //删除被吃掉的装备
+            }
+
+            equip.upgradeQuality();
+            db.updateWithField(equip, EquipmentDataProvider.FIELD_QUALITY, equip.getQuality());
+        }
+    }
 
 
     /**
      * 穿戴装备
-     * @param equip 要穿戴的装备
+     * @param equipId 要穿戴的装备Id
      */
-    public void loadEquip(Equipment equip){
-        if(equipments.get(equip.getId()) != null){
+    public void loadEquip(long equipId, User user){
+        Equipment equip = equipments.get(equipId);
+        if(checkEquipExsit(equip, "穿戴装备", user)){
             Equipment downEquip = getLoadedEquipByType(equip.getTemplet().getType());
             if(downEquip != null){      //该类型已经有装备穿戴上, 替换成传入的装备
                 downEquip.setLoaded(0);
@@ -173,7 +205,7 @@ public class EquipmentModule{
      * 获取用户装备列表
      * @return
      */
-    public List<Equipment> getEquipment(){
+    public List<Equipment> getAllEquipments(){
         List<Equipment> list = new ArrayList<>();
         for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
             if(entry.getValue().getIsDelete() == 0){
@@ -185,4 +217,72 @@ public class EquipmentModule{
     }
 
 
+
+
+    /**
+     * 根据装备类型获取已穿戴上的装备
+     * @param type 类型 1:主武器,2:副武器,3:护甲
+     * @return Equipment
+     */
+    private Equipment getLoadedEquipByType(int type){
+        Equipment equip = null;
+        for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
+            if(entry.getValue().getIsDelete() == 0){
+                if(entry.getValue().getTemplet().getType() == type && entry.getValue().getLoaded() == 1){
+                    equip = entry.getValue();
+                    break;
+                }
+            }
+        }
+        return equip;
+    }
+
+    /**
+     * 删除用户装备, 如果品质在太阳以上则只修改装备
+     * @param equip 要删除的装备
+     */
+    private void deleteEquip(Equipment equip){
+        equipments.remove(equip.getId());
+        if(equip.getQuality() >= 9){
+            db.updateWithField(equip, EquipmentDataProvider.FIELD_ISDELETE, 1);
+        }else{
+            db.remove((int)equip.getId());
+        }
+    }
+
+    /**
+     * 根据装备品质和装备模版ID获取用户拥有的装备数量
+     * @param quality 指定品质
+     * @param templetId 指定模版ID
+     * @return int 拥有数量
+     */
+    private List<Equipment> getEquipCountByArgs(int quality, int templetId){
+        List<Equipment> list = new ArrayList<>();
+        for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
+            Equipment equip = entry.getValue();
+
+            if(equip.getQuality() == quality && equip.getTemplet().getId() == templetId && equip.getIsDelete() == 0){
+                list.add(equip);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 检查装备是否存在
+     * @param equip 装备对象
+     * @param method 调用方法
+     * @param user 用户数据
+     * @return true | false
+     */
+    private boolean checkEquipExsit(Equipment equip, String method, User user){
+        String uname = user.getUserBaseInfo().getUserName();
+        if(equip == null){
+            throw new ClientException(ErrorCode.EQUIPMENT_NOT_FOUND, "["+method+"]装备不存在,Id:"+equip.getId()+",User:"+uname);
+        }
+        if(equip.getIsDelete() > 0){
+            throw new ClientException(ErrorCode.EQUIPMENT_HAS_BEEN_DELETED, "["+method+"]装备已被删除,Id"+equip.getId()+",User:"+uname);
+        }
+        return true;
+    }
 }

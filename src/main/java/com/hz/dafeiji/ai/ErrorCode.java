@@ -61,9 +61,29 @@ public enum ErrorCode{
      */
     USER_STRENGTH_NOT_ENOUGH( 1020 ),
 
+    /**
+     * 用户能源值不足
+     */
+    USER_ENERGY_NOT_ENOUGH( 3002 ),
+
+    /**
+     * 用户金币不足
+     */
+    USER_GOLD_NOT_ENOUGH( 3003 ),
+
+    /**
+     * 用户钻石不足
+     */
+    USER_DIAMOND_NOT_ENOUGH( 3004 ),
+
     HERO_NOT_FOUND( 2000 ),
 
-    EQUPMENT_NOT_FOUND( 3000 ),
+    EQUIPMENT_NOT_FOUND( 3000 ),
+    EQUIPMENT_LEVEL_OVER_LIMIT( 3001 ),
+    EQUIPMENT_LEVEL_UNDER_LIMIT( 3002 ),
+    EQUIPMENT_UPGRADE_EQUIP_NOT_ENOUGH( 3003 ),
+    EQUIPMENT_UPGRADE_OVER_LIMIT( 3004 ),
+    EQUIPMENT_HAS_BEEN_DELETED( 3005 ),
     /**
      * 摇钱树今日运行次数超上限
      */
