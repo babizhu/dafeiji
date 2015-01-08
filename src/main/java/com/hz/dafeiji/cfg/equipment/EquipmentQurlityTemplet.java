@@ -6,7 +6,7 @@ import org.jdom2.Element;
  * 模版
  *
  * @author liukun
- *         2015-1-8 10:02:34
+ *         2015-1-8 15:13:57
  */
 public class EquipmentQurlityTemplet{
 
@@ -232,13 +232,26 @@ public class EquipmentQurlityTemplet{
     }
 
     /**
-     * 进阶消耗5品质同件装备数量
+     * 进阶消耗所需装备品质
+     */
+    private final int advanceEquipmentQue;
+
+
+    /**
+     * 进阶消耗所需装备品质
+     */
+    public int getAdvanceEquipmentQue(){
+        return advanceEquipmentQue;
+    }
+
+    /**
+     * 进阶消耗同件装备数量
      */
     private final int advanceEquipment;
 
 
     /**
-     * 进阶消耗5品质同件装备数量
+     * 进阶消耗同件装备数量
      */
     public int getAdvanceEquipment(){
         return advanceEquipment;
@@ -301,6 +314,7 @@ public class EquipmentQurlityTemplet{
         energyExpend = Integer.parseInt( element.getChildText( "energyExpend" ).trim() );
         energyBasis = Integer.parseInt( element.getChildText( "energyBasis" ).trim() );
         advanceDraw = Integer.parseInt( element.getChildText( "advanceDraw" ).trim() );
+        advanceEquipmentQue = Integer.parseInt( element.getChildText( "advanceEquipmentQue" ).trim() );
         advanceEquipment = Integer.parseInt( element.getChildText( "advanceEquipment" ).trim() );
         advanceGold = Integer.parseInt( element.getChildText( "advanceGold" ).trim() );
         advanceJewel = Integer.parseInt( element.getChildText( "advanceJewel" ).trim() );
@@ -310,7 +324,7 @@ public class EquipmentQurlityTemplet{
 
     @Override
     public String toString(){
-        return "EquipmentQurlityTemplet [id = " + id + ",quality = " + quality + ",step = " + step + ",starCount = " + starCount + ",maxLv = " + maxLv + ",gold = " + gold + ",score = " + score + ",attackAddInc = " + attackAddInc + ",skillCoolingInc = " + skillCoolingInc + ",hpInc = " + hpInc + ",attackAddUpInc = " + attackAddUpInc + ",skillCoolingUpInc = " + skillCoolingUpInc + ",hpUpInc = " + hpUpInc + ",energyCoe = " + energyCoe + ",energyExpend = " + energyExpend + ",energyBasis = " + energyBasis + ",advanceDraw = " + advanceDraw + ",advanceEquipment = " + advanceEquipment + ",advanceGold = " + advanceGold + ",advanceJewel = " + advanceJewel + ",state = " + state + "]";
+        return "EquipmentQurlityTemplet [id = " + id + ",quality = " + quality + ",step = " + step + ",starCount = " + starCount + ",maxLv = " + maxLv + ",gold = " + gold + ",score = " + score + ",attackAddInc = " + attackAddInc + ",skillCoolingInc = " + skillCoolingInc + ",hpInc = " + hpInc + ",attackAddUpInc = " + attackAddUpInc + ",skillCoolingUpInc = " + skillCoolingUpInc + ",hpUpInc = " + hpUpInc + ",energyCoe = " + energyCoe + ",energyExpend = " + energyExpend + ",energyBasis = " + energyBasis + ",advanceDraw = " + advanceDraw + ",advanceEquipmentQue = " + advanceEquipmentQue + ",advanceEquipment = " + advanceEquipment + ",advanceGold = " + advanceGold + ",advanceJewel = " + advanceJewel + ",state = " + state + "]";
     }
 
 	/*自定义代码开始*//*自定义代码结束*/

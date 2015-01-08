@@ -6,7 +6,7 @@ import org.jdom2.Element;
  * 模版
  *
  * @author liukun
- *         2015-1-8 10:02:34
+ *         2015-1-8 15:13:57
  */
 public class EquipmentTemplet{
 
@@ -167,6 +167,19 @@ public class EquipmentTemplet{
     }
 
     /**
+     * 资源id
+     */
+    private final String resId;
+
+
+    /**
+     * 资源id
+     */
+    public String getResId(){
+        return resId;
+    }
+
+    /**
      * 技能id
      */
     private final int skill;
@@ -205,6 +218,7 @@ public class EquipmentTemplet{
         attackAddUp = Float.parseFloat( element.getChildText( "attackAddUp" ).trim() );
         skillCoolingUp = Float.parseFloat( element.getChildText( "skillCoolingUp" ).trim() );
         hpUp = Float.parseFloat( element.getChildText( "hpUp" ).trim() );
+        resId = element.getChildText( "resId" ).trim();
         skill = Integer.parseInt( element.getChildText( "skill" ).trim() );
         describe = element.getChildText( "describe" ).trim();
 
@@ -212,7 +226,7 @@ public class EquipmentTemplet{
 
     @Override
     public String toString(){
-        return "EquipmentTemplet [id = " + id + ",name = " + name + ",type = " + type + ",quality = " + quality + ",qualityMax = " + qualityMax + ",currentLv = " + currentLv + ",attackAdd = " + attackAdd + ",skillCooling = " + skillCooling + ",hp = " + hp + ",attackAddUp = " + attackAddUp + ",skillCoolingUp = " + skillCoolingUp + ",hpUp = " + hpUp + ",skill = " + skill + ",describe = " + describe + "]";
+        return "EquipmentTemplet [id = " + id + ",name = " + name + ",type = " + type + ",quality = " + quality + ",qualityMax = " + qualityMax + ",currentLv = " + currentLv + ",attackAdd = " + attackAdd + ",skillCooling = " + skillCooling + ",hp = " + hp + ",attackAddUp = " + attackAddUp + ",skillCoolingUp = " + skillCoolingUp + ",hpUp = " + hpUp + ",resId = " + resId + ",skill = " + skill + ",describe = " + describe + "]";
     }
 
 	/*自定义代码开始*//*自定义代码结束*/

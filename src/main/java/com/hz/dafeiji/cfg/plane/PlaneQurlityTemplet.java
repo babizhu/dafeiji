@@ -6,7 +6,7 @@ import org.jdom2.Element;
  * 模版
  *
  * @author liukun
- *         2015-1-8 10:02:34
+ *         2015-1-8 15:13:57
  */
 public class PlaneQurlityTemplet{
 

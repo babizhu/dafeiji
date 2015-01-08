@@ -6,7 +6,7 @@ import org.jdom2.Element;
  * 模版
  *
  * @author liukun
- *         2015-1-8 10:02:34
+ *         2015-1-8 15:13:57
  */
 public class SikllTemplet{
 
@@ -63,6 +63,19 @@ public class SikllTemplet{
     }
 
     /**
+     * 资源id
+     */
+    private final String resId;
+
+
+    /**
+     * 资源id
+     */
+    public String getResId(){
+        return resId;
+    }
+
+    /**
      * 技能描述
      */
     private final String describe;
@@ -80,13 +93,14 @@ public class SikllTemplet{
         name = element.getChildText( "name" ).trim();
         purpose = Integer.parseInt( element.getChildText( "purpose" ).trim() );
         type = Integer.parseInt( element.getChildText( "type" ).trim() );
+        resId = element.getChildText( "resId" ).trim();
         describe = element.getChildText( "describe" ).trim();
 
     }
 
     @Override
     public String toString(){
-        return "SikllTemplet [id = " + id + ",name = " + name + ",purpose = " + purpose + ",type = " + type + ",describe = " + describe + "]";
+        return "SikllTemplet [id = " + id + ",name = " + name + ",purpose = " + purpose + ",type = " + type + ",resId = " + resId + ",describe = " + describe + "]";
     }
 
 	/*自定义代码开始*//*自定义代码结束*/

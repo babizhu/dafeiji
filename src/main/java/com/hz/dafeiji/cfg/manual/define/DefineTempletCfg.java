@@ -15,7 +15,7 @@ import java.util.Map;
  * time         2015-1-8 10:06
  */
 
-public class DefineTempletConfig{
+public class DefineTempletCfg{
     private static Map<String, DefineTemplet> map = Maps.newConcurrentMap();
 //    private static List<String> keys;
 //    private static List<DefineTemplet> all;
@@ -33,7 +33,7 @@ public class DefineTempletConfig{
 //        return keys;
 //    }
 
-    private static final String FILE = "./resource/xml/define/DefineConfig.xml";
+    private static final String FILE = "./resource/xml/define/define.xml";
 
     public static void init(){
 
@@ -42,9 +42,8 @@ public class DefineTempletConfig{
         try {
             document = builder.build( FILE );
             Element root = document.getRootElement();
-            List<?> list = root.getChildren( "items" );
+            List<?> list = root.getChildren( "Define" );
 
-            System.out.println( list.size() );
             for( Object o : list ) {
 //
                 DefineTemplet templet = new DefineTemplet( (Element) o );
@@ -52,7 +51,6 @@ public class DefineTempletConfig{
                 if( temp != null ) {
                     throw new RuntimeException( "DefineTemplet name [" + temp.getName() + "] 重复了" );
                 }
-                System.out.println( templet );
             }
         } catch( JDOMException | IOException e ) {
             e.printStackTrace();
@@ -70,7 +68,7 @@ public class DefineTempletConfig{
 
     public static void main( String[] args ){
         init();
-        System.out.println( get( "BOSS_SKILL" ) );
+        System.out.println( get( "ZHUANG_BEI_CHAI_FEN" ) );
     }
 }
 
