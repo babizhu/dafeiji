@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Defines>
+    <Define name="JIN_BI_EQUIPMENT_UP" type="float" value="0.1" explain="装备升级所消耗的金币与能源所占比例"/>
+    <Define name="JIN_BI_WING_UP" type="float" value="0.1" explain="僚机升级所消耗的金币与能源所占比例"/>
+    <Define name="ZHUANG_BEI_CHAI_FEN" type="float" value="0.1" explain="装备拆分时所获得的能源与升级所消耗能源的比例"/>
+    <Define name="LIAO_JI_TUN_SHI" type="float" value="0.1" explain="僚机被吞噬时所获得的经验与升级所消耗经验的比例"/>
+    <Define name="ZHUANG_BEI_SHENG_JI_CHANG_LIANG" type="float" value="10" explain="装备升级时的总的参数。"/>
+    <Define name="HEI_DAN_XIE_DAI_SHANG_XIAN" type="int" value="9" explain="经典模式核弹携带上限"/>
+</Defines>
