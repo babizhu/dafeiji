@@ -6,7 +6,7 @@ import org.jdom2.Element;
  * 模版
  *
  * @author liukun
- *         2015-1-8 16:56:41
+ *         2015-1-8 17:18:10
  */
 public class StuffTemplet{
 

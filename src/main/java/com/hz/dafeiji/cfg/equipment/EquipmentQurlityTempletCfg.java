@@ -14,7 +14,7 @@ import java.util.Map;
  * 模版配置
  *
  * @author liukun
- *         2015-1-8 16:56:41
+ *         2015-1-8 17:18:10
  */
 public class EquipmentQurlityTempletCfg{
     private static final Map<Integer, EquipmentQurlityTemplet> equipmentQurlityTemplets = new HashMap<>();

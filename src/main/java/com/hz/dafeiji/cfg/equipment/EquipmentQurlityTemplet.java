@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-8 16:56:41
+ * 2015-1-8 17:18:10
  */
 public class EquipmentQurlityTemplet{
 
@@ -68,7 +68,7 @@ public class EquipmentQurlityTemplet{
      */
     public int getMaxLv(){
         return maxLv;
-    }/**
+	}/**
 	 * 金币加成
      */
     private final float gold;
@@ -77,7 +77,7 @@ public class EquipmentQurlityTemplet{
     /**
      * 金币加成
      */
-    public float getGold(){
+    public float getGold() {
         return gold;
 	}/**
 	 * 分数加成
@@ -99,7 +99,7 @@ public class EquipmentQurlityTemplet{
     /**
      * 初始攻击加成增量
      */
-    public float getAttackAddInc(){
+    public float getAttackAddInc() {
         return attackAddInc;
 	}/**
 	 * 初始技能冷却增量
@@ -163,7 +163,7 @@ public class EquipmentQurlityTemplet{
 	/**
      * 生命成长增量
 	 */
-	public float getHpUpInc(){
+    public float getHpUpInc(){
         return hpUpInc;
     }
 
@@ -177,7 +177,7 @@ public class EquipmentQurlityTemplet{
 	/**
      * 能源消耗系数
 	 */
-	public int getEnergyCoe(){
+    public int getEnergyCoe(){
         return energyCoe;
     }
 
@@ -204,7 +204,7 @@ public class EquipmentQurlityTemplet{
 
 	/**
      * 拆分基础能源
-     */
+	 */
     public int getEnergyBasis(){
         return energyBasis;
     }
@@ -233,7 +233,7 @@ public class EquipmentQurlityTemplet{
 	/**
      * 进阶消耗所需装备品质
 	 */
-	public int getAdvanceEquipmentQue(){
+    public int getAdvanceEquipmentQue(){
         return advanceEquipmentQue;
     }
 

@@ -6,13 +6,10 @@ import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
  * 常数定义，自动生成，勿改
  *
  * @author liukun
- *         2015-1-8 16:56:41
+ *         2015-1-8 17:18:10
  */
 @SuppressWarnings("UnusedDeclaration")
 public class PropId{
-    static{
-        reload();
-    }
 
     /**
      * 金币:游戏币，用于游戏日常消耗等。 *
@@ -44,6 +41,7 @@ public class PropId{
     public static int XING_DONG_LI = 500007;
 
     public static void reload(){
+        DefineTempletCfg.init();
         CASH_JIN_BI = getInt( "CASH_JIN_BI" );
         CASH_ZUAN_SHI = getInt( "CASH_ZUAN_SHI" );
         ZONG_JI_FEN = getInt( "ZONG_JI_FEN" );

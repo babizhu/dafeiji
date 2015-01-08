@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-8 16:56:42
+ * 2015-1-8 17:18:10
  */
 public class WingQurlityTemplet{
 
@@ -68,7 +68,7 @@ public class WingQurlityTemplet{
      */
     public int getMaxLv(){
         return maxLv;
-    }/**
+	}/**
 	 * 金币加成
      */
     private final float gold;
@@ -77,7 +77,7 @@ public class WingQurlityTemplet{
     /**
      * 金币加成
      */
-    public float getGold(){
+    public float getGold() {
         return gold;
 	}/**
 	 * 分数加成
@@ -175,7 +175,7 @@ public class WingQurlityTemplet{
     /**
      * 进阶消耗金币
      */
-    public int getAdvanceGold(){
+    public int getAdvanceGold() {
         return advanceGold;
     }
 
