@@ -52,11 +52,12 @@ public class WingExpCfg{
 
     }
 
+    @SuppressWarnings("UnusedDeclaration")
     public static void printAll(){
         for( int i = 1; i < MAX_QUALITY; i++ ) {
 
             Map<Integer, Integer> row = table.row( i );
-            if( row != null ) {
+            if( !row.isEmpty() ) {
                 WingQurlityTemplet wt = WingQurlityTempletCfg.getWingQurlityTempletById( i );
                 for( int j = 1; j <= wt.getMaxLv(); j++ ) {
                     System.out.print( i + "," + j + "=" );
@@ -99,5 +100,6 @@ public class WingExpCfg{
     public static void main( String[] args ){
         System.out.println( getExp( 1, 10 ) );
         System.out.println( "maxLevel=" + getMaxLevel( 1, 1, 6900000 ) );
+//        printAll();
     }
 }
