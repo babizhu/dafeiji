@@ -4,11 +4,15 @@ import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
 
 /**
  * 常数定义，自动生成，勿改
+ *
  * @author liukun
- * 2015-1-8 17:18:10
+ *         2015-1-8 16:56:41
  */
 @SuppressWarnings("UnusedDeclaration")
 public class Define{
+    static{
+       reload();
+    }
 
     /**
      * 装备升级所消耗的金币与能源所占比例 *
@@ -36,7 +40,6 @@ public class Define{
     public static int HEI_DAN_XIE_DAI_SHANG_XIAN = 9;
 
     public static void reload(){
-        DefineTempletCfg.init();
         JIN_BI_EQUIPMENT_UP = getFloat( "JIN_BI_EQUIPMENT_UP" );
         JIN_BI_WING_UP = getFloat( "JIN_BI_WING_UP" );
         ZHUANG_BEI_CHAI_FEN = getFloat( "ZHUANG_BEI_CHAI_FEN" );
@@ -69,7 +72,7 @@ public class Define{
         return DefineTempletCfg.get( s ).getValue().trim();
     }
 
-    private static double getDouble(String s) {
-        return new Double(get(s));
-		}
+    private static double getDouble( String s ){
+        return new Double( get( s ) );
+    }
 }

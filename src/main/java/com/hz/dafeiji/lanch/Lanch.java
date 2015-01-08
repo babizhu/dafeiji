@@ -1,5 +1,7 @@
 package com.hz.dafeiji.lanch;
 
+import com.hz.dafeiji.ai.user.GameWorld;
+import com.hz.dafeiji.ai.user.modules.mail.MailStore;
 import com.hz.dafeiji.cfg.CfgInit;
 import com.hz.dafeiji.net.GameServer;
 import org.slf4j.Logger;
@@ -21,8 +23,11 @@ public class Lanch{
 
         CfgInit.init();
         logger.info( "配置表读取完成" );
+
+        MailStore.INSTANCE.init();
         GameServer server = new GameServer();
         server.run();
+
 
 
 //        logger.debug( "服务器启动了" );

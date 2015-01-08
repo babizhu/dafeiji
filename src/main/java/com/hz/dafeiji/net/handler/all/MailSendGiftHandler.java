@@ -30,7 +30,7 @@ public class MailSendGiftHandler implements IGameHandler {
             Mail mail = new Mail(sender, receiver, title, content, award);
             MailStore.INSTANCE.addUserMail(mail);
         }else{
-            throw new ClientException(ErrorCode.PARAMETER_ERROR, "缺少必要参数,传入参数:" + request.toString());
+            throw new ClientException(ErrorCode.PARAMETER_ERROR, "MailSendGiftHandler缺少必要参数,传入参数:" + request.toString());
         }
     }
 }

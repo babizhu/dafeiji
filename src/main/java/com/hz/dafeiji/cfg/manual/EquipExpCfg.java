@@ -2,10 +2,12 @@ package com.hz.dafeiji.cfg.manual;
 
 import com.google.common.collect.Table;
 import com.google.common.collect.TreeBasedTable;
+import com.hz.dafeiji.cfg.define.Define;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTempletCfg;
 import com.hz.dafeiji.cfg.equipment.EquipmentTypeTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentTypeTempletCfg;
+import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
 import com.hz.dafeiji.cfg.wing.WingQurlityTemplet;
 import com.hz.dafeiji.cfg.wing.WingQurlityTempletCfg;
 import com.hz.util.D;
@@ -75,10 +77,7 @@ public class EquipExpCfg {
         if(currentLevel >= wt.getMaxLv()){
             return 0;
         }
-
-        int energyConst = 10;                           //升级xx常量
-
-        needExp = Math.round(needExp * tt.getRatioUp() / 10F) * 10 * energyConst;
+        needExp = roundNum( roundNum(needExp * tt.getRatioUp()) * Define.ZHUANG_BEI_SHENG_JI_CHANG_LIANG );
         return needExp;
     }
 
@@ -98,7 +97,7 @@ public class EquipExpCfg {
         }
         EquipmentQurlityTemplet wt = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(quality);
 
-        return Math.round((costEnergy * 0.1f + wt.getEnergyBasis()) / 10F) * 10;
+        return roundNum(costEnergy * Define.ZHUANG_BEI_CHAI_FEN + wt.getEnergyBasis());
     }
 
 
@@ -116,5 +115,10 @@ public class EquipExpCfg {
         for(int i=1;i<=12;i++){
             System.out.println(getSplitExp(i, level, type));
         }
+    }
+
+
+    private static int roundNum(float num){
+        return Math.round(num / 10F) * 10;
     }
 }

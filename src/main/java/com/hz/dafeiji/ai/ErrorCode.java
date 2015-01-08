@@ -61,6 +61,9 @@ public enum ErrorCode{
      */
     USER_STRENGTH_NOT_ENOUGH( 1020 ),
 
+
+    HERO_NOT_FOUND( 2000 ),
+
     /**
      * 用户能源值不足
      */
@@ -76,14 +79,6 @@ public enum ErrorCode{
      */
     USER_DIAMOND_NOT_ENOUGH( 3004 ),
 
-    HERO_NOT_FOUND( 2000 ),
-
-    EQUIPMENT_NOT_FOUND( 3000 ),
-    EQUIPMENT_LEVEL_OVER_LIMIT( 3001 ),
-    EQUIPMENT_LEVEL_UNDER_LIMIT( 3002 ),
-    EQUIPMENT_UPGRADE_EQUIP_NOT_ENOUGH( 3003 ),
-    EQUIPMENT_UPGRADE_OVER_LIMIT( 3004 ),
-    EQUIPMENT_HAS_BEEN_DELETED( 3005 ),
     /**
      * 摇钱树今日运行次数超上限
      */
@@ -122,7 +117,15 @@ public enum ErrorCode{
     /**
      * 邮件未找到
      */
-    MAIL_MAIL_NOT_FOUND( 7000 );
+    MAIL_MAIL_NOT_FOUND( 7000 ),
+
+
+    EQUIPMENT_NOT_FOUND( 8000 ),
+    EQUIPMENT_LEVEL_OVER_LIMIT( 8001 ),
+    EQUIPMENT_LEVEL_UNDER_LIMIT( 8002 ),
+    EQUIPMENT_UPGRADE_EQUIP_NOT_ENOUGH( 8003 ),
+    EQUIPMENT_UPGRADE_OVER_LIMIT( 8004 ),
+    EQUIPMENT_HAS_BEEN_DELETED( 8005 );
 
     private static final Map<Integer, ErrorCode> numToEnum = new HashMap<>();
 
@@ -164,6 +167,11 @@ public enum ErrorCode{
 
     public int toNum(){
         return number;
+    }
+
+
+    public static void main(String[] args){
+        System.out.println(ErrorCode.SUCCESS.toNum());
     }
 
 }
