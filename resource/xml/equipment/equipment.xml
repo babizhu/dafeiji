@@ -7,12 +7,13 @@
         <quality>1</quality>
         <qualityMax>4</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0.011</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0.011F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0.0024</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0.0024F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd4101</resId>
         <skill>0</skill>
         <describe>缴获的异能星制式武器</describe>
     </Equipment>
@@ -23,12 +24,13 @@
         <quality>1</quality>
         <qualityMax>4</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0.011</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0.011F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0.0024</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0.0024F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd4102</resId>
         <skill>0</skill>
         <describe>在制式机关炮基础上研制的加强版</describe>
     </Equipment>
@@ -39,12 +41,13 @@
         <quality>1</quality>
         <qualityMax>4</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0.011</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0.011F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0.0024</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0.0024F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd4103</resId>
         <skill>0</skill>
         <describe>在强调最大化火力支援的背景下研发出来的单兵武器</describe>
     </Equipment>
@@ -55,12 +58,13 @@
         <quality>1</quality>
         <qualityMax>4</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>50</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>2.78</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>2.78F</hpUp>
+        <resId>zd4301</resId>
         <skill>0</skill>
         <describe>从坠毁的异能星基础飞船拆解下来的制式装甲</describe>
     </Equipment>
@@ -71,12 +75,13 @@
         <quality>1</quality>
         <qualityMax>4</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>50</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>2.78</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>2.78F</hpUp>
+        <resId>zd4302</resId>
         <skill>0</skill>
         <describe>加入了部分合金的制式装甲增强版</describe>
     </Equipment>
@@ -87,12 +92,13 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0.011</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0.011F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0.0024</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0.0024F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd7101</resId>
         <skill>710007</skill>
         <describe>获得诺贝尔终生成就奖的物理学博士罗森博格最大的成就就是研发了博格超声炮，这种炮在异能星方面被戏称为“寡妇炮”。</describe>
     </Equipment>
@@ -103,12 +109,13 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0.011</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0.011F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0.0024</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0.0024F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd7102</resId>
         <skill>710010</skill>
         <describe>严格讲不算攻击型武器，但果壳公司号称无死角的巡航母舰可以在接受信号后第一时间派出无人机支援使用者。</describe>
     </Equipment>
@@ -119,12 +126,13 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd7201</resId>
         <skill>710008</skill>
         <describe>在罗森博格逝世后他的实验室才针对超声炮进行了一系列改良，最主要是在炮膛内加入集束器来替代传统膛线。</describe>
     </Equipment>
@@ -135,12 +143,13 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd7202</resId>
         <skill>710009</skill>
         <describe>罗森博格实验室另一大改进就是创造性的在炮塔上加装声纳蜂巢，作用是将声纳炮的溢出能量转换为护盾。</describe>
     </Equipment>
@@ -151,12 +160,13 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd7203</resId>
         <skill>710011</skill>
         <describe>果壳公司一百周年回馈天网用户推出的增强芯片，其实只是一串识别码，目的是在用户使用天网时为其赠送两枚核弹。</describe>
     </Equipment>
@@ -167,12 +177,13 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd7204</resId>
         <skill>710012</skill>
         <describe>果壳公司一百周年回馈天网用户推出的记忆电阻，可以将无人机编队的支援时间变长。</describe>
     </Equipment>
@@ -183,12 +194,13 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>50</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>2.78</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>2.78F</hpUp>
+        <resId>zd7301</resId>
         <skill>710022</skill>
         <describe>与传统装甲的防护手段截然不同，“陨石带”的做法是将装甲部件通过反重力方式组合排列在战机周围以提供无死角的防护</describe>
     </Equipment>
@@ -199,12 +211,13 @@
         <quality>2</quality>
         <qualityMax>7</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>50</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>2.78</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>2.78F</hpUp>
+        <resId>zd7302</resId>
         <skill>710023</skill>
         <describe>矩阵装甲的特长不在于防护，而在于其可以很大程度提升战机的作战能力。</describe>
     </Equipment>
@@ -215,12 +228,13 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0.011</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0.011F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0.0024</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0.0024F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd8101</resId>
         <skill>710001</skill>
         <describe>异能星主力战舰的初代主炮，能量形态为雷电。具有很强大的火力支援能力。</describe>
     </Equipment>
@@ -231,12 +245,13 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0.011</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0.011F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0.0024</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0.0024F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd8102</resId>
         <skill>710004</skill>
         <describe>电鳗系列最杰出的作品，能量形态为激光。在火控以及单发输出方面的优势十分明显。</describe>
     </Equipment>
@@ -247,12 +262,13 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd8201</resId>
         <skill>710002</skill>
         <describe>在初代火炮基础上改进了火控，使得单发输出能力得到极大提升。</describe>
     </Equipment>
@@ -263,12 +279,13 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd8202</resId>
         <skill>710003</skill>
         <describe>在舰炮基座底部加装了能量回收箱，使其具有更好的战场生存能力。</describe>
     </Equipment>
@@ -279,12 +296,13 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd8203</resId>
         <skill>710005</skill>
         <describe>针对电鳗系列研发的二代产品，解决了激光炮发射过程中细微的衍射问题。</describe>
     </Equipment>
@@ -295,12 +313,13 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd8204</resId>
         <skill>710006</skill>
         <describe>矩阵阵列的二极激光回收器可以将电鳗舰炮的激光束溢出值转换成储备能量反哺战机。</describe>
     </Equipment>
@@ -311,12 +330,13 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>50</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>2.78</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>2.78F</hpUp>
+        <resId>zd8301</resId>
         <skill>710019</skill>
         <describe>用带有光波偏转的以太矿石打造的装备异能星军方最新一代制式装甲</describe>
     </Equipment>
@@ -327,12 +347,13 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>50</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>2.78</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>2.78F</hpUp>
+        <resId>zd8302</resId>
         <skill>710020</skill>
         <describe>从异能星军方缴获的只有高级战机才能配备的特制装甲</describe>
     </Equipment>
@@ -343,12 +364,13 @@
         <quality>5</quality>
         <qualityMax>8</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>50</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>2.78</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>2.78F</hpUp>
+        <resId>zd8303</resId>
         <skill>710021</skill>
         <describe>用非常稀有的泰坦矿石打造的高级装甲可以给予战机极大的属性加成。</describe>
     </Equipment>
@@ -359,12 +381,13 @@
         <quality>9</quality>
         <qualityMax>12</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0.011</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0.011F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0.0024</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0.0024F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd2101</resId>
         <skill>710013</skill>
         <describe>伊冷星出产的八棱水晶最突出的能力不是它的镜像能力，而是其可以将能量具象化。</describe>
     </Equipment>
@@ -375,12 +398,13 @@
         <quality>9</quality>
         <qualityMax>12</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0.011</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0.011F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0.0024</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0.0024F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd2102</resId>
         <skill>710016</skill>
         <describe>和星云风暴同名的这门舰炮其能量击发方式就是模仿星云裂变爆发时的冲击波，因此它同样可以暂时影响区域三维。</describe>
     </Equipment>
@@ -391,12 +415,13 @@
         <quality>9</quality>
         <qualityMax>12</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd2201</resId>
         <skill>710014</skill>
         <describe>水晶充能阀可以在短时间内将水晶炮的能量达到极限，从而提高战机的各项表现。</describe>
     </Equipment>
@@ -407,12 +432,13 @@
         <quality>9</quality>
         <qualityMax>12</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd2202</resId>
         <skill>710015</skill>
         <describe>和水晶充能阀的核心功能刚好相反，延时轮组可以将水晶炮具象化镜像的能力延长一定时间。</describe>
     </Equipment>
@@ -423,12 +449,13 @@
         <quality>9</quality>
         <qualityMax>12</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd2203</resId>
         <skill>710017</skill>
         <describe>水平星仪可以在短时间内模拟星云风暴的冲击波，从而将战机的火力输出达到极致。</describe>
     </Equipment>
@@ -439,12 +466,13 @@
         <quality>9</quality>
         <qualityMax>12</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0.0075</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0.0075F</skillCooling>
         <hp>0</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0.001</skillCoolingUp>
-        <hpUp>0</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0.001F</skillCoolingUp>
+        <hpUp>0F</hpUp>
+        <resId>zd2204</resId>
         <skill>710018</skill>
         <describe>星云风暴爆发时发散式的能量波很难被掌握，而星云转化仪可以达到微弱的集束功能，从而使爆发周期略微变长。</describe>
     </Equipment>
@@ -455,12 +483,13 @@
         <quality>9</quality>
         <qualityMax>12</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>50</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>2.78</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>2.78F</hpUp>
+        <resId>zd2301</resId>
         <skill>710024</skill>
         <describe>伊冷星出产的八棱水晶制作成战机装甲后具有良好的延展性和衍射能力，对战机有极大的增益。</describe>
     </Equipment>
@@ -471,12 +500,13 @@
         <quality>9</quality>
         <qualityMax>12</qualityMax>
         <currentLv>1</currentLv>
-        <attackAdd>0</attackAdd>
-        <skillCooling>0</skillCooling>
+        <attackAdd>0F</attackAdd>
+        <skillCooling>0F</skillCooling>
         <hp>50</hp>
-        <attackAddUp>0</attackAddUp>
-        <skillCoolingUp>0</skillCoolingUp>
-        <hpUp>2.78</hpUp>
+        <attackAddUp>0F</attackAddUp>
+        <skillCoolingUp>0F</skillCoolingUp>
+        <hpUp>2.78F</hpUp>
+        <resId>zd2302</resId>
         <skill>710025</skill>
         <describe>将星云风暴中心的萃取物提炼并制成的装甲，能将战机性能提高到不可思议的地步。</describe>
     </Equipment>

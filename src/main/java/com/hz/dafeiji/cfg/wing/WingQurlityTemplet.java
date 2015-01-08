@@ -4,9 +4,8 @@ import org.jdom2.Element;
 
 /**
  * 模版
- *
  * @author liukun
- *         2015-1-8 15:13:57
+ * 2015-1-8 16:56:42
  */
 public class WingQurlityTemplet{
 
@@ -47,11 +46,9 @@ public class WingQurlityTemplet{
      */
     public int getStep(){
         return step;
-    }
-
-    /**
+    }/**
      * 实星数
-     */
+	 */
     private final int starCount;
 
 
@@ -60,11 +57,9 @@ public class WingQurlityTemplet{
      */
     public int getStarCount(){
         return starCount;
-    }
-
-    /**
+    }/**
      * 所能升级的最大等级
-     */
+	 */
     private final int maxLv;
 
 
@@ -73,10 +68,8 @@ public class WingQurlityTemplet{
      */
     public int getMaxLv(){
         return maxLv;
-    }
-
-    /**
-     * 金币加成
+    }/**
+	 * 金币加成
      */
     private final float gold;
 
@@ -86,10 +79,8 @@ public class WingQurlityTemplet{
      */
     public float getGold(){
         return gold;
-    }
-
-    /**
-     * 分数加成
+	}/**
+	 * 分数加成
      */
     private final float score;
 
@@ -97,12 +88,10 @@ public class WingQurlityTemplet{
     /**
      * 分数加成
      */
-    public float getScore(){
+    public float getScore() {
         return score;
-    }
-
-    /**
-     * 攻速增量
+	}/**
+	 * 攻速增量
      */
     private final float aspdUpInc;
 
@@ -110,11 +99,9 @@ public class WingQurlityTemplet{
     /**
      * 攻速增量
      */
-    public float getAspdUpInc(){
+    public float getAspdUpInc() {
         return aspdUpInc;
-    }
-
-    /**
+	}/**
      * 攻击成长增量
      */
     private final float attackUpInc;
@@ -123,7 +110,7 @@ public class WingQurlityTemplet{
     /**
      * 攻击成长增量
      */
-    public float getAttackUpInc(){
+    public float getAttackUpInc() {
         return attackUpInc;
     }
 
@@ -136,7 +123,7 @@ public class WingQurlityTemplet{
     /**
      * 升级单级经验差
      */
-    public int getExpGap(){
+    public int getExpGap() {
         return expGap;
     }
 
@@ -149,7 +136,7 @@ public class WingQurlityTemplet{
     /**
      * 初始经验
      */
-    public int getExpInitial(){
+    public int getExpInitial() {
         return expInitial;
     }
 
@@ -175,7 +162,7 @@ public class WingQurlityTemplet{
     /**
      * 进阶消耗5品质僚机数量
      */
-    public int getAdvanceWing(){
+	public int getAdvanceWing(){
         return advanceWing;
     }
 
@@ -198,9 +185,10 @@ public class WingQurlityTemplet{
     private final int advanceJewel;
 
 
-    /**
+
+	/**
      * 进阶消耗钻石
-     */
+	 */
     public int getAdvanceJewel(){
         return advanceJewel;
     }

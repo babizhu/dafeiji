@@ -4,9 +4,8 @@ import org.jdom2.Element;
 
 /**
  * 模版
- *
  * @author liukun
- *         2015-1-8 15:13:57
+ * 2015-1-8 16:56:41
  */
 public class MonsterTemplet{
 
@@ -38,7 +37,7 @@ public class MonsterTemplet{
 
     /**
      * 品阶
-     */
+	 */
     private final int quality;
 
 
@@ -47,11 +46,9 @@ public class MonsterTemplet{
      */
     public int getQuality(){
         return quality;
-    }
-
-    /**
+    }/**
      * 当前等级
-     */
+	 */
     private final int currentLv;
 
 
@@ -60,11 +57,9 @@ public class MonsterTemplet{
      */
     public int getCurrentLv(){
         return currentLv;
-    }
-
-    /**
-     * 生命
-     */
+    }/**
+	 * 生命
+	 */
     private final int hp;
 
 
@@ -73,10 +68,8 @@ public class MonsterTemplet{
      */
     public int getHp(){
         return hp;
-    }
-
-    /**
-     * 子弹攻击
+    }/**
+	 * 子弹攻击
      */
     private final int attack;
 
@@ -86,10 +79,8 @@ public class MonsterTemplet{
      */
     public int getAttack(){
         return attack;
-    }
-
-    /**
-     * 撞击伤害
+    }/**
+	 * 撞击伤害
      */
     private final int strike;
 
@@ -97,11 +88,9 @@ public class MonsterTemplet{
     /**
      * 撞击伤害
      */
-    public int getStrike(){
+    public int getStrike() {
         return strike;
-    }
-
-    /**
+	}/**
      * 攻速（50）
      */
     private final int aspd;
@@ -110,7 +99,7 @@ public class MonsterTemplet{
     /**
      * 攻速（50）
      */
-    public int getAspd(){
+    public int getAspd() {
         return aspd;
     }
 
@@ -123,7 +112,7 @@ public class MonsterTemplet{
     /**
      * 移动速度
      */
-    public int getSpeed(){
+    public int getSpeed() {
         return speed;
     }
 
@@ -136,7 +125,7 @@ public class MonsterTemplet{
     /**
      * 怪物资源id
      */
-    public String getResId(){
+    public String getResId() {
         return resId;
     }
 
@@ -149,7 +138,7 @@ public class MonsterTemplet{
     /**
      * 弹幕id组
      */
-    public int getBarrage(){
+	public int getBarrage(){
         return barrage;
     }
 
@@ -162,7 +151,7 @@ public class MonsterTemplet{
     /**
      * 技能id1
      */
-    public int getSkill1(){
+	public int getSkill1(){
         return skill1;
     }
 
