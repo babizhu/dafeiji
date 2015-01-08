@@ -167,6 +167,7 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
     @Override
     public void exceptionCaught( ChannelHandlerContext ctx, Throwable cause ) throws Exception{
 
+        cause.printStackTrace();
         logger.error( cause.getMessage() );
         ctx.close();
     }
