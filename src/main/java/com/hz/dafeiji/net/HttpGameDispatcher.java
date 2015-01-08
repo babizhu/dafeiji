@@ -177,10 +177,8 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
      * @param signature     签名
      */
     private boolean signatureIsValid( String data, String signature ){
-        if( signature == null || signature.trim().isEmpty() ) {
-            return false;
-        }
-        return true;
+
+        return !(signature == null || signature.trim().isEmpty());
     }
 
     private void dispatch( String signature, String data, String session, String uname ){

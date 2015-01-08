@@ -4,8 +4,9 @@ import org.jdom2.Element;
 
 /**
  * 模版
+ *
  * @author liukun
- * 2015-1-8 17:18:10
+ *         2015-1-8 17:43:15
  */
 public class EquipmentQurlityTemplet{
 
@@ -46,9 +47,11 @@ public class EquipmentQurlityTemplet{
      */
     public int getStep(){
         return step;
-    }/**
+    }
+
+    /**
      * 实星数
-	 */
+     */
     private final int starCount;
 
 
@@ -57,9 +60,11 @@ public class EquipmentQurlityTemplet{
      */
     public int getStarCount(){
         return starCount;
-    }/**
+    }
+
+    /**
      * 所能升级的最大等级
-	 */
+     */
     private final int maxLv;
 
 
@@ -68,8 +73,10 @@ public class EquipmentQurlityTemplet{
      */
     public int getMaxLv(){
         return maxLv;
-	}/**
-	 * 金币加成
+    }
+
+    /**
+     * 金币加成
      */
     private final float gold;
 
@@ -77,10 +84,12 @@ public class EquipmentQurlityTemplet{
     /**
      * 金币加成
      */
-    public float getGold() {
+    public float getGold(){
         return gold;
-	}/**
-	 * 分数加成
+    }
+
+    /**
+     * 分数加成
      */
     private final float score;
 
@@ -88,10 +97,12 @@ public class EquipmentQurlityTemplet{
     /**
      * 分数加成
      */
-    public float getScore() {
+    public float getScore(){
         return score;
-	}/**
-	 * 初始攻击加成增量
+    }
+
+    /**
+     * 初始攻击加成增量
      */
     private final float attackAddInc;
 
@@ -99,10 +110,12 @@ public class EquipmentQurlityTemplet{
     /**
      * 初始攻击加成增量
      */
-    public float getAttackAddInc() {
+    public float getAttackAddInc(){
         return attackAddInc;
-	}/**
-	 * 初始技能冷却增量
+    }
+
+    /**
+     * 初始技能冷却增量
      */
     private final float skillCoolingInc;
 
@@ -110,7 +123,7 @@ public class EquipmentQurlityTemplet{
     /**
      * 初始技能冷却增量
      */
-    public float getSkillCoolingInc() {
+    public float getSkillCoolingInc(){
         return skillCoolingInc;
     }
 
@@ -123,7 +136,7 @@ public class EquipmentQurlityTemplet{
     /**
      * 初始生命值增量
      */
-    public float getHpInc() {
+    public float getHpInc(){
         return hpInc;
     }
 
@@ -136,7 +149,7 @@ public class EquipmentQurlityTemplet{
     /**
      * 攻击加成成长增量
      */
-    public float getAttackAddUpInc() {
+    public float getAttackAddUpInc(){
         return attackAddUpInc;
     }
 
@@ -159,10 +172,9 @@ public class EquipmentQurlityTemplet{
     private final float hpUpInc;
 
 
-
-	/**
+    /**
      * 生命成长增量
-	 */
+     */
     public float getHpUpInc(){
         return hpUpInc;
     }
@@ -173,10 +185,9 @@ public class EquipmentQurlityTemplet{
     private final int energyCoe;
 
 
-
-	/**
+    /**
      * 能源消耗系数
-	 */
+     */
     public int getEnergyCoe(){
         return energyCoe;
     }
@@ -187,10 +198,9 @@ public class EquipmentQurlityTemplet{
     private final int energyExpend;
 
 
-
-	/**
+    /**
      * 升级消耗基础能源
-	 */
+     */
     public int getEnergyExpend(){
         return energyExpend;
     }
@@ -201,10 +211,9 @@ public class EquipmentQurlityTemplet{
     private final int energyBasis;
 
 
-
-	/**
+    /**
      * 拆分基础能源
-	 */
+     */
     public int getEnergyBasis(){
         return energyBasis;
     }
@@ -215,10 +224,9 @@ public class EquipmentQurlityTemplet{
     private final int advanceDraw;
 
 
-
-	/**
+    /**
      * 进阶消耗图纸数量
-	 */
+     */
     public int getAdvanceDraw(){
         return advanceDraw;
     }
@@ -229,10 +237,9 @@ public class EquipmentQurlityTemplet{
     private final int advanceEquipmentQue;
 
 
-
-	/**
+    /**
      * 进阶消耗所需装备品质
-	 */
+     */
     public int getAdvanceEquipmentQue(){
         return advanceEquipmentQue;
     }
@@ -243,8 +250,7 @@ public class EquipmentQurlityTemplet{
     private final int advanceEquipment;
 
 
-
-	/**
+    /**
      * 进阶消耗同件装备数量
      */
     public int getAdvanceEquipment(){

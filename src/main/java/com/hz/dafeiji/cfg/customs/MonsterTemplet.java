@@ -4,8 +4,9 @@ import org.jdom2.Element;
 
 /**
  * 模版
+ *
  * @author liukun
- * 2015-1-8 17:18:10
+ *         2015-1-8 17:43:15
  */
 public class MonsterTemplet{
 
@@ -37,7 +38,7 @@ public class MonsterTemplet{
 
     /**
      * 品阶
-	 */
+     */
     private final int quality;
 
 
@@ -59,9 +60,11 @@ public class MonsterTemplet{
      */
     public int getCurrentLv(){
         return currentLv;
-    }/**
-	 * 生命
-	 */
+    }
+
+    /**
+     * 生命
+     */
     private final int hp;
 
 
@@ -70,8 +73,10 @@ public class MonsterTemplet{
      */
     public int getHp(){
         return hp;
-    }/**
-	 * 子弹攻击
+    }
+
+    /**
+     * 子弹攻击
      */
     private final int attack;
 
@@ -81,8 +86,10 @@ public class MonsterTemplet{
      */
     public int getAttack(){
         return attack;
-    }/**
-	 * 撞击伤害
+    }
+
+    /**
+     * 撞击伤害
      */
     private final int strike;
 
@@ -92,7 +99,9 @@ public class MonsterTemplet{
      */
     public int getStrike(){
         return strike;
-    }/**
+    }
+
+    /**
      * 攻速（50）
      */
     private final int aspd;
@@ -103,8 +112,10 @@ public class MonsterTemplet{
      */
     public int getAspd(){
         return aspd;
-	}/**
-	 * 移动速度
+    }
+
+    /**
+     * 移动速度
      */
     private final int speed;
 
@@ -112,10 +123,12 @@ public class MonsterTemplet{
     /**
      * 移动速度
      */
-    public int getSpeed() {
+    public int getSpeed(){
         return speed;
-	}/**
-	 * 怪物资源id
+    }
+
+    /**
+     * 怪物资源id
      */
     private final String resId;
 
@@ -123,7 +136,7 @@ public class MonsterTemplet{
     /**
      * 怪物资源id
      */
-    public String getResId() {
+    public String getResId(){
         return resId;
     }
 
@@ -136,7 +149,7 @@ public class MonsterTemplet{
     /**
      * 弹幕id组
      */
-    public int getBarrage() {
+    public int getBarrage(){
         return barrage;
     }
 
@@ -149,7 +162,7 @@ public class MonsterTemplet{
     /**
      * 技能id1
      */
-    public int getSkill1() {
+    public int getSkill1(){
         return skill1;
     }
 
@@ -162,7 +175,7 @@ public class MonsterTemplet{
     /**
      * 技能id2
      */
-	public int getSkill2(){
+    public int getSkill2(){
         return skill2;
     }
 
