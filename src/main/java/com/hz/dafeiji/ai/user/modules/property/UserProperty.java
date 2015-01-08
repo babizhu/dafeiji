@@ -49,6 +49,11 @@ class UserProperty{
      */
     private int vip;
 
+    /**
+     * 能源
+     */
+    private int energy;
+
 
     //private INonBlockingConnection  con;
 
@@ -143,5 +148,13 @@ class UserProperty{
 
     public void setCash( int cash ){
         this.cash = cash;
+    }
+
+
+    public int getEnergy() {
+        return energy;
+    }
+    public void setEnergy(int energy) {
+        this.energy = energy;
     }
 }

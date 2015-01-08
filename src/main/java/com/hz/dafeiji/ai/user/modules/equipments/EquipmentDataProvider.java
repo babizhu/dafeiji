@@ -11,31 +11,40 @@ import com.mongodb.DBObject;
 
 public class EquipmentDataProvider extends AbstractDataProviderWithIdentity<Equipment>{
 
-    private static final String TABLE_NAME = "equipment";
+    public static final String TABLE_NAME = "equipment";
+    public static final String FIELD_ID = "_id";
+    public static final String FIELD_TEMPLETID = "templetId";
+    public static final String FIELD_LEVEL = "level";
+    public static final String FIELD_QUALITY = "quality";
+    public static final String FIELD_UNAME = "uname";
+    public static final String FIELD_LOADED = "loaded";
+    public static final String FIELD_ISDELETE = "isDelete";
 
     public EquipmentDataProvider( String uname ){
         super( TABLE_NAME, uname );
     }
 
-    public static void main( String[] args ){
-        System.out.println();
-    }
 
     @Override
     protected Equipment decode( DBObject object ){
-        int templetId = ((int) object.get( "templetId" ));
-        Equipment equipment = new Equipment( (long) object.get( "_id" ), templetId );
-        equipment.setLevel( (int) object.get( "level" ) );
-
-        return equipment;
+        long id = (long) object.get(FIELD_ID);
+        int templeteId = (int) object.get(FIELD_TEMPLETID);
+        int level = (int) object.get(FIELD_LEVEL);
+        int quality = (int) object.get(FIELD_QUALITY);
+        int loaded = (int) object.get(FIELD_LOADED);
+        int isDelete = (int) object.get(FIELD_ISDELETE);
+        return new Equipment(id, templeteId, level, quality, loaded, isDelete);
     }
 
     @Override
-    protected DBObject encode( Equipment equipment ){
-        DBObject obj = new BasicDBObject( "_id", equipment.getId() );
-        obj.put( "uname", getUname() );
-        obj.put( "templetId", equipment.getTemplet().getId() );
-        obj.put( "level", equipment.getLevel() );
+    protected DBObject encode(Equipment equip){
+        DBObject obj = new BasicDBObject(FIELD_ID, equip.getId());
+        obj.put(FIELD_UNAME, getUname());
+        obj.put(FIELD_TEMPLETID, equip.getTemplet().getId());
+        obj.put(FIELD_LEVEL, equip.getLevel());
+        obj.put(FIELD_QUALITY, equip.getQuality());
+        obj.put(FIELD_LOADED, equip.getLoaded());
+        obj.put(FIELD_ISDELETE, equip.getIsDelete());
         return obj;
     }
 

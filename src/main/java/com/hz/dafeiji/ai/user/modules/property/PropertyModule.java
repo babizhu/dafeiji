@@ -117,6 +117,10 @@ public class PropertyModule{
         return property.getStrength().getStrengthMax();
     }
 
+    public int getEnergy(){
+        return property.getEnergy();
+    }
+
     /**
      * 如果是扣除，changeValue请用负数，同时无需考虑是否够扣的问题，AwardModule会统一处理
      *
@@ -154,6 +158,18 @@ public class PropertyModule{
         int st = property.getStrength().changeStrength( changeValue );
         db.replace( property );//体力比较特殊，这里简化处理先
         return st;
+    }
+
+    /**
+     * 修改玩家能源，如果是扣除，changeValue请用负数，同时无需考虑是否够扣的问题，AwardModule会统一处理
+     * @param changeValue 能源变化值
+     * @return 变化后的能源数量
+     */
+    public int changeEnergy(int changeValue){
+        int energy = property.getEnergy() + changeValue;
+        property.setEnergy(energy);
+        db.updateWithField(PropertyDataProvider.ENERGY_FIELD, energy);
+        return energy;
     }
 
     @Override

@@ -21,6 +21,7 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
     static final String SCORE_WEEK_FIELD = "scoreWeek";
     static final String VIP_FIELD = "vip";
     static final String POWER_FIELD = "power";
+    static final String ENERGY_FIELD = "energy";
 
     /**
      * @param uname 玩家名称
@@ -49,7 +50,7 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
         property.setPower( (int) obj.get( POWER_FIELD ) );
         property.setVip( (int) obj.get( VIP_FIELD ) );
 
-
+        property.setEnergy((int) obj.get(ENERGY_FIELD));
         return property;
     }
 
@@ -68,7 +69,7 @@ class PropertyDataProvider extends AbstractDataProviderWithUserName<UserProperty
         obj.put( VIP_FIELD, property.getVip() );
         obj.put( "lastCalcStrengthSecond", property.getStrength().getLastCalcStrengthSecond() );
 
-
+        obj.put(ENERGY_FIELD, property.getEnergy());
         return obj;
     }
 

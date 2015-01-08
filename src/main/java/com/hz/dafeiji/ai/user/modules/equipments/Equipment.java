@@ -2,6 +2,7 @@ package com.hz.dafeiji.ai.user.modules.equipments;
 
 
 import com.bbz.tool.db.IdentityObj;
+import com.bbz.tool.identity.IdentityGen;
 import com.hz.dafeiji.cfg.equipment.EquipmentTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentTempletCfg;
 import lombok.Data;
@@ -14,22 +15,63 @@ import lombok.Data;
 @Data
 public class Equipment implements IdentityObj{
 
-    /**
-     * 唯一标识
-     */
-    private final long id;
-
     private final EquipmentTemplet templet;
+
+    /**
+     * 装备ID
+     */
+    private long id;
+
+    /**
+     * 装备等级
+     */
     private int level;
 
-    public Equipment( long id, int templetId ){
+    /**
+     * 装备品质
+     */
+    private int quality;
+
+    /**
+     * 是否装备上
+     */
+    private int loaded;
+
+    /**
+     * 是否是已删除装备
+     */
+    private int isDelete;
+
+
+    /**
+     * 从数据库取出数据构造对象
+     * @param id  数据库ID
+     * @param templetId  模版ID
+     * @param level  等级
+     * @param quality  品质
+     * @param loaded  是否装备上
+     * @param isDelete 是否已删除
+     */
+    public Equipment(long id, int templetId, int level, int quality, int loaded, int isDelete){
         this.id = id;
-        EquipmentTemplet et = EquipmentTempletCfg.getEquipmentTempletById( templetId );
-        this.templet = et;
+        this.templet = EquipmentTempletCfg.getEquipmentTempletById( templetId );
+        this.level = level;
+        this.quality = quality;
+        this.loaded = loaded;
+        this.isDelete = isDelete;
     }
 
-
-    public void addLevel( int addValue ){
-        level += addValue;
+    /**
+     * 从配置表构造新装备
+     * @param templetId  模版ID
+     */
+    public Equipment(int templetId){
+        this.id = IdentityGen.INSTANCE.incrementAndGet();
+        this.templet = EquipmentTempletCfg.getEquipmentTempletById( templetId );
+        this.level = 1;
+        this.quality = templet.getQuality();
+        this.loaded = 0;
+        this.isDelete = 0;
     }
+
 }
