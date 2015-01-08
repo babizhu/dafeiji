@@ -4,73 +4,76 @@ import org.jdom2.Element;
 
 /**
  * 模版
+ *
  * @author liukun
- * 2015-1-7 16:45:27
+ *         2015-1-8 10:02:34
  */
-public class EquipmentTypeTemplet {
+public class EquipmentTypeTemplet{
 
     /**
-	 * 类型id
-	 */
+     * 类型id
+     */
     private final int id;
 
 
+    /**
+     * 类型id
+     */
+    public int getId(){
+        return id;
+    }
 
-	/**
-	 * 类型id
-	 */
-	public int getId() {
-		return id;
-	}/**
-	 * 对应装备类型
-	 */
+    /**
+     * 对应装备类型
+     */
     private final String typeName;
 
 
+    /**
+     * 对应装备类型
+     */
+    public String getTypeName(){
+        return typeName;
+    }
 
-	/**
-	 * 对应装备类型
-	 */
-	public String getTypeName() {
-		return typeName;
-	}/**
-	 * 对升级所影响比例
-	 */
+    /**
+     * 对升级所影响比例
+     */
     private final float ratioUp;
 
 
+    /**
+     * 对升级所影响比例
+     */
+    public float getRatioUp(){
+        return ratioUp;
+    }
 
-	/**
-	 * 对升级所影响比例
-	 */
-	public float getRatioUp() {
-		return ratioUp;
-	}/**
-	 * 对拆分所影响比例
-	 */
+    /**
+     * 对拆分所影响比例
+     */
     private final float ratioSplit;
 
 
+    /**
+     * 对拆分所影响比例
+     */
+    public float getRatioSplit(){
+        return ratioSplit;
+    }
 
-	/**
-	 * 对拆分所影响比例
-	 */
-	public float getRatioSplit() {
-		return ratioSplit;
-	}
+    public EquipmentTypeTemplet( Element element ){
+        id = Integer.parseInt( element.getChildText( "id" ).trim() );
+        typeName = element.getChildText( "typeName" ).trim();
+        ratioUp = Float.parseFloat( element.getChildText( "ratioUp" ).trim() );
+        ratioSplit = Float.parseFloat( element.getChildText( "ratioSplit" ).trim() );
 
-	public EquipmentTypeTemplet( Element element ) {
-		id = Integer.parseInt( element.getChildText("id").trim() );
-typeName = element.getChildText("typeName").trim();
-ratioUp = Float.parseFloat( element.getChildText("ratioUp").trim() );
-ratioSplit = Float.parseFloat( element.getChildText("ratioSplit").trim() );
+    }
 
-	}
-
-	@Override
-	public String toString() {
-		return "EquipmentTypeTemplet [id = " + id + ",typeName = " + typeName + ",ratioUp = " + ratioUp + ",ratioSplit = " + ratioSplit + "]";
-	}
+    @Override
+    public String toString(){
+        return "EquipmentTypeTemplet [id = " + id + ",typeName = " + typeName + ",ratioUp = " + ratioUp + ",ratioSplit = " + ratioSplit + "]";
+    }
 
 	/*自定义代码开始*//*自定义代码结束*/
 }

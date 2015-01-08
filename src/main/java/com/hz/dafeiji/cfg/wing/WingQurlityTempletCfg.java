@@ -12,60 +12,62 @@ import java.util.Map;
 
 /**
  * 模版配置
+ *
  * @author liukun
- * 2015-1-7 16:45:28
+ *         2015-1-8 10:02:34
  */
-public class WingQurlityTempletCfg {
-	private static final Map<Integer,WingQurlityTemplet> wingQurlityTemplets = new HashMap<>();
+public class WingQurlityTempletCfg{
+    private static final Map<Integer, WingQurlityTemplet> wingQurlityTemplets = new HashMap<>();
 
 
-	static{
-		//init();
+    static{
+        //init();
 
-	}
-	private static final String FILE = "./resource/xml/wing/wingQurlity.xml";
+    }
+
+    private static final String FILE = "./resource/xml/wing/wingQurlity.xml";
 
 
+    public static void init(){
 
-	public static void init(){
+        SAXBuilder builder = new SAXBuilder();
+        Document document;
+        try {
+            document = builder.build( FILE );
+            Element root = document.getRootElement();
+            List<?> list = root.getChildren( "WingQurlity" );
 
-		SAXBuilder builder = new SAXBuilder();
-		Document document;
-		try {
-			document = builder.build( FILE );
-			Element root = document.getRootElement();
-			List<?> list = root.getChildren( "WingQurlity" );
+            for( Object o : list ) {
+                WingQurlityTemplet templet = new WingQurlityTemplet( (Element) o );
+                WingQurlityTemplet temp = wingQurlityTemplets.put( templet.getId(), templet );
+                if( temp != null ) {
+                    throw new RuntimeException( "WingQurlityTemplet id [" + temp.getId() + "] 重复了" );
+                }
 
-			for (Object o : list) {
-				WingQurlityTemplet templet = new WingQurlityTemplet( (Element) o );
-				WingQurlityTemplet temp = wingQurlityTemplets.put( templet.getId(), templet );
-				if( temp != null ){
-					throw new RuntimeException( "WingQurlityTemplet id [" + temp.getId() + "] 重复了" );
-				}
-
-			}
-		} catch (JDOMException | IOException e) {
-		    e.printStackTrace();
+            }
+        } catch( JDOMException | IOException e ) {
+            e.printStackTrace();
         }
 
-		System.out.println( "WingQurlityTemplet xml配置文件解析完毕" );
-	}
+        System.out.println( "WingQurlityTemplet xml配置文件解析完毕" );
+    }
 
 
-	/**
-	 * 通过id获取WingQurlityTemplet的引用
-	 * @param   templetId   id
-	 * @return  返回一个引用
-	 */
-	public static WingQurlityTemplet getWingQurlityTempletById( int templetId ){
-		return wingQurlityTemplets.get( templetId );
-	}
+    /**
+     * 通过id获取WingQurlityTemplet的引用
+     *
+     * @param templetId id
+     * @return 返回一个引用
+     */
+    public static WingQurlityTemplet getWingQurlityTempletById( int templetId ){
+        return wingQurlityTemplets.get( templetId );
+    }
 
 	/*自定义代码开始*//*自定义代码结束*/
 
-	public static void main(String[] args) {
+    public static void main( String[] args ){
 
-		int id = 100001;
-		System.out.println( getWingQurlityTempletById( id ) );
-	}
+        int id = 100001;
+        System.out.println( getWingQurlityTempletById( id ) );
+    }
 }

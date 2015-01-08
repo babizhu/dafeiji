@@ -1,5 +1,8 @@
 package com.hz.dafeiji.ai.user.modules.wing;
 
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
+
 /**
  * user         LIUKUN
  * time         2015-1-7 14:24
@@ -8,6 +11,12 @@ package com.hz.dafeiji.ai.user.modules.wing;
 
 public class WingModule{
 
+    private final PropertyModule propertyModule;
+
+    public WingModule( ModuleManager moduleManager ){
+        this.propertyModule = moduleManager.getPropertyModule();
+    }
+
     /**
      * 僚机升级
      *
@@ -15,6 +24,21 @@ public class WingModule{
      */
     public void levelUp( long id ){
 
+    }
+
+    /**
+     * 计算可以升级的最大等级
+     *
+     * @param wing 要升级的飞机
+     * @param exp  可用于此次升级的经验
+     * @return 当前条件下（经验，金币）可升的最大等级
+     */
+    private boolean calcMaxLevel( Wing wing, int exp ){
+//        int cash =
+//        if(  )
+//        int maxLevel = 1;
+//        int needExp =
+        return true;
     }
 
     /**

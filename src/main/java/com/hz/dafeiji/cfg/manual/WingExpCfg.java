@@ -31,7 +31,7 @@ public class WingExpCfg{
 
     static{
 
-        WingQurlityTempletCfg.init();
+//        WingQurlityTempletCfg.init();
 
         for( int i = 1; i < MAX_QUALITY; i++ ) {
             WingQurlityTemplet wt = WingQurlityTempletCfg.getWingQurlityTempletById( i );

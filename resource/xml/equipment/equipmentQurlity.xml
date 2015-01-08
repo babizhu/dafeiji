@@ -15,6 +15,7 @@
         <skillCoolingUpInc>0</skillCoolingUpInc>
         <hpUpInc>0</hpUpInc>
         <energyCoe>20</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>100</energyBasis>
         <advanceDraw>1</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
@@ -37,6 +38,7 @@
         <skillCoolingUpInc>0.0004</skillCoolingUpInc>
         <hpUpInc>0.9</hpUpInc>
         <energyCoe>30</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>200</energyBasis>
         <advanceDraw>2</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
@@ -59,6 +61,7 @@
         <skillCoolingUpInc>0.0005</skillCoolingUpInc>
         <hpUpInc>2.01</hpUpInc>
         <energyCoe>45</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>300</energyBasis>
         <advanceDraw>3</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
@@ -81,6 +84,7 @@
         <skillCoolingUpInc>0.0007</skillCoolingUpInc>
         <hpUpInc>3.54</hpUpInc>
         <energyCoe>68</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>400</energyBasis>
         <advanceDraw>4</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
@@ -103,6 +107,7 @@
         <skillCoolingUpInc>0.0006</skillCoolingUpInc>
         <hpUpInc>4.15</hpUpInc>
         <energyCoe>102</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>450</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>1</advanceEquipment>
@@ -125,6 +130,7 @@
         <skillCoolingUpInc>0.0009</skillCoolingUpInc>
         <hpUpInc>5.89</hpUpInc>
         <energyCoe>153</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>500</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>2</advanceEquipment>
@@ -147,6 +153,7 @@
         <skillCoolingUpInc>0.0017</skillCoolingUpInc>
         <hpUpInc>8.05</hpUpInc>
         <energyCoe>230</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>550</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>3</advanceEquipment>
@@ -169,6 +176,7 @@
         <skillCoolingUpInc>0.0025</skillCoolingUpInc>
         <hpUpInc>9</hpUpInc>
         <energyCoe>345</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>600</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>4</advanceEquipment>
@@ -191,6 +199,7 @@
         <skillCoolingUpInc>0.0007</skillCoolingUpInc>
         <hpUpInc>15.86</hpUpInc>
         <energyCoe>518</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>450</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
@@ -213,6 +222,7 @@
         <skillCoolingUpInc>0.001</skillCoolingUpInc>
         <hpUpInc>16.91</hpUpInc>
         <energyCoe>777</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>500</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
@@ -235,6 +245,7 @@
         <skillCoolingUpInc>0.0013</skillCoolingUpInc>
         <hpUpInc>17.78</hpUpInc>
         <energyCoe>1166</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>550</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>0</advanceEquipment>
@@ -257,6 +268,7 @@
         <skillCoolingUpInc>0.0018</skillCoolingUpInc>
         <hpUpInc>18.49</hpUpInc>
         <energyCoe>1749</energyCoe>
+        <energyExpend>100</energyExpend>
         <energyBasis>600</energyBasis>
         <advanceDraw>0</advanceDraw>
         <advanceEquipment>0</advanceEquipment>

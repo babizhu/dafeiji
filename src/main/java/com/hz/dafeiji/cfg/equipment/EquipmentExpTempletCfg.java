@@ -12,60 +12,62 @@ import java.util.Map;
 
 /**
  * 模版配置
+ *
  * @author liukun
- * 2015-1-7 16:45:27
+ *         2015-1-8 10:02:34
  */
-public class EquipmentExpTempletCfg {
-	private static final Map<Integer,EquipmentExpTemplet> equipmentExpTemplets = new HashMap<>();
+public class EquipmentExpTempletCfg{
+    private static final Map<Integer, EquipmentExpTemplet> equipmentExpTemplets = new HashMap<>();
 
 
-	static{
-		//init();
+    static{
+        //init();
 
-	}
-	private static final String FILE = "./resource/xml/equipment/equipmentExp.xml";
+    }
+
+    private static final String FILE = "./resource/xml/equipment/equipmentExp.xml";
 
 
+    public static void init(){
 
-	public static void init(){
+        SAXBuilder builder = new SAXBuilder();
+        Document document;
+        try {
+            document = builder.build( FILE );
+            Element root = document.getRootElement();
+            List<?> list = root.getChildren( "EquipmentExp" );
 
-		SAXBuilder builder = new SAXBuilder();
-		Document document;
-		try {
-			document = builder.build( FILE );
-			Element root = document.getRootElement();
-			List<?> list = root.getChildren( "EquipmentExp" );
+            for( Object o : list ) {
+                EquipmentExpTemplet templet = new EquipmentExpTemplet( (Element) o );
+                EquipmentExpTemplet temp = equipmentExpTemplets.put( templet.getId(), templet );
+                if( temp != null ) {
+                    throw new RuntimeException( "EquipmentExpTemplet id [" + temp.getId() + "] 重复了" );
+                }
 
-			for (Object o : list) {
-				EquipmentExpTemplet templet = new EquipmentExpTemplet( (Element) o );
-				EquipmentExpTemplet temp = equipmentExpTemplets.put( templet.getId(), templet );
-				if( temp != null ){
-					throw new RuntimeException( "EquipmentExpTemplet id [" + temp.getId() + "] 重复了" );
-				}
-
-			}
-		} catch (JDOMException | IOException e) {
-		    e.printStackTrace();
+            }
+        } catch( JDOMException | IOException e ) {
+            e.printStackTrace();
         }
 
-		System.out.println( "EquipmentExpTemplet xml配置文件解析完毕" );
-	}
+        System.out.println( "EquipmentExpTemplet xml配置文件解析完毕" );
+    }
 
 
-	/**
-	 * 通过id获取EquipmentExpTemplet的引用
-	 * @param   templetId   id
-	 * @return  返回一个引用
-	 */
-	public static EquipmentExpTemplet getEquipmentExpTempletById( int templetId ){
-		return equipmentExpTemplets.get( templetId );
-	}
+    /**
+     * 通过id获取EquipmentExpTemplet的引用
+     *
+     * @param templetId id
+     * @return 返回一个引用
+     */
+    public static EquipmentExpTemplet getEquipmentExpTempletById( int templetId ){
+        return equipmentExpTemplets.get( templetId );
+    }
 
 	/*自定义代码开始*//*自定义代码结束*/
 
-	public static void main(String[] args) {
+    public static void main( String[] args ){
 
-		int id = 100001;
-		System.out.println( getEquipmentExpTempletById( id ) );
-	}
+        int id = 100001;
+        System.out.println( getEquipmentExpTempletById( id ) );
+    }
 }
