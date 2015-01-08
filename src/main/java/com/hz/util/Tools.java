@@ -26,9 +26,7 @@ public class Tools {
         return chk;
     }
 
-
     public static void main(String[] args){
-        String[] s = "m".split(",");
-        System.out.println(s.length);
+
     }
 }

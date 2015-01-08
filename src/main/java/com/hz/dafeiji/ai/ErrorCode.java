@@ -96,7 +96,13 @@ public enum ErrorCode{
     /**
      * 要变化数量的道具没找到
      */
-    AWARD_PROP_NOT_FOUND( 6502 );
+    AWARD_PROP_NOT_FOUND( 6502 ),
+
+
+    /**
+     * 邮件未找到
+     */
+    MAIL_MAIL_NOT_FOUND( 7000 );
 
     private static final Map<Integer, ErrorCode> numToEnum = new HashMap<>();
 

@@ -1,6 +1,8 @@
 package com.hz.dafeiji.ai.user.modules.mail;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.hz.dafeiji.ai.ClientException;
+import com.hz.dafeiji.ai.ErrorCode;
 
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,8 @@ public class MailModule {
                 mail.setIsRead(1);  //修改读取状态
                 MailStore.INSTANCE.updateUserMail(mail);
             }
+        }else{
+            throw new ClientException(ErrorCode.MAIL_MAIL_NOT_FOUND, "查阅的邮件未找到[id:"+id+",uname:"+uname+",isSysMail:"+isSysMail+"]");
         }
     }
 

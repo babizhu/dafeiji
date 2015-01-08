@@ -8,9 +8,7 @@ import com.mongodb.DBObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -40,6 +38,8 @@ public enum MailStore {
     private ConcurrentHashMap<Long, Mail> userMail = new ConcurrentHashMap<>();
     private ConcurrentHashMap<Long, Mail> sysMail = new ConcurrentHashMap<>();
 
+    private static Comparator<Mail> mailComparator = null;
+
     private DBCollection userConn = MongoUtil.INSTANCE.getDB().getCollection(TABLE_USER_MAIL);
     private DBCollection sysConn = MongoUtil.INSTANCE.getDB().getCollection(TABLE_SYS_MAIL);
 
@@ -47,6 +47,13 @@ public enum MailStore {
      * 初始化系统邮件仓库
      */
     public void init(){
+        mailComparator = new Comparator<Mail>() {
+            @Override
+            public int compare(Mail o1, Mail o2) {
+                return o2.getSendTime() - o1.getSendTime();
+            }
+        };
+
         cacheTable(userConn, TABLE_USER_MAIL, userMail);
         cacheTable(sysConn, TABLE_SYS_MAIL, sysMail);
         log.info("邮件系统启动成功");
@@ -103,6 +110,8 @@ public enum MailStore {
                 list.add(mail);
             }
         }
+
+        Collections.sort(list, mailComparator);
         return list;
     }
 
@@ -135,6 +144,7 @@ public enum MailStore {
                 list.add(mail);
             }
         }
+        Collections.sort(list, mailComparator);
         return list;
     }
 
@@ -206,4 +216,5 @@ public enum MailStore {
         obj.put(FIELD_ISDELETE, mail.getIsDelete());
         return obj;
     }
+
 }

@@ -10,13 +10,13 @@ import com.mongodb.DBObject;
  */
 public class MailCtrlDataProvider extends AbstractDataProviderWithIdentity<MailCtrl> {
 
-    private static final String TABLE_NAME = "mailCtrl";
-    private static final String FIELD_ID = "_id";
-    private static final String FIELD_UNAME = "uname";
-    private static final String FIELD_MAILID = "mailId";
-    private static final String FIELD_READED = "readed";
-    private static final String FIELD_RECEIVED = "received";
-    private static final String FIELD_DELETED = "deleted";
+    public static final String TABLE_NAME = "mailCtrl";
+    public static final String FIELD_ID = "_id";
+    public static final String FIELD_UNAME = "uname";
+    public static final String FIELD_MAILID = "mailId";
+    public static final String FIELD_READED = "readed";
+    public static final String FIELD_RECEIVED = "received";
+    public static final String FIELD_DELETED = "deleted";
 
     public MailCtrlDataProvider(String uname) {
         super(TABLE_NAME, uname);
