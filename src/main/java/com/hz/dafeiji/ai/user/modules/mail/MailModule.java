@@ -73,6 +73,8 @@ public class MailModule {
                 ctrlMail.put(ctrl.getId(), ctrl);
             }
             ctrlDb.replace(ctrl);
+        }else{
+            throw new ClientException(ErrorCode.MAIL_MAIL_NOT_FOUND, "删除的系统邮件未找到[id:"+id+",uname:"+uname+"]");
         }
     }
 
@@ -85,6 +87,8 @@ public class MailModule {
         if(mail != null){
             mail.setIsDelete(1);
             MailStore.INSTANCE.updateUserMail(mail);
+        }else{
+            throw new ClientException(ErrorCode.MAIL_MAIL_NOT_FOUND, "删除的玩家邮件未找到[id:"+id+"]");
         }
     }
 

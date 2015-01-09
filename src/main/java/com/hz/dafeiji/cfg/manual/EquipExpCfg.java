@@ -7,10 +7,6 @@ import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTempletCfg;
 import com.hz.dafeiji.cfg.equipment.EquipmentTypeTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentTypeTempletCfg;
-import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
-import com.hz.dafeiji.cfg.wing.WingQurlityTemplet;
-import com.hz.dafeiji.cfg.wing.WingQurlityTempletCfg;
-import com.hz.util.D;
 
 import java.util.Map;
 
@@ -26,8 +22,8 @@ public class EquipExpCfg {
     public static final int MAX_QUALITY = 1000;
 
     static{
-        EquipmentQurlityTempletCfg.init();
-        EquipmentTypeTempletCfg.init();
+//        EquipmentQurlityTempletCfg.init();
+//        EquipmentTypeTempletCfg.init();
 
 
         for( int i = 1; i < MAX_QUALITY; i++ ) {
