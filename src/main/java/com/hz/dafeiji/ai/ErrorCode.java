@@ -125,7 +125,8 @@ public enum ErrorCode{
     EQUIPMENT_LEVEL_UNDER_LIMIT( 8002 ),
     EQUIPMENT_UPGRADE_EQUIP_NOT_ENOUGH( 8003 ),
     EQUIPMENT_UPGRADE_OVER_LIMIT( 8004 ),
-    EQUIPMENT_HAS_BEEN_DELETED( 8005 );
+    EQUIPMENT_HAS_BEEN_DELETED( 8005 ),
+    EQUIPMENT_TEMPLET_NOT_FOUND( 8006 );
 
     private static final Map<Integer, ErrorCode> numToEnum = new HashMap<>();
 
