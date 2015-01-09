@@ -19,7 +19,7 @@ public class EquipmentAddHandler implements IGameHandler {
             String ids = request.getString("i");
             EquipmentModule module = user.getModuleManager().getEquipmentModule();
 
-            module.add(ids);
+            module.addAll(ids);
 
         }else{
             throw new ClientException(ErrorCode.PARAMETER_ERROR, "EquipmentAddHandler缺少必要参数,传入参数:" + request.toString());

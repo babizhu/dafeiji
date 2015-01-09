@@ -22,8 +22,8 @@ public class EquipExpCfg {
     public static final int MAX_QUALITY = 1000;
 
     static{
-        EquipmentQurlityTempletCfg.init();
-        EquipmentTypeTempletCfg.init();
+//        EquipmentQurlityTempletCfg.init();
+//        EquipmentTypeTempletCfg.init();
 
 
         for( int i = 1; i < MAX_QUALITY; i++ ) {

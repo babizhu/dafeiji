@@ -32,6 +32,11 @@ public class EquipmentModule{
         db = new EquipmentDataProvider( uname );
         equipments = db.getMapAll();
 
+        System.out.println("装备数量:"+equipments.size());
+        for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
+            System.out.println("Id:"+entry.getKey()+", Value:"+entry.getValue());
+        }
+
         equipmentComparator = new Comparator<Equipment>() {
             @Override
             public int compare(Equipment o1, Equipment o2) {
@@ -48,17 +53,21 @@ public class EquipmentModule{
 
     /**
      * 添加一件新装备
-     * @param equipIds 要添加的道具模版ID列表, 逗号分割
+     * @param templetIds 要添加的道具模版ID列表, 逗号分割
      */
-    public void add(String equipIds){
-        for(String id : equipIds.split(",")){
-            if(!id.equals("")){
-                int equipTempleteId = Integer.valueOf(id);
+    public void addAll(String templetIds){
+        for(String templetId : templetIds.split(",")){
+            if(!templetId.equals("")){
+                int equipTempleteId = Integer.valueOf(templetId);
                 if(EquipmentTempletCfg.getEquipmentTempletById(equipTempleteId) != null){
                     Equipment equip = new Equipment(equipTempleteId);
                     equipments.put(equip.getId(), equip);
                     db.add(equip);
+                }else{
+                    throw new ClientException(ErrorCode.EQUIPMENT_TEMPLET_NOT_FOUND, "要添加的装备模版ID不存在,传递的模版ID:"+templetId);
                 }
+            }else{
+                throw new ClientException(ErrorCode.PARAMETER_ERROR, "要添加的装备模版ID为空,传递参数:"+templetIds);
             }
         }
     }
@@ -71,13 +80,16 @@ public class EquipmentModule{
     public void splitEquip(String equipIds, User user){
         for(String id : equipIds.split(",")){
             if(!id.equals("")){
-                Equipment equip = equipments.get(Integer.valueOf(id));
-                if(checkEquipExsit(equip, "分解装备", user)){
+                long eid = Long.valueOf(id);
+                Equipment equip = equipments.get(eid);
+                if(checkEquipExsit(equip, eid, "分解装备", user)){
                     int energy = EquipExpCfg.getSplitExp(equip.getQuality(), equip.getLevel(), equip.getTemplet().getType());  //分解装备获取的能源
 
                     deleteEquip(equip);         //删除装备
                     user.getModuleManager().getPropertyModule().changeEnergy(energy);       //添加用户能源数据
                 }
+            }else{
+                throw new ClientException(ErrorCode.PARAMETER_ERROR, "要分解的装备ID为空,传递参数:"+equipIds);
             }
         }
     }
@@ -90,7 +102,7 @@ public class EquipmentModule{
     public void levelUpEquip(long equipId, User user){
         Equipment equip = equipments.get(equipId);
 
-        if(checkEquipExsit(equip, "升级装备", user)){
+        if(checkEquipExsit(equip, equipId, "升级装备", user)){
             EquipmentQurlityTemplet et = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());
             if(equip.getLevel() >= et.getMaxLv()){
                 throw new ClientException(ErrorCode.EQUIPMENT_LEVEL_OVER_LIMIT,"装备升级超出等级限制,品质:"+equip.getQuality()
@@ -123,7 +135,7 @@ public class EquipmentModule{
      */
     public void upgradeEquip(long equipId, User user){
         Equipment equip = equipments.get(equipId);
-        if(checkEquipExsit(equip, "进阶装备", user)){
+        if(checkEquipExsit(equip, equipId, "进阶装备", user)){
             EquipmentQurlityTemplet et = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());
 
             if(equip.getQuality() >= equip.getTemplet().getQualityMax()){
@@ -186,7 +198,7 @@ public class EquipmentModule{
      */
     public void loadEquip(long equipId, User user){
         Equipment equip = equipments.get(equipId);
-        if(checkEquipExsit(equip, "穿戴装备", user)){
+        if(checkEquipExsit(equip, equipId, "穿戴装备", user)){
             Equipment downEquip = getLoadedEquipByType(equip.getTemplet().getType());
             if(downEquip != null){      //该类型已经有装备穿戴上, 替换成传入的装备
                 downEquip.setLoaded(0);
@@ -267,17 +279,18 @@ public class EquipmentModule{
     /**
      * 检查装备是否存在
      * @param equip 装备对象
+     * @param eid 装备id
      * @param method 调用方法
      * @param user 用户数据
      * @return true | false
      */
-    private boolean checkEquipExsit(Equipment equip, String method, User user){
+    private boolean checkEquipExsit(Equipment equip, long eid, String method, User user){
         String uname = user.getUserBaseInfo().getUserName();
         if(equip == null){
-            throw new ClientException(ErrorCode.EQUIPMENT_NOT_FOUND, "["+method+"]装备不存在,Id:"+equip.getId()+",User:"+uname);
+            throw new ClientException(ErrorCode.EQUIPMENT_NOT_FOUND, "["+method+"]装备不存在,Id:"+eid+",User:"+uname);
         }
         if(equip.getIsDelete() > 0){
-            throw new ClientException(ErrorCode.EQUIPMENT_HAS_BEEN_DELETED, "["+method+"]装备已被删除,Id"+equip.getId()+",User:"+uname);
+            throw new ClientException(ErrorCode.EQUIPMENT_HAS_BEEN_DELETED, "["+method+"]装备已被删除,Id"+eid+",User:"+uname);
         }
         return true;
     }
