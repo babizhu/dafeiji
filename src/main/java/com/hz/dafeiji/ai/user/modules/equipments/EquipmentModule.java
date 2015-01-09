@@ -8,8 +8,6 @@ import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTempletCfg;
 import com.hz.dafeiji.cfg.equipment.EquipmentTempletCfg;
 import com.hz.dafeiji.cfg.manual.EquipExpCfg;
-import lombok.Data;
-import lombok.ToString;
 import java.util.*;
 
 /**
@@ -18,8 +16,6 @@ import java.util.*;
  * 装备模块
  */
 
-@Data
-@ToString
 public class EquipmentModule{
 
     final EquipmentDataProvider db;
@@ -91,7 +87,7 @@ public class EquipmentModule{
      * @param equipId 要升级的装备ID
      * @param user USER对象用于扣除相关消耗品
      */
-    public void EquipLevelUp(long equipId, User user){
+    public void levelUpEquip(long equipId, User user){
         Equipment equip = equipments.get(equipId);
 
         if(checkEquipExsit(equip, "升级装备", user)){
@@ -125,7 +121,7 @@ public class EquipmentModule{
      * @param equipId 要进阶的装备ID
      * @param user USER对象用于扣除相关消耗品
      */
-    public void EquipUpgrade(long equipId, User user){
+    public void upgradeEquip(long equipId, User user){
         Equipment equip = equipments.get(equipId);
         if(checkEquipExsit(equip, "进阶装备", user)){
             EquipmentQurlityTemplet et = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());

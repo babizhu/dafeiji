@@ -9,20 +9,21 @@ import com.hz.dafeiji.net.handler.IGameHandler;
 import com.hz.util.Tools;
 
 /**
- * Created by Valen on 2015/1/8.
- * 添加用户装备
+ * Created by Valen on 2015/1/9.
+ * 用户分解装备
  */
-public class EquipmentAddHandler implements IGameHandler {
+public class EquipmentSplitHandler implements IGameHandler {
+
     @Override
     public void run(JSONObject request, JSONObject response, User user) {
         if(Tools.reqParamCheck(request, "i")){
-            String ids = request.getString("i");
             EquipmentModule module = user.getModuleManager().getEquipmentModule();
 
-            module.add(ids);
+            module.splitEquip(request.getString("i"), user);
 
+            response.put("e", user.getModuleManager().getPropertyModule().getEnergy());
         }else{
-            throw new ClientException(ErrorCode.PARAMETER_ERROR, "EquipmentAddHandler缺少必要参数,传入参数:" + request.toString());
+            throw new ClientException(ErrorCode.PARAMETER_ERROR, "EquipmentSplitHandler缺少必要参数,传入参数:" + request.toString());
         }
     }
 }
