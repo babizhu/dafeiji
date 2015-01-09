@@ -37,11 +37,12 @@ public class UserGetInfoHandler implements IGameHandler{
 
 
         //飞机系统数据
-        JSONObject planeJson = new JSONObject();
+
         PlaneModule planeModule = user.getModuleManager().getPlaneModule();
         Plane currentPlane = planeModule.getCurrentPlane();
-        planeJson.put( "tid", currentPlane.getTemplet().getId() );//出战飞机的模板id
-        planeJson.put( "l", currentPlane.getLevel() );//出战飞机的等级
+        JSONObject planeJson = PlaneGetListHandler.getJsonObject( currentPlane );
+
+
         response.put( "p", planeJson );//飞机数据
 
         //僚机系统数据，先给假数据

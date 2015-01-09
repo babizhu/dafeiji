@@ -25,6 +25,8 @@ public class UserLoginHandler implements IGameHandler{
 
         response.put( "h", loginUser.getSesseion() );
         response.put( "uId", info.getUid() );
+
+
 //        System.out.println( "LoginHandler.run" );
     }
 

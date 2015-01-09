@@ -19,19 +19,26 @@ public class PlaneGetListHandler implements IGameHandler{
         JSONArray planeList = new JSONArray();
         Map<Long, Plane> all = user.getModuleManager().getPlaneModule().getAll();
         for( Plane plane : all.values() ) {
-            JSONObject planeJson = new JSONObject();
-
-
-            planeJson.put( "id", plane.getId() );//唯一id
-            planeJson.put( "tid", plane.getTemplet().getId() );//模板id
-            planeJson.put( "l", plane.getLevel() );//等级
-            planeJson.put( "atk", plane.getTemplet().getId() );//攻击
-            planeJson.put( "hp", plane.getHp() );//HP
-            planeJson.put( "spd", plane.getTemplet().getAspd() );//速度
+            JSONObject planeJson = getJsonObject( plane );
 
 
             planeList.add( planeJson );
         }
         response.put( "l", planeList );
     }
+
+    public static JSONObject getJsonObject( Plane plane ){
+        JSONObject planeJson = new JSONObject();
+
+
+        planeJson.put( "id", plane.getId() );//唯一id
+        planeJson.put( "tid", plane.getTemplet().getId() );//模板id
+        planeJson.put( "l", plane.getLevel() );//等级
+        planeJson.put( "atk", plane.getTemplet().getId() );//攻击
+        planeJson.put( "hp", plane.getHp() );//HP
+        planeJson.put( "spd", plane.getTemplet().getAspd() );//速度
+        return planeJson;
+    }
+
+
 }

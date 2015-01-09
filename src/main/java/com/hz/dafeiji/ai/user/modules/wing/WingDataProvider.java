@@ -46,6 +46,11 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
         return obj;
     }
 
+    public void query(){
+
+
+    }
+
     /**
      * 更新战机的当前字段
      *

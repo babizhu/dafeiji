@@ -28,7 +28,14 @@ public class AddtionTest{
         addtion.add( addtion1 );
         System.out.println( addtion );
 
+        AddtionValue av3 = new AddtionValue( AddtionType.HP_ADDTION );
+        av3.setAddtionNum( 5 );
 
+        AddtionCollection ac = new AddtionCollection();
+        ac.add( av3 );
+
+        ac.add( addtion1 );
+        System.out.println( "ac=" + ac );
 
     }
 }
