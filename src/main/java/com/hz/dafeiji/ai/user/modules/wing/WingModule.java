@@ -1,7 +1,9 @@
 package com.hz.dafeiji.ai.user.modules.wing;
 
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
-import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
+import com.hz.dafeiji.ai.user.modules.plane.Plane;
+
+import java.util.Map;
 
 /**
  * user         LIUKUN
@@ -11,19 +13,46 @@ import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
 
 public class WingModule{
 
-    private final PropertyModule propertyModule;
+    private final WingDataProvider db;
+
+    /**
+     * 所有的飞机
+     */
+    private Map<Long, Plane> planes;
+
+    /**
+     * 当前出战的飞机
+     */
+    private Plane currentPlane;
+    //private CurrentPlaneData currentPlaneData;
+
+//    private final ModuleManager moduleManager;
+//    private final AwardModule awardModule;
+
 
     public WingModule( ModuleManager moduleManager ){
-        this.propertyModule = moduleManager.getPropertyModule();
+        db = new WingDataProvider( "xx" );
     }
 
     /**
      * 僚机升级
      *
-     * @param id
+     * @param id    被升级的僚机id
      */
-    public void levelUp( long id ){
+    public void levelUp( long id, int[] stuffs, long[] wings ){
 
+//        int exp = calcExp( stuffs, wings );
+    }
+
+
+    /**
+     * 计算玩家上传的经验卡已经僚机所产生的经验
+     * @param stuffs    经验卡id
+     * @param wings     僚机唯一id
+     * @return          返回stuffs以及wings所产生的经验
+     */
+    private int calcExp( int[] stuffs, Wing[] wings ){
+        return 0;
     }
 
     /**

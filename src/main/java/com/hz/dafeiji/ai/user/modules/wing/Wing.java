@@ -19,6 +19,12 @@ public class Wing implements IdentityObj{
     private final WingQurlityTemplet wqTemplet;
     private int exp;
 
+    /**
+     * 是否当前的出战飞机
+     */
+    private boolean isCurrent;
+
+
 
     public Wing( Long id, WingTemplet templet ){
         this.id = id;
