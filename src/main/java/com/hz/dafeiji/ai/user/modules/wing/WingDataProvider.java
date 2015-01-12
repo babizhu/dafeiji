@@ -15,6 +15,11 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
 
     private static final String TABLE_NAME = "wing";
 
+    static final String LEVEL_FIELD = "level";
+    static final String CURRENT_FIELD = "current";
+    static final String TEMPLET_ID_FIELD = "templetId";
+    static final String ID_FIELD = "_id";
+
     public WingDataProvider( String uname ){
         super( TABLE_NAME, uname );
     }
@@ -26,11 +31,11 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
     @Override
     protected Wing decode( DBObject object ){
 
-        int templetId = (int) object.get( "templetId" );
+        int templetId = (int) object.get( TEMPLET_ID_FIELD );
         WingTemplet templet = WingTempletCfg.getWingTempletById( templetId );
-        Wing wing = new Wing( (Long) object.get( "_id" ), templet );
-        wing.setLevel( (int) object.get( "level" ) );
-        wing.setCurrent( (boolean) object.get( "current" ) );
+        Wing wing = new Wing( (Long) object.get( ID_FIELD ), templet );
+        wing.setLevel( (int) object.get( LEVEL_FIELD ) );
+        wing.setCurrent( (boolean) object.get( CURRENT_FIELD ) );
 
         return wing;
     }
@@ -38,10 +43,10 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
     @Override
     protected DBObject encode( Wing wing ){
         DBObject obj = new BasicDBObject();
-        obj.put( "_id", wing.getId() );
-        obj.put( "level", wing.getLevel() );
-        obj.put( "templetId", wing.getTemplet().getId() );
-        obj.put( "current", wing.isCurrent() );
+        obj.put( ID_FIELD, wing.getId() );
+        obj.put( LEVEL_FIELD, wing.getLevel() );
+        obj.put( TEMPLET_ID_FIELD, wing.getTemplet().getId() );
+        obj.put( CURRENT_FIELD, wing.isCurrent() );
 
         return obj;
     }
@@ -49,15 +54,6 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
     public void query(){
 
 
-    }
-
-    /**
-     * 更新战机的当前字段
-     *
-     * @param wing 要更新的僚机
-     */
-    void updateCurrentPlaneField( Wing wing ){
-        updateWithField( wing, "current", wing.isCurrent() );
     }
 
 

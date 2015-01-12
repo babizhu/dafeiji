@@ -5,6 +5,7 @@ import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
+import com.hz.dafeiji.cfg.define.PropIdDefine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -80,11 +81,11 @@ public class AwardModule{
 
             int remainCount = 0;//变化之后的值，log用
             int propId = prop.propId;
-            if( propId == 500001 ) {
+            if( propId == PropIdDefine.CASH_JIN_BI ) {
                 remainCount = propertyModule.changeCash( prop.count );
-            } else if( propId == 500002 ) {
+            } else if( propId == PropIdDefine.CASH_ZUAN_SHI ) {
                 remainCount = propertyModule.changeDiamond( prop.count );
-            } else if( propId == 500007 ) {
+            } else if( propId == PropIdDefine.XING_DONG_LI ) {
                 remainCount = propertyModule.changeStrength( prop.count );
             } else if( propId >= 100101 && propId <= 199999 ) {//飞机
                 moduleManager.getPlaneModule().create( propId );

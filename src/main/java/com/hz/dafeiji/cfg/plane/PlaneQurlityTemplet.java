@@ -4,132 +4,125 @@ import org.jdom2.Element;
 
 /**
  * 模版
- *
  * @author liukun
- *         2015-1-8 17:43:15
+ * 2015-1-12 15:45:41
  */
-public class PlaneQurlityTemplet{
+public class PlaneQurlityTemplet {
 
     /**
-     * 品阶id
-     */
+	 * 品阶id
+	 */
     private final int id;
 
 
-    /**
-     * 品阶id
-     */
-    public int getId(){
-        return id;
-    }
 
-    /**
-     * 品阶等级
-     */
+	/**
+	 * 品阶id
+	 */
+	public int getId() {
+		return id;
+	}/**
+	 * 品阶等级
+	 */
     private final int step;
 
 
-    /**
-     * 品阶等级
-     */
-    public int getStep(){
-        return step;
-    }
 
-    /**
-     * 实星数
-     */
+	/**
+	 * 品阶等级
+	 */
+	public int getStep() {
+		return step;
+	}/**
+	 * 实星数
+	 */
     private final int starCount;
 
 
-    /**
-     * 实星数
-     */
-    public int getStarCount(){
-        return starCount;
-    }
 
-    /**
-     * 最大星星数
-     */
+	/**
+	 * 实星数
+	 */
+	public int getStarCount() {
+		return starCount;
+	}/**
+	 * 最大星星数
+	 */
     private final int starNumber;
 
 
-    /**
-     * 最大星星数
-     */
-    public int getStarNumber(){
-        return starNumber;
-    }
 
-    /**
-     * 所能升级的最大等级
-     */
+	/**
+	 * 最大星星数
+	 */
+	public int getStarNumber() {
+		return starNumber;
+	}/**
+	 * 所能升级的最大等级
+	 */
     private final int maxLv;
 
 
-    /**
-     * 所能升级的最大等级
-     */
-    public int getMaxLv(){
-        return maxLv;
-    }
 
-    /**
-     * 品阶消耗系数
-     */
+	/**
+	 * 所能升级的最大等级
+	 */
+	public int getMaxLv() {
+		return maxLv;
+	}/**
+	 * 品阶消耗系数
+	 */
     private final float consumeFactor;
 
 
-    /**
-     * 品阶消耗系数
-     */
-    public float getConsumeFactor(){
-        return consumeFactor;
-    }
 
-    /**
-     * 升级基础消耗金币
-     */
+	/**
+	 * 品阶消耗系数
+	 */
+	public float getConsumeFactor() {
+		return consumeFactor;
+	}/**
+	 * 升级基础消耗金币
+	 */
     private final int consumeBasis;
 
 
-    /**
-     * 升级基础消耗金币
-     */
-    public int getConsumeBasis(){
-        return consumeBasis;
-    }
 
-    /**
-     * 说明
-     */
+	/**
+	 * 升级基础消耗金币
+	 */
+	public int getConsumeBasis() {
+		return consumeBasis;
+	}/**
+	 * 说明
+	 */
     private final String state;
 
 
-    /**
-     * 说明
-     */
-    public String getState(){
-        return state;
-    }
 
-    public PlaneQurlityTemplet( Element element ){
-        id = Integer.parseInt( element.getChildText( "id" ).trim() );
-        step = Integer.parseInt( element.getChildText( "step" ).trim() );
-        starCount = Integer.parseInt( element.getChildText( "starCount" ).trim() );
-        starNumber = Integer.parseInt( element.getChildText( "starNumber" ).trim() );
-        maxLv = Integer.parseInt( element.getChildText( "maxLv" ).trim() );
-        consumeFactor = Float.parseFloat( element.getChildText( "consumeFactor" ).trim() );
-        consumeBasis = Integer.parseInt( element.getChildText( "consumeBasis" ).trim() );
-        state = element.getChildText( "state" ).trim();
+	/**
+	 * 说明
+	 */
+	public String getState() {
+		return state;
+	}
 
-    }
+	public PlaneQurlityTemplet( Element element ) {
+		id = Integer.parseInt( element.getChildText("id").trim() );
+step = Integer.parseInt( element.getChildText("step").trim() );
+starCount = Integer.parseInt( element.getChildText("starCount").trim() );
+starNumber = Integer.parseInt( element.getChildText("starNumber").trim() );
+maxLv = Integer.parseInt( element.getChildText("maxLv").trim() );
+consumeFactor = Float.parseFloat( element.getChildText("consumeFactor").trim() );
+consumeBasis = Integer.parseInt( element.getChildText("consumeBasis").trim() );
+state = element.getChildText("state").trim();
 
-    @Override
-    public String toString(){
-        return "PlaneQurlityTemplet [id = " + id + ",step = " + step + ",starCount = " + starCount + ",starNumber = " + starNumber + ",maxLv = " + maxLv + ",consumeFactor = " + consumeFactor + ",consumeBasis = " + consumeBasis + ",state = " + state + "]";
-    }
+	}
+
+	@Override
+	public String toString() {
+		return "PlaneQurlityTemplet [id = " + id + ",step = " + step + ",starCount = " + starCount + ",starNumber = " + starNumber + ",maxLv = " + maxLv + ",consumeFactor = " + consumeFactor + ",consumeBasis = " + consumeBasis + ",state = " + state + "]";
+	}
 
 	/*自定义代码开始*//*自定义代码结束*/
 }

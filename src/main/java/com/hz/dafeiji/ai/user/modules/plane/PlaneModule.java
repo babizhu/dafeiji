@@ -4,8 +4,12 @@ package com.hz.dafeiji.ai.user.modules.plane;
 import com.bbz.tool.identity.IdentityGen;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.dafeiji.ai.addtion.AddtionCollection;
+import com.hz.dafeiji.ai.addtion.AddtionType;
+import com.hz.dafeiji.ai.addtion.AddtionValue;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
+import com.hz.dafeiji.ai.user.modules.equipments.EquipmentModule;
 import com.hz.dafeiji.cfg.plane.PlaneQurlityTemplet;
 import com.hz.dafeiji.cfg.plane.PlaneQurlityTempletCfg;
 import com.hz.dafeiji.cfg.plane.PlaneTemplet;
@@ -13,6 +17,7 @@ import com.hz.dafeiji.cfg.plane.PlaneTempletCfg;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -25,11 +30,13 @@ import java.util.Map;
 public class PlaneModule{
     private static final Logger logger = LoggerFactory.getLogger( PlaneModule.class );
     private final PlaneDataProvider db;
+    private final EquipmentModule equipmentModule;
+
 
     /**
      * 所有的飞机
      */
-    private Map<Long, Plane> planes;
+    private Map<Long, Plane> allPlanes;
 
     /**
      * 当前出战的飞机
@@ -37,30 +44,34 @@ public class PlaneModule{
     private Plane currentPlane;
     //private CurrentPlaneData currentPlaneData;
 
-    private final ModuleManager moduleManager;
+//    private final ModuleManager moduleManager;
     private final AwardModule awardModule;
 
     public PlaneModule( String uname, ModuleManager moduleManager ){
-        this.moduleManager = moduleManager;
+//        this.moduleManager = moduleManager;
         awardModule = moduleManager.getAwardModule();
-        db = new PlaneDataProvider( uname );
-        planes = db.getMapAll();
+        equipmentModule = moduleManager.getEquipmentModule();
 
-        findCurrentPlane();
+        db = new PlaneDataProvider( uname );
+        allPlanes = db.getMapAll();
+
+       findCurrentPlane();
+
+
     }
 
     public Map<Long, Plane> getAll(){
-        return planes;
+        return allPlanes;
     }
 
     /**
-     * 根据唯一id查找飞机，如果不存在会自动抛出异常
+     * 根据唯一id查找飞机，如果不存在会抛出异常
      *
      * @param planeId 飞机的唯一id
      * @return plane
      */
     private Plane getPlaneById( long planeId ){
-        Plane plane = planes.get( planeId );
+        Plane plane = allPlanes.get( planeId );
         if( plane == null ) {
             throw new ClientException( ErrorCode.PLANE_NOT_FOUND );
         }
@@ -71,7 +82,7 @@ public class PlaneModule{
      * 飞机升级
      * 消耗公式=round(基础消耗+（当前等级-1）*品阶消耗系数*int（（当前等级-1）/10+1）,-2)
      *
-     * @param planeId   飞机id
+     * @param planeId 飞机id
      */
     public void levelUp( long planeId ){
         Plane plane = getPlaneById( planeId );
@@ -97,6 +108,7 @@ public class PlaneModule{
 
         return needCash;
     }
+
     /**
      * 检测相同模板的飞机是否已经存在
      *
@@ -105,7 +117,7 @@ public class PlaneModule{
      * false：不存在
      */
     private boolean isDuplicate( int planeTempletId ){
-        for( Plane plane : planes.values() ) {
+        for( Plane plane : allPlanes.values() ) {
             if( plane.getTemplet().getId() == planeTempletId ) {
                 return true;
             }
@@ -119,10 +131,10 @@ public class PlaneModule{
      *
      * @param templet 指定的飞机模板
      */
-    private Plane doCreate( PlaneTemplet templet ){
+    private Plane add( PlaneTemplet templet ){
         long id = IdentityGen.INSTANCE.incrementAndGet();
         Plane plane = new Plane( id, templet );
-        planes.put( id, plane );
+        allPlanes.put( id, plane );
         db.add( plane );
         return plane;
 
@@ -135,7 +147,7 @@ public class PlaneModule{
      */
     public Plane create( int planeTempletId ){
         PlaneTemplet pt = check( planeTempletId );
-        return doCreate( pt );
+        return add( pt );
     }
 
     /**
@@ -146,8 +158,8 @@ public class PlaneModule{
      */
     public Plane buy( int planeTempletId ){
         PlaneTemplet pt = check( planeTempletId );
-        moduleManager.getAwardModule().reduceAward( pt.getPrice(), "PlaneModule.buy" );
-        return doCreate( pt );
+        awardModule.reduceAward( pt.getPrice(), "PlaneModule.buy" );
+        return add( pt );
         //AWARD_LOG.info(  );
     }
 
@@ -175,16 +187,15 @@ public class PlaneModule{
      * 测试用
      */
     public void remove(){
-        planes.clear();
         db.removeAll();
+        allPlanes.clear();
     }
 
     /**
      * 查找当前出战的飞机，设置到成员变量上
      */
     private void findCurrentPlane(){
-        for( Map.Entry<Long, Plane> planeEntry : planes.entrySet() ) {
-            Plane plane = planeEntry.getValue();
+        for( Plane plane : allPlanes.values() ) {
             if( plane.isCurrent() ) {
                 currentPlane = plane;
             }
@@ -207,22 +218,38 @@ public class PlaneModule{
     /**
      * 设置出战飞机
      *
-     * @param newCurrentPlane 要出战飞机
+     * @param plane 要出战飞机
      */
-    public void setCurrentPlane( Plane newCurrentPlane ){
+    public void setCurrentPlane( Plane plane ){
         if( currentPlane != null ) {
             currentPlane.setCurrent( false );
             db.updateCurrentPlaneField( currentPlane );
         }
 
-        currentPlane = newCurrentPlane;
-        currentPlane.setCurrent( true );
-        db.updateCurrentPlaneField( currentPlane );
+        plane.setCurrent( true );
+        db.updateCurrentPlaneField( plane );
+        currentPlane = plane;
     }
 
     public Plane getCurrentPlane(){
         return currentPlane;
     }
 
+    /**
+     *  计算当前飞机在考虑各种加成之后的实际属性     *
+     */
+    private void calcAllAddtion( ){
+        AddtionCollection allAddtion = new AddtionCollection();
+        allAddtion.add( equipmentModule.getAdditionAttr() );
+        //allAddtion.add( equipmentModule.getAdditionAttr() );//假设是第二个加成属性
+        calcAddtion( allAddtion.getAddtions() );
+    }
 
+    /**
+     * 计算当前飞机在考虑加成之后的实际属性
+     * @param addtionMap    加成情况
+     */
+    private void calcAddtion( EnumMap<AddtionType, AddtionValue> addtionMap ){
+        currentPlane.calcAddtion( addtionMap );
+    }
 }

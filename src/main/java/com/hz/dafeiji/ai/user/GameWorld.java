@@ -6,7 +6,7 @@ import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.modules.plane.Plane;
 import com.hz.dafeiji.ai.user.modules.plane.PlaneModule;
 import com.hz.dafeiji.ai.user.player.UserBaseInfo;
-import com.hz.dafeiji.ai.user.player.UserBaseInfoModule;
+import com.hz.dafeiji.ai.user.player.UserBaseInfoManager;
 import com.hz.util.D;
 
 import java.util.Map;
@@ -30,7 +30,7 @@ public enum GameWorld{
      * 所有内存中的用户，不一定是在线的,uname, 用户信息
      */
     private Map<String, User> users = new ConcurrentHashMap<>();
-    private final UserBaseInfoModule userBaseInfoModule = new UserBaseInfoModule();
+    private final UserBaseInfoManager userBaseInfoManager = new UserBaseInfoManager();
 
     /**
      * 获取玩家的唯一验证码
@@ -52,11 +52,11 @@ public enum GameWorld{
             }
         } else {
 
-            ErrorCode eCode = userBaseInfoModule.login( uname, pass );
-            if( eCode != ErrorCode.SUCCESS ) {
-                throw new ClientException( eCode );
-            }
-            user = getUserByName( uname );
+//            ErrorCode eCode = userBaseInfoManager.login( uname, pass );
+//            if( eCode != ErrorCode.SUCCESS ) {
+//            }
+//            user = getUserByName( uname );
+            throw new ClientException( ErrorCode.USER_NOT_FOUND );
 
         }
 
@@ -70,7 +70,7 @@ public enum GameWorld{
     public ErrorCode regist( String uname, String pass ){
 
         //UserBaseInfoModule module = new UserBaseInfoModule( uname );
-        ErrorCode eCode = userBaseInfoModule.regist( uname, uname + "nick", pass );
+        ErrorCode eCode = userBaseInfoManager.regist( uname, uname + "nick", pass );
         if( eCode.isSuccess() ) {
             User user = getUserByName( uname );
             initNewUser( user );
@@ -105,7 +105,7 @@ public enum GameWorld{
             return user;
         }
 
-        UserBaseInfo userBaseInfo = userBaseInfoModule.getUserByName( uname );
+        UserBaseInfo userBaseInfo = userBaseInfoManager.getUserByName( uname );
 
         if( userBaseInfo != null ) {
             user = new User( userBaseInfo );
@@ -122,7 +122,7 @@ public enum GameWorld{
      * @return 玩家       如果玩家不存在，则返回null
      */
     User getUserByNickName( String nickName ){
-        UserBaseInfo info = userBaseInfoModule.getUserByNick( nickName );
+        UserBaseInfo info = userBaseInfoManager.getUserByNick( nickName );
         return getUserByName( info.getUserName() );
     }
 
