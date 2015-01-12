@@ -86,7 +86,9 @@ public class AwardModule{
             } else if( propId == PropIdDefine.CASH_ZUAN_SHI ) {
                 remainCount = propertyModule.changeDiamond( prop.count );
             } else if( propId == PropIdDefine.XING_DONG_LI ) {
-                remainCount = propertyModule.changeStrength( prop.count );
+                remainCount = propertyModule.changeStrength(prop.count);
+            } else if( propId == PropIdDefine.NENG_YUAN ){      //能源获取
+                remainCount = propertyModule.changeEnergy(prop.count);
             } else if( propId >= 100101 && propId <= 199999 ) {//飞机
                 moduleManager.getPlaneModule().create( propId );
             } else {
