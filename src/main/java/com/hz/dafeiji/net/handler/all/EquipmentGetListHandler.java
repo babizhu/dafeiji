@@ -29,7 +29,6 @@ public class EquipmentGetListHandler implements IGameHandler {
             obj.put("l", equip.getLevel());
             obj.put("q", equip.getQuality());
             obj.put("s", equip.getLoaded());
-            obj.put("a", equip.getAttrManager().getAttrIncrease());
             arr.add(obj);
         }
 

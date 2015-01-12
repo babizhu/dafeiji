@@ -3,11 +3,13 @@ package com.hz.dafeiji.ai.user.modules.equipments;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.addtion.AddtionCollection;
+import com.hz.dafeiji.ai.addtion.AddtionType;
 import com.hz.dafeiji.ai.addtion.AddtionValue;
 import com.hz.dafeiji.ai.user.User;
 import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTempletCfg;
+import com.hz.dafeiji.cfg.equipment.EquipmentTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentTempletCfg;
 import com.hz.dafeiji.cfg.manual.EquipExpCfg;
 import java.util.*;
@@ -22,22 +24,17 @@ public class EquipmentModule{
 
     final EquipmentDataProvider db;
 
-    private static Comparator<Equipment> equipmentComparator = null;
+    private Comparator<Equipment> equipmentComparator = null;
 
 
     /**
-     * 所有的道具
+     * 背包里的装备
      */
     private Map<Long, Equipment> equipments;
 
     public EquipmentModule( String uname ){
         db = new EquipmentDataProvider( uname );
         equipments = db.getMapAll();
-
-        System.out.println("装备数量:"+equipments.size());
-        for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
-            System.out.println("Id:"+entry.getKey()+", Value:"+entry.getValue());
-        }
 
         equipmentComparator = new Comparator<Equipment>() {
             @Override
@@ -213,7 +210,7 @@ public class EquipmentModule{
 
     /**
      * 获取用户装备列表
-     * @return
+     * @return List<Equipment>
      */
     public List<Equipment> getAllEquipments(){
         List<Equipment> list = new ArrayList<>();
@@ -229,23 +226,71 @@ public class EquipmentModule{
 
     /**
      * 获取用户上阵装备属性
-     * @return
+     * @return AddtionCollection
      */
     public AddtionCollection getAdditionAttr(){
         AddtionCollection addtion = new AddtionCollection();
         for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
             if(entry.getValue().getIsDelete() == 0 && entry.getValue().getLoaded() > 0){
-
-//                AddtionValue value = new AddtionValue();
-//
-//                list.add(entry.getValue());
+                AddtionCollection equipAddtion = getEquipAttr(entry.getValue());
+                addtion.add(equipAddtion);
             }
         }
         return addtion;
     }
 
 
+    /**
+     * 计算装备加成属性
+     * @param equip 要获取属性的装备对象
+     * @return AddtionValue
+     */
+    private AddtionCollection getEquipAttr(Equipment equip){
+        AddtionCollection collection = new AddtionCollection();
+        if(equip != null && equip.getIsDelete() == 0 && equip.getLoaded() > 0){
+            AddtionValue value = null;
+            EquipmentTemplet et = equip.getTemplet();
+            EquipmentQurlityTemplet qt = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());
 
+            //属性计算公式 : (初始属性加成 + 初始属性加成增量) + (属性加成成长 + 属性加成成长增量) * (装备等级 - 1)
+            float[] args = null;
+            switch (et.getType()){          //根据装备类型决定加成的属性类型
+                case 1 :
+                    value = new AddtionValue(AddtionType.ATTACK_ADDTION);
+                    args = new float[]{et.getAttackAdd(), qt.getAttackAddInc(), et.getAttackAddUp(), qt.getAttackAddUpInc()};
+                    break;
+                case 2 :
+                    value = new AddtionValue(AddtionType.SKILL_COLD_ADDTION);
+                    args = new float[]{et.getSkillCooling(), qt.getSkillCoolingInc(), et.getSkillCoolingUp(), qt.getSkillCoolingUpInc()};
+                    break;
+                case 3 :
+                    value = new AddtionValue(AddtionType.HP_ADDTION);
+                    args = new float[]{et.getHp(), qt.getHpInc(), et.getHpUp(), qt.getHpUpInc()};
+                    break;
+            }
+
+            if(args != null && value != null){
+                float attr = (args[0] + args[1]) + (args[2] + args[3]) * (equip.getLevel() - 1);
+                if(et.getType() == 3){      //目前只有HP是直接增加数值,  其他都是增加百分比
+                    value.setAddtionNum(Math.round(attr));
+                }else{
+                    value.setAddtionPercent(attr);
+                }
+                collection.add(value);
+
+                AddtionValue goldValue = new AddtionValue(AddtionType.CASH_ADDTION);
+                AddtionValue scoreValue = new AddtionValue(AddtionType.SCORE_ADDTION);
+                goldValue.setAddtionPercent(qt.getGold());
+                scoreValue.setAddtionPercent(qt.getScore());
+
+                collection.add(goldValue);
+                collection.add(scoreValue);
+            }else{
+                throw new ClientException(ErrorCode.EQUIPMENT_TYPE_ERROR, "装备类型错误,模版ID:"+et.getId()+",类型:"+et.getType());
+            }
+        }
+        return collection;
+    }
 
     /**
      * 根据装备类型获取已穿戴上的装备
@@ -314,4 +359,5 @@ public class EquipmentModule{
         }
         return true;
     }
+
 }

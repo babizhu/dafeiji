@@ -132,13 +132,45 @@ public enum ErrorCode{
 
 
     ////////////////////////////////////////////////装备错误/////////////////////////////////////////
+    /**
+     * 装备未找到
+     */
     EQUIPMENT_NOT_FOUND( 8000 ),
+
+    /**
+     * 装备升级等级超过限制
+     */
     EQUIPMENT_LEVEL_OVER_LIMIT( 8001 ),
+
+    /**
+     * 装备进阶等级未达到要求
+     */
     EQUIPMENT_LEVEL_UNDER_LIMIT( 8002 ),
+
+    /**
+     * 装备进阶需要的装备材料不足
+     */
     EQUIPMENT_UPGRADE_EQUIP_NOT_ENOUGH( 8003 ),
+
+    /**
+     * 装备进阶品质超过限制
+     */
     EQUIPMENT_UPGRADE_OVER_LIMIT( 8004 ),
+
+    /**
+     * 装备已被删除
+     */
     EQUIPMENT_HAS_BEEN_DELETED( 8005 ),
+
+    /**
+     * 装备模版未找到
+     */
     EQUIPMENT_TEMPLET_NOT_FOUND( 8006 ),
+
+    /**
+     * 装备类型错误，无法计算属性
+     */
+    EQUIPMENT_TYPE_ERROR( 8007 ),
 
 
     ////////////////////////////////////////////////僚机错误/////////////////////////////////////////

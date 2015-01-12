@@ -16,7 +16,6 @@ import lombok.Data;
 public class Equipment implements IdentityObj{
 
     private final EquipmentTemplet templet;
-    private final EquipmentAttr attrManager;
 
     /**
      * 装备ID
@@ -60,8 +59,6 @@ public class Equipment implements IdentityObj{
         this.quality = quality;
         this.loaded = loaded;
         this.isDelete = isDelete;
-
-        this.attrManager = new EquipmentAttr(this.templet, this.quality);
     }
 
     /**
@@ -75,8 +72,6 @@ public class Equipment implements IdentityObj{
         this.quality = templet.getQuality();
         this.loaded = 0;
         this.isDelete = 0;
-
-        this.attrManager = new EquipmentAttr(this.templet, this.quality);
     }
 
     /**
