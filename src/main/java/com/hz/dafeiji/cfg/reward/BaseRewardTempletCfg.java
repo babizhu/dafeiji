@@ -12,62 +12,60 @@ import java.util.Map;
 
 /**
  * 模版配置
- *
  * @author liukun
- *         2015-1-8 17:43:15
+ * 2015-1-12 15:45:41
  */
-public class BaseRewardTempletCfg{
-    private static final Map<Integer, BaseRewardTemplet> baseRewardTemplets = new HashMap<>();
+public class BaseRewardTempletCfg {
+	private static final Map<Integer,BaseRewardTemplet> baseRewardTemplets = new HashMap<>();
 
 
-    static{
-        //init();
+	static{
+		//init();
 
-    }
+	}
+	private static final String FILE = "./resource/xml/reward/baseReward.xml";
 
-    private static final String FILE = "./resource/xml/reward/baseReward.xml";
 
 
-    public static void init(){
+	public static void init(){
 
-        SAXBuilder builder = new SAXBuilder();
-        Document document;
-        try {
-            document = builder.build( FILE );
-            Element root = document.getRootElement();
-            List<?> list = root.getChildren( "BaseReward" );
+		SAXBuilder builder = new SAXBuilder();
+		Document document;
+		try {
+			document = builder.build( FILE );
+			Element root = document.getRootElement();
+			List<?> list = root.getChildren( "BaseReward" );
 
-            for( Object o : list ) {
-                BaseRewardTemplet templet = new BaseRewardTemplet( (Element) o );
-                BaseRewardTemplet temp = baseRewardTemplets.put( templet.getId(), templet );
-                if( temp != null ) {
-                    throw new RuntimeException( "BaseRewardTemplet id [" + temp.getId() + "] 重复了" );
-                }
+			for (Object o : list) {
+				BaseRewardTemplet templet = new BaseRewardTemplet( (Element) o );
+				BaseRewardTemplet temp = baseRewardTemplets.put( templet.getId(), templet );
+				if( temp != null ){
+					throw new RuntimeException( "BaseRewardTemplet id [" + temp.getId() + "] 重复了" );
+				}
 
-            }
-        } catch( JDOMException | IOException e ) {
-            e.printStackTrace();
+			}
+		} catch (JDOMException | IOException e) {
+		    e.printStackTrace();
         }
 
-        System.out.println( "BaseRewardTemplet xml配置文件解析完毕" );
-    }
+		System.out.println( "BaseRewardTemplet xml配置文件解析完毕" );
+	}
 
 
-    /**
-     * 通过id获取BaseRewardTemplet的引用
-     *
-     * @param templetId id
-     * @return 返回一个引用
-     */
-    public static BaseRewardTemplet getBaseRewardTempletById( int templetId ){
-        return baseRewardTemplets.get( templetId );
-    }
+	/**
+	 * 通过id获取BaseRewardTemplet的引用
+	 * @param   templetId   id
+	 * @return  返回一个引用
+	 */
+	public static BaseRewardTemplet getBaseRewardTempletById( int templetId ){
+		return baseRewardTemplets.get( templetId );
+	}
 
 	/*自定义代码开始*//*自定义代码结束*/
 
-    public static void main( String[] args ){
+	public static void main(String[] args) {
 
-        int id = 100001;
-        System.out.println( getBaseRewardTempletById( id ) );
-    }
+		int id = 100001;
+		System.out.println( getBaseRewardTempletById( id ) );
+	}
 }

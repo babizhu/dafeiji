@@ -1,7 +1,7 @@
 package com.hz.dafeiji.ai.user;
 
 import com.hz.dafeiji.ai.ErrorCode;
-import com.hz.dafeiji.ai.user.player.UserBaseInfoModule;
+import com.hz.dafeiji.ai.user.player.UserBaseInfoManager;
 import com.hz.dafeiji.cfg.plane.PlaneTempletCfg;
 import com.hz.util.D;
 import org.junit.Before;
@@ -41,7 +41,7 @@ public class GameWorldTest{
 
     public void removeUser( String uname ) throws Exception{
 
-        UserBaseInfoModule module = new UserBaseInfoModule();
+        UserBaseInfoManager module = new UserBaseInfoManager();
         User user = new User( uname );
         user.remove();
         module.removeUser( uname );
@@ -57,7 +57,7 @@ public class GameWorldTest{
     @Test
     public void testPerformance() throws Exception{
         int count = 100000;
-        UserBaseInfoModule module = new UserBaseInfoModule();
+        UserBaseInfoManager module = new UserBaseInfoManager();
         for( int i = 0; i < count; i++ ) {
             User user = new User( uname + i );
             user.remove();

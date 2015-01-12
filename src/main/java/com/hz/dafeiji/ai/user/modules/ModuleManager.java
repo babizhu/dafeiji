@@ -8,6 +8,7 @@ import com.hz.dafeiji.ai.user.modules.misc.usercounter.UserCounterModule;
 import com.hz.dafeiji.ai.user.modules.plane.PlaneModule;
 import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
 import com.hz.dafeiji.ai.user.modules.recharge.RechargeModule;
+import com.hz.dafeiji.ai.user.modules.wing.WingModule;
 
 /**
  * user         LIUKUN
@@ -30,9 +31,14 @@ public class ModuleManager{
 
     private MailModule mailModule;
     private EquipmentModule equipmentModule;
+    private WingModule wingModule;
 
 
-    public final String uname;
+    public String getUserName(){
+        return uname;
+    }
+
+    private final String uname;
 
     public ModuleManager( String uname ){
         this.uname = uname;
@@ -84,5 +90,13 @@ public class ModuleManager{
         }
         equipmentModule = new EquipmentModule(uname);
         return equipmentModule;
+    }
+
+    public WingModule getWingModule(){
+        if(wingModule != null){
+            return wingModule;
+        }
+        wingModule = new WingModule(this);
+        return wingModule;
     }
 }

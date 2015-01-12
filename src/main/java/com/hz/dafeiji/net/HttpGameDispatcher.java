@@ -130,16 +130,6 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
         }
         return null;
     }
-//    private static void appendDecoderResult( StringBuilder buf, HttpObject o ){
-//        DecoderResult result = o.getDecoderResult();
-//        if( result.isSuccess() ) {
-//            return;
-//        }
-//
-//        buf.append( ".. WITH DECODER FAILURE: " );
-//        buf.append( result.cause() );
-//        buf.append( "\r\n" );
-//    }
 
     private void writeResponseError( ErrorCode eCode ){
 
@@ -237,7 +227,5 @@ public class HttpGameDispatcher extends SimpleChannelInboundHandler<DefaultFullH
             writeResponseError( ErrorCode.HTTP_INVALID_REQUEST );
 
         }
-
-
     }
 }

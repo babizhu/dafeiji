@@ -319,7 +319,7 @@ public class EquipmentModule{
         if(equip.getQuality() >= 9){
             db.updateWithField(equip, EquipmentDataProvider.FIELD_ISDELETE, 1);
         }else{
-            db.remove((int)equip.getId());
+            db.remove(equip);
         }
     }
 

@@ -177,7 +177,14 @@ public enum ErrorCode{
     /**
      * 僚机未找到
      */
-    WING_NOT_FOUND( 8500 );
+    WING_NOT_FOUND( 8500 ),
+    /**
+     * 僚机模板未找到
+     */
+    WING_TEMPLET_NOT_FOUND( 8501 );
+
+    ////////////////////////////////////////////////枚举结束/////////////////////////////////////////
+
 
     private static final Map<Integer, ErrorCode> numToEnum = new HashMap<>();
 
@@ -194,7 +201,7 @@ public enum ErrorCode{
     /**
      * 判断当前枚举是否成功
      *
-     * @return
+     * @return true:成功 false:失败
      */
     public boolean isSuccess(){
         return number == 0;

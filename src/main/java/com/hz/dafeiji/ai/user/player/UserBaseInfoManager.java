@@ -8,10 +8,10 @@ import com.hz.dafeiji.ai.user.UserStatus;
  * user         LIUKUN
  * time         2014-12-19 15:00
  * <p/>
- * 管理玩家的基本信息，包括用户名，密码，主要用于登陆
+ * 管理所有玩家的基本信息，包括用户名，密码，主要用于登陆
  */
 
-public class UserBaseInfoModule{
+public class UserBaseInfoManager{
 
 //    INSTANCE;
 
@@ -46,15 +46,15 @@ public class UserBaseInfoModule{
     }
 
 
-    public ErrorCode login( String uname, String pass ){
-        UserBaseInfo userBaseInfo = db.findByName( uname );
-
-        if( userBaseInfo == null ) {
-            return ErrorCode.USER_NOT_FOUND;
-        }
-
-        return userBaseInfo.login( pass );
-    }
+//    public ErrorCode login( String uname, String pass ){
+//        UserBaseInfo userBaseInfo = db.findByName( uname );
+//
+//        if( userBaseInfo == null ) {
+//            return ErrorCode.USER_NOT_FOUND;
+//        }
+//
+//        return userBaseInfo.login( pass );
+//    }
 
 
 //

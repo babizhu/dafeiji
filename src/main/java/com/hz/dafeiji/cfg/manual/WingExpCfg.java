@@ -31,8 +31,15 @@ public class WingExpCfg{
 
     static{
 
-//        WingQurlityTempletCfg.init();
 
+        init();
+
+        //WingQurlityTempletCfg.
+
+
+    }
+
+    public static void init(){
         for( int i = 1; i < MAX_QUALITY; i++ ) {
             WingQurlityTemplet wt = WingQurlityTempletCfg.getWingQurlityTempletById( i );
             if( wt != null ) {
@@ -47,9 +54,6 @@ public class WingExpCfg{
                 break;
             }
         }
-        //WingQurlityTempletCfg.
-
-
     }
 
     @SuppressWarnings("UnusedDeclaration")
@@ -77,6 +81,7 @@ public class WingExpCfg{
     }
 
     /**
+     * 根据品阶和当前经验以及要增加的经验，计算可以升级的最大等级
      * @param quality    品阶
      * @param currentExp 当前经验
      * @param expAdd     要增加的经验
@@ -98,8 +103,16 @@ public class WingExpCfg{
     }
 
     public static void main( String[] args ){
+
+        WingQurlityTempletCfg.init();
+        init();
         System.out.println( getExp( 1, 10 ) );
         System.out.println( "maxLevel=" + getMaxLevel( 1, 1, 6900000 ) );
+        float f = 0.01F;
+        int s = 0;
+        s += 301*f;
+        s += 301*f;
+        System.out.println( s);
 //        printAll();
     }
 }
