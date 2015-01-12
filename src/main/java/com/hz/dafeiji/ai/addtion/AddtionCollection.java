@@ -16,7 +16,7 @@ public class AddtionCollection{
     private EnumMap<AddtionType, AddtionValue> addtions = new EnumMap<AddtionType, AddtionValue>( AddtionType.class );
 
     public void add( AddtionValue value ){
-        if( addtions.containsKey(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        value.getAddtionItem() ) ){
+        if( addtions.containsKey( value.getAddtionItem() ) ){
             addtions.get( value.getAddtionItem() ).plus( value );
         }else {
             addtions.put( value.getAddtionItem(), value );
