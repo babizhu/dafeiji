@@ -2,6 +2,8 @@ package com.hz.dafeiji.ai.user.modules.equipments;
 
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.dafeiji.ai.addtion.AddtionCollection;
+import com.hz.dafeiji.ai.addtion.AddtionValue;
 import com.hz.dafeiji.ai.user.User;
 import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTemplet;
@@ -222,6 +224,24 @@ public class EquipmentModule{
         }
         Collections.sort(list, equipmentComparator);
         return list;
+    }
+
+
+    /**
+     * 获取用户上阵装备属性
+     * @return
+     */
+    public AddtionCollection getAdditionAttr(){
+        AddtionCollection addtion = new AddtionCollection();
+        for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
+            if(entry.getValue().getIsDelete() == 0 && entry.getValue().getLoaded() > 0){
+
+//                AddtionValue value = new AddtionValue();
+//
+//                list.add(entry.getValue());
+            }
+        }
+        return addtion;
     }
 
 
