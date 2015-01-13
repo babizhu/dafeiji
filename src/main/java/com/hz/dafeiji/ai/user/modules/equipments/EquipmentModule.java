@@ -145,6 +145,7 @@ public class EquipmentModule{
                 if(temp.getIsDelete() == 0){
                     if(temp.getQuality() == et.getAdvanceEquipmentQue() &&              //待吞噬的装备品质 = 该装备需要的材料装备品质
                        temp.getTemplet().getId() == equip.getTemplet().getId() &&       //待吞噬的装备模版ID = 该装备需要的材料装备模版ID
+                       temp.getId() != equipId &&                                       //待吞噬的装备不能是要升级的装备
                        temp.getLoaded() == 0){                                          //待吞噬的装备不能是装备中的
 
                         costEquips.add(temp);
