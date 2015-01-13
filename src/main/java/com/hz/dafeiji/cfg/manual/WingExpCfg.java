@@ -106,7 +106,7 @@ public class WingExpCfg{
 
         WingQurlityTempletCfg.init();
         init();
-        System.out.println( getExp( 1, 10 ) );
+        System.out.println( getExp( 2, 10 ) );
         System.out.println( "maxLevel=" + getMaxLevel( 1, 1, 6900000 ) );
         float f = 0.01F;
         int s = 0;

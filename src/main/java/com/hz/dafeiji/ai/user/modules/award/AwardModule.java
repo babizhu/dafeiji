@@ -86,11 +86,11 @@ public class AwardModule{
             } else if( propId == PropIdDefine.CASH_ZUAN_SHI ) {
                 remainCount = propertyModule.changeDiamond( prop.count );
             } else if( propId == PropIdDefine.XING_DONG_LI ) {
-                remainCount = propertyModule.changeStrength(prop.count);
-            } else if( propId == PropIdDefine.NENG_YUAN ){      //能源获取
-                remainCount = propertyModule.changeEnergy(prop.count);
-            } else if( propId >= 100101 && propId <= 199999 ) {//飞机
-                moduleManager.getPlaneModule().create( propId );
+                remainCount = propertyModule.changeStrength( prop.count );
+            } else if( propId == PropIdDefine.NENG_YUAN ) {      //能源获取
+                remainCount = propertyModule.changeEnergy( prop.count );
+//            } else if( propId >= 100101 && propId <= 199999 ) {//飞机
+//                moduleManager.getPlaneModule().create( propId );
             } else {
                 throw new ClientException( ErrorCode.AWARD_PROP_NOT_FOUND, prop.propId + "," + prop.count );
             }
@@ -113,16 +113,20 @@ public class AwardModule{
                 throw new ClientException( ErrorCode.AWARD_REDUCE_COUNT_ILLEGAL, prop.propId + "," + prop.count );
             }
             int propId = prop.propId;
-            if( propId == 500001 ) {
+            if( propId == PropIdDefine.CASH_JIN_BI ) {
                 if( propertyModule.getCash() < prop.count ) {
                     return false;
                 }
-            } else if( propId == 500002 ) {
+            } else if( propId == PropIdDefine.CASH_ZUAN_SHI ) {
                 if( propertyModule.getDiamond() < prop.count ) {
                     return false;
                 }
-            } else if( propId == 500007 ) {
+            } else if( propId == PropIdDefine.XING_DONG_LI ) {
                 if( propertyModule.getStrength() < prop.count ) {
+                    return false;
+                }
+            } else if( propId == PropIdDefine.NENG_YUAN ) {
+                if( propertyModule.getEnergy() < prop.count ) {
                     return false;
                 }
             } else if( propId >= 100101 && propId <= 199999 ) {//飞机

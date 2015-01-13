@@ -1,6 +1,5 @@
 package com.hz.dafeiji.net;
 
-import com.hz.dafeiji.lanch.ServerCfg;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;

@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-12 15:45:41
+ * 2015-1-13 10:01:06
  */
 public class PlaneTemplet {
 

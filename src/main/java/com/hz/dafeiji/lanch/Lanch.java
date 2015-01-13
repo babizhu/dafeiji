@@ -1,6 +1,6 @@
 package com.hz.dafeiji.lanch;
 
-import com.hz.dafeiji.ai.user.GameWorld;
+
 import com.hz.dafeiji.ai.user.modules.mail.MailStore;
 import com.hz.dafeiji.cfg.CfgInit;
 import com.hz.dafeiji.net.GameServer;

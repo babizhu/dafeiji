@@ -1,4 +1,4 @@
-package com.hz.dafeiji.ai.user.modules.prop;
+package com.hz.dafeiji.ai.user.modules.stuff;
 
 /**
  * user         LIUKUN
@@ -6,5 +6,7 @@ package com.hz.dafeiji.ai.user.modules.prop;
  * 道具材料系统
  */
 
-public class PropModule{
+public class StuffModule{
+
+
 }

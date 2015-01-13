@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-12 15:45:41
+ * 2015-1-13 10:01:06
  */
 public class WingTemplet {
 
@@ -142,6 +142,18 @@ public class WingTemplet {
 	public int getAllPurpose() {
 		return allPurpose;
 	}/**
+	 * 基础卖价
+	 */
+    private final int cashBase;
+
+
+
+	/**
+	 * 基础卖价
+	 */
+	public int getCashBase() {
+		return cashBase;
+	}/**
 	 * 资源id
 	 */
     private final String resId;
@@ -227,6 +239,7 @@ aspd = Integer.parseInt( element.getChildText("aspd").trim() );
 attackUp = Float.parseFloat( element.getChildText("attackUp").trim() );
 compound = Integer.parseInt( element.getChildText("compound").trim() );
 allPurpose = Integer.parseInt( element.getChildText("allPurpose").trim() );
+cashBase = Integer.parseInt( element.getChildText("cashBase").trim() );
 resId = element.getChildText("resId").trim();
 barrage = Integer.parseInt( element.getChildText("barrage").trim() );
 skill1 = Integer.parseInt( element.getChildText("skill1").trim() );
@@ -238,7 +251,7 @@ describe = element.getChildText("describe").trim();
 
 	@Override
 	public String toString() {
-		return "WingTemplet [id = " + id + ",name = " + name + ",quality = " + quality + ",qualityMax = " + qualityMax + ",currentLv = " + currentLv + ",attribute = " + attribute + ",attack = " + attack + ",aspd = " + aspd + ",attackUp = " + attackUp + ",compound = " + compound + ",allPurpose = " + allPurpose + ",resId = " + resId + ",barrage = " + barrage + ",skill1 = " + skill1 + ",skill2 = " + skill2 + ",source = " + source + ",describe = " + describe + "]";
+		return "WingTemplet [id = " + id + ",name = " + name + ",quality = " + quality + ",qualityMax = " + qualityMax + ",currentLv = " + currentLv + ",attribute = " + attribute + ",attack = " + attack + ",aspd = " + aspd + ",attackUp = " + attackUp + ",compound = " + compound + ",allPurpose = " + allPurpose + ",cashBase = " + cashBase + ",resId = " + resId + ",barrage = " + barrage + ",skill1 = " + skill1 + ",skill2 = " + skill2 + ",source = " + source + ",describe = " + describe + "]";
 	}
 
 	/*自定义代码开始*//*自定义代码结束*/

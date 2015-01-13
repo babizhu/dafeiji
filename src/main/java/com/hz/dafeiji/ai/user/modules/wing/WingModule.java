@@ -78,7 +78,7 @@ public class WingModule{
     private Wing getWingById( long wingId ){
         Wing wing = allWings.get( wingId );
         if( wing == null ) {
-            throw new ClientException( ErrorCode.WING_NOT_FOUND );
+            throw new ClientException( ErrorCode.WING_NOT_FOUND, "wingId=" + wingId );
         }
         return wing;
     }
@@ -98,7 +98,7 @@ public class WingModule{
 
         int expAdd = calcExp( stuffs, wingArr );
 
-        int needCash = (int) (expAdd * Define.JIN_BI_WING_UP);//TODO 黄同学来确定
+        int needCash = (int) (expAdd * Define.JIN_BI_WING_UP);
         awardModule.reduceAward( PropIdDefine.CASH_JIN_BI + "," + needCash, "WingModule.leveUp()" );
 
         int maxLevel = WingExpCfg.getMaxLevel( wing.getTemplet().getQuality(), wing.getExp(), expAdd );
@@ -122,7 +122,9 @@ public class WingModule{
     private int calcExp( int[] stuffs, Wing[] wingArr ){
         int exp = 0;
         for( Wing wing : wingArr ) {
-            exp += WingExpCfg.getExp( wing.getTemplet().getQuality(), wing.getLevel() ) * Define.ZHUANG_BEI_CHAI_FEN;//TODO 黄同学来确定
+            exp += WingExpCfg.getExp( wing.getTemplet().getQuality(), wing.getLevel() ) * Define.LIAO_JI_TUN_SHI;
+            exp += wing.getWqTemplet().getExpInitial();
+
         }
         for( int stuffTempletId : stuffs ) {//计算经验卡
             StuffTemplet templet = StuffTempletCfg.getStuffTempletById( stuffTempletId );
@@ -135,23 +137,35 @@ public class WingModule{
     /**
      * 出售僚机
      *
-     * @param id 要出售的僚机id
-     * @return 获取的金币
+     * @param idArr 要出售的僚机id数组
+     * @return 获取总的金币
      */
-    public int sell( long id ){
-        Wing wing = getWingById( id );
-        int cash = 0;//TODO 计算僚机兑换的金币
+    public int sell( long[] idArr ){
+        Wing[] wings = new Wing[idArr.length];
+        for( int i = 0; i < idArr.length; i++ ) {
+            wings[i] = getWingById( idArr[i] );
+        }
+        int allCash= 0;
+        for( Wing wing : wings ) {
 
-        awardModule.addAward( PropIdDefine.CASH_JIN_BI + "," + cash, "WingModule.sell()" );
-        remove( wing );
-        return cash;
+            int cash = WingExpCfg.getExp( wing.getTemplet().getQuality(), wing.getLevel() );
+            cash *= Define.JIN_BI_WING_UP;
+            cash += wing.getTemplet().getCashBase();
+
+            allCash += cash;
+
+            awardModule.addAward( PropIdDefine.CASH_JIN_BI + "," + cash, "WingModule.sell()" );
+
+            remove( wing );
+        }
+        return allCash;
     }
 
 
     /**
      * 购买僚机
      *
-     * @param wingTempletId
+     * @param wingTempletId 僚机模板id
      */
     public Wing buy( int wingTempletId ){
         WingTemplet templet = check( wingTempletId );
@@ -194,7 +208,8 @@ public class WingModule{
             db.updateWithField( currentWing, WingDataProvider.CURRENT_FIELD, false );
         }
 
-        currentWing.setCurrent( true );
+
+        wing.setCurrent( true );
         db.updateWithField( wing, WingDataProvider.CURRENT_FIELD, true );
         currentWing = wing;
     }

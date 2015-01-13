@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 模版配置
  * @author liukun
- * 2015-1-12 15:45:41
+ * 2015-1-13 10:01:06
  */
 public class WingQurlityTempletCfg {
 	private static final Map<Integer,WingQurlityTemplet> wingQurlityTemplets = new HashMap<>();
