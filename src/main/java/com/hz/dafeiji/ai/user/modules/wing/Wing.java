@@ -16,8 +16,9 @@ public class Wing implements IdentityObj{
     private long id;
     private int level = 1;
     private final WingTemplet templet;
-    private final WingQurlityTemplet wqTemplet;
+    private WingQurlityTemplet wqTemplet;
     private int exp;
+    private int quality;
 
     /**
      * 是否当前的出战飞机
@@ -29,7 +30,7 @@ public class Wing implements IdentityObj{
     public Wing( Long id, WingTemplet templet ){
         this.id = id;
         this.templet = templet;
-        wqTemplet = WingQurlityTempletCfg.getWingQurlityTempletById( templet.getQuality() );
+
     }
 
     public int getAttack(){
@@ -38,5 +39,9 @@ public class Wing implements IdentityObj{
 
     public int getAttackSpeed(){
         return (int) (templet.getAspd() + wqTemplet.getAspdUpInc());
+    }
+
+    public WingQurlityTemplet getWqTemplet(){
+        return WingQurlityTempletCfg.getWingQurlityTempletById( quality );
     }
 }

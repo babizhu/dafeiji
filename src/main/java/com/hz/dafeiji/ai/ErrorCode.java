@@ -181,7 +181,28 @@ public enum ErrorCode{
     /**
      * 僚机模板未找到
      */
-    WING_TEMPLET_NOT_FOUND( 8501 );
+    WING_TEMPLET_NOT_FOUND( 8501 ),
+    /**
+     * 僚机进阶超过品质上限
+     */
+    WING_UPGRADE_OVER_LIMIT( 8502 ),
+    /**
+     * 僚机进阶未达等级上限
+     */
+    WING_UPGRADE_LEVEL_UNDER_LIMIT( 8503 ),
+    /**
+     * 被吞噬的僚机是要进阶的僚机
+     */
+    WING_UPGRADE_SELF( 8504 ),
+    /**
+     * 被吞噬的僚机是当前出战的僚机
+     */
+    WING_UPGRADE_IS_CURRENT( 8505 ),
+    /**
+     * 被吞噬的僚机数量不够
+     */
+    WING_UPGRADE_WING_NOT_ENOUGH( 8506 );
+
 
     ////////////////////////////////////////////////枚举结束/////////////////////////////////////////
 

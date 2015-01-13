@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-13 10:01:06
+ * 2015-1-13 13:52:08
  */
 public class WingQurlityTemplet {
 
@@ -154,14 +154,26 @@ public class WingQurlityTemplet {
 	public int getAdvanceCard() {
 		return advanceCard;
 	}/**
-	 * 进阶消耗5品质僚机数量
+	 * 进阶消耗所需僚机品质
+	 */
+    private final int advanceWingQue;
+
+
+
+	/**
+	 * 进阶消耗所需僚机品质
+	 */
+	public int getAdvanceWingQue() {
+		return advanceWingQue;
+	}/**
+	 * 进阶消耗僚机数量
 	 */
     private final int advanceWing;
 
 
 
 	/**
-	 * 进阶消耗5品质僚机数量
+	 * 进阶消耗僚机数量
 	 */
 	public int getAdvanceWing() {
 		return advanceWing;
@@ -216,6 +228,7 @@ attackUpInc = Float.parseFloat( element.getChildText("attackUpInc").trim() );
 expGap = Integer.parseInt( element.getChildText("expGap").trim() );
 expInitial = Integer.parseInt( element.getChildText("expInitial").trim() );
 advanceCard = Integer.parseInt( element.getChildText("advanceCard").trim() );
+advanceWingQue = Integer.parseInt( element.getChildText("advanceWingQue").trim() );
 advanceWing = Integer.parseInt( element.getChildText("advanceWing").trim() );
 advanceGold = Integer.parseInt( element.getChildText("advanceGold").trim() );
 advanceJewel = Integer.parseInt( element.getChildText("advanceJewel").trim() );
@@ -225,7 +238,7 @@ state = element.getChildText("state").trim();
 
 	@Override
 	public String toString() {
-		return "WingQurlityTemplet [id = " + id + ",quality = " + quality + ",step = " + step + ",starCount = " + starCount + ",maxLv = " + maxLv + ",gold = " + gold + ",score = " + score + ",aspdUpInc = " + aspdUpInc + ",attackUpInc = " + attackUpInc + ",expGap = " + expGap + ",expInitial = " + expInitial + ",advanceCard = " + advanceCard + ",advanceWing = " + advanceWing + ",advanceGold = " + advanceGold + ",advanceJewel = " + advanceJewel + ",state = " + state + "]";
+		return "WingQurlityTemplet [id = " + id + ",quality = " + quality + ",step = " + step + ",starCount = " + starCount + ",maxLv = " + maxLv + ",gold = " + gold + ",score = " + score + ",aspdUpInc = " + aspdUpInc + ",attackUpInc = " + attackUpInc + ",expGap = " + expGap + ",expInitial = " + expInitial + ",advanceCard = " + advanceCard + ",advanceWingQue = " + advanceWingQue + ",advanceWing = " + advanceWing + ",advanceGold = " + advanceGold + ",advanceJewel = " + advanceJewel + ",state = " + state + "]";
 	}
 
 	/*自定义代码开始*//*自定义代码结束*/

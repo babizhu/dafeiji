@@ -61,7 +61,7 @@ public class PlaneModuleTest{
         System.out.println( plane );
         for( int i = 0; i < 35; i++ ) {
 
-            System.out.println( module.calcLevelUpCash( plane, pqt ) );
+            System.out.println( module.calcLevelUpNeedCash( plane, pqt ) );
             plane.setLevel( plane.getLevel() + 1 );
         }
 
@@ -93,7 +93,7 @@ public class PlaneModuleTest{
         for( int i = 0; i < maxLevel - 1; i++ ) {
 
             //给点钱，方便扣除
-            int needCash = module.calcLevelUpCash( plane, pqt );
+            int needCash = module.calcLevelUpNeedCash( plane, pqt );
             user.getModuleManager().getAwardModule().addAward( "500001," + needCash, "testLevelUp" );
             module.levelUp( plane.getId() );
             assertEquals( plane.getLevel(), i + 2 );

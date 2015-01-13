@@ -5,13 +5,13 @@ import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
 /**
  * 常数定义，自动生成，勿改
  * @author liukun
- * 2015-1-13 10:01:06
+ * 2015-1-13 13:52:08
  */
  @SuppressWarnings("UnusedDeclaration")
 public class Define {
 	
 /** 装备升级所消耗的金币与能源所占比例 **/
-public static float JIN_BI_EQUIPMENT_UP = 0.1F;/** 僚机升级所消耗的金币与能源所占比例 **/
+public static float JIN_BI_EQUIPMENT_UP = 0.1F;/** 僚机升级所消耗的金币与经验所占比例 **/
 public static float JIN_BI_WING_UP = 0.1F;/** 装备拆分时所获得的能源与升级所消耗能源的比例 **/
 public static float ZHUANG_BEI_CHAI_FEN = 0.1F;/** 僚机被吞噬时所获得的经验与升级所消耗经验的比例 **/
 public static float LIAO_JI_TUN_SHI = 0.1F;/** 装备升级时的总的参数。 **/
@@ -30,21 +30,27 @@ public static float PU_TONG_ZI_DAN_WEI_LI = 0.1F;/** 受到攻击狂暴层数减
 public static int KUANG_BAO_WEI_LI_SUAI_JIAN = 1;/** 吃一个小水晶获得2积分 **/
 public static int JI_FEN_XIAO = 2;/** 吃一个中水晶获得5积分 **/
 public static int JI_FEN_ZHONG = 5;/** 吃一个大水晶获得10积分 **/
-public static int JI_FEN_DA = 10;/** 僚机吞噬会获得500经验 **/
-public static int JING_YAN_KA_1 = 500;/** 僚机吞噬会获得1000经验 **/
-public static int JING_YAN_KA_2 = 1000;/** 僚机吞噬会获得2000经验 **/
-public static int JING_YAN_KA_3 = 2000;/** 僚机吞噬会获得5000经验 **/
-public static int JING_YAN_KA_4 = 5000;/** 僚机吞噬会获得10000经验 **/
-public static int JING_YAN_KA_5 = 10000;/** 拆分可以获得2000的装备经验 **/
-public static int DENG_YUAN_BAO_1 = 2000;/** 拆分可以获得10000的装备经验 **/
-public static int DENG_YUAN_BAO_2 = 10000;/** 单位是屏，可以吸收0.5屏范围内的道具 **/
+public static int JI_FEN_DA = 10;/** 单位是屏，可以吸收0.5屏范围内的道具 **/
 public static float CI_TIE_FAN_WEI = 0.5F;/** 机甲生命最大值 **/
 public static int MAX_JI_JIA_HP = 10000;/** 机甲攻击最大值 **/
 public static int MAX_JI_JIA_ATTACK = 100;/** 机甲攻速最大值 **/
-public static int MAX_JI_JIA_ASPD = 100;
+public static int MAX_JI_JIA_ASPD = 100;/** 机甲最小值 **/
+public static int ID_JI_JIA_MIN = 100000;/** 机甲最大值 **/
+public static int ID_JI_JIA_MAX = 199999;/** 僚机 **/
+public static String ID_LIAO_JI = "200000-299999";/** 装备 **/
+public static String ID_ZHUANG_BEI = "300000-399999";/** 小怪 **/
+public static String ID_XIAO_GUAI = "400000-449999";/** boss **/
+public static String ID_BOSS = "450000-499999";/** 商店道具 **/
+public static String ID_SHOP_DAO_JU = "530000-559999";/** 战斗道具 **/
+public static String ID_COMBAT_DAO_JU = "560000-599999";/** 消耗品 **/
+public static String ID_XIAO_HAO_PIN = "600000-699999";/** 技能id **/
+public static String ID_JI_NENG = "700000-799999";/** 基础属性 **/
+public static String ID_JI_CHU_SHU_XING = "500000-529999";/** 最小材料id **/
+public static int ID_STUFF_MIN = 530000;/** 最大材料id **/
+public static int ID_STUFF_MAX = 699999;
 		public static void reload() {
 		DefineTempletCfg.init();
-JIN_BI_EQUIPMENT_UP = getFloat("JIN_BI_EQUIPMENT_UP");JIN_BI_WING_UP = getFloat("JIN_BI_WING_UP");ZHUANG_BEI_CHAI_FEN = getFloat("ZHUANG_BEI_CHAI_FEN");LIAO_JI_TUN_SHI = getFloat("LIAO_JI_TUN_SHI");ZHUANG_BEI_SHENG_JI_CHANG_LIANG = getFloat("ZHUANG_BEI_SHENG_JI_CHANG_LIANG");HEI_DAN_XIE_DAI_SHANG_XIAN = getInt("HEI_DAN_XIE_DAI_SHANG_XIAN");XIN_SHENG_QU_DONG = getInt("XIN_SHENG_QU_DONG");SI_WANG_QU_DONG = getInt("SI_WANG_QU_DONG");LAN_SE_FANG_HU_TIME = getInt("LAN_SE_FANG_HU_TIME");KUANG_RE_QU_DONG = getInt("KUANG_RE_QU_DONG");HUI_FU_QI_XUE = getFloat("HUI_FU_QI_XUE");KUANG_BAO_SHU_XING_JIA_CHENG = getFloat("KUANG_BAO_SHU_XING_JIA_CHENG");KUANG_BAO_CHI_XU_TIME = getInt("KUANG_BAO_CHI_XU_TIME");KUANG_BAO_XU_YAO_PU_TONG = getInt("KUANG_BAO_XU_YAO_PU_TONG");KUANG_BAO_XU_YAO_KUANG_BAO = getInt("KUANG_BAO_XU_YAO_KUANG_BAO");PU_TONG_ZI_DAN_WEI_LI = getFloat("PU_TONG_ZI_DAN_WEI_LI");KUANG_BAO_WEI_LI_SUAI_JIAN = getInt("KUANG_BAO_WEI_LI_SUAI_JIAN");JI_FEN_XIAO = getInt("JI_FEN_XIAO");JI_FEN_ZHONG = getInt("JI_FEN_ZHONG");JI_FEN_DA = getInt("JI_FEN_DA");JING_YAN_KA_1 = getInt("JING_YAN_KA_1");JING_YAN_KA_2 = getInt("JING_YAN_KA_2");JING_YAN_KA_3 = getInt("JING_YAN_KA_3");JING_YAN_KA_4 = getInt("JING_YAN_KA_4");JING_YAN_KA_5 = getInt("JING_YAN_KA_5");DENG_YUAN_BAO_1 = getInt("DENG_YUAN_BAO_1");DENG_YUAN_BAO_2 = getInt("DENG_YUAN_BAO_2");CI_TIE_FAN_WEI = getFloat("CI_TIE_FAN_WEI");MAX_JI_JIA_HP = getInt("MAX_JI_JIA_HP");MAX_JI_JIA_ATTACK = getInt("MAX_JI_JIA_ATTACK");MAX_JI_JIA_ASPD = getInt("MAX_JI_JIA_ASPD");
+JIN_BI_EQUIPMENT_UP = getFloat("JIN_BI_EQUIPMENT_UP");JIN_BI_WING_UP = getFloat("JIN_BI_WING_UP");ZHUANG_BEI_CHAI_FEN = getFloat("ZHUANG_BEI_CHAI_FEN");LIAO_JI_TUN_SHI = getFloat("LIAO_JI_TUN_SHI");ZHUANG_BEI_SHENG_JI_CHANG_LIANG = getFloat("ZHUANG_BEI_SHENG_JI_CHANG_LIANG");HEI_DAN_XIE_DAI_SHANG_XIAN = getInt("HEI_DAN_XIE_DAI_SHANG_XIAN");XIN_SHENG_QU_DONG = getInt("XIN_SHENG_QU_DONG");SI_WANG_QU_DONG = getInt("SI_WANG_QU_DONG");LAN_SE_FANG_HU_TIME = getInt("LAN_SE_FANG_HU_TIME");KUANG_RE_QU_DONG = getInt("KUANG_RE_QU_DONG");HUI_FU_QI_XUE = getFloat("HUI_FU_QI_XUE");KUANG_BAO_SHU_XING_JIA_CHENG = getFloat("KUANG_BAO_SHU_XING_JIA_CHENG");KUANG_BAO_CHI_XU_TIME = getInt("KUANG_BAO_CHI_XU_TIME");KUANG_BAO_XU_YAO_PU_TONG = getInt("KUANG_BAO_XU_YAO_PU_TONG");KUANG_BAO_XU_YAO_KUANG_BAO = getInt("KUANG_BAO_XU_YAO_KUANG_BAO");PU_TONG_ZI_DAN_WEI_LI = getFloat("PU_TONG_ZI_DAN_WEI_LI");KUANG_BAO_WEI_LI_SUAI_JIAN = getInt("KUANG_BAO_WEI_LI_SUAI_JIAN");JI_FEN_XIAO = getInt("JI_FEN_XIAO");JI_FEN_ZHONG = getInt("JI_FEN_ZHONG");JI_FEN_DA = getInt("JI_FEN_DA");CI_TIE_FAN_WEI = getFloat("CI_TIE_FAN_WEI");MAX_JI_JIA_HP = getInt("MAX_JI_JIA_HP");MAX_JI_JIA_ATTACK = getInt("MAX_JI_JIA_ATTACK");MAX_JI_JIA_ASPD = getInt("MAX_JI_JIA_ASPD");ID_JI_JIA_MIN = getInt("ID_JI_JIA_MIN");ID_JI_JIA_MAX = getInt("ID_JI_JIA_MAX");ID_LIAO_JI = getString("ID_LIAO_JI");ID_ZHUANG_BEI = getString("ID_ZHUANG_BEI");ID_XIAO_GUAI = getString("ID_XIAO_GUAI");ID_BOSS = getString("ID_BOSS");ID_SHOP_DAO_JU = getString("ID_SHOP_DAO_JU");ID_COMBAT_DAO_JU = getString("ID_COMBAT_DAO_JU");ID_XIAO_HAO_PIN = getString("ID_XIAO_HAO_PIN");ID_JI_NENG = getString("ID_JI_NENG");ID_JI_CHU_SHU_XING = getString("ID_JI_CHU_SHU_XING");ID_STUFF_MIN = getInt("ID_STUFF_MIN");ID_STUFF_MAX = getInt("ID_STUFF_MAX");
 		}
 		
 		private static int getInt(String s) {

@@ -92,12 +92,12 @@ public class PlaneModule{
             throw new ClientException( ErrorCode.PLANE_REACH_MAX_LEVEL );
         }
 
-        int needCash = calcLevelUpCash( plane, pqt );
+        int needCash = calcLevelUpNeedCash( plane, pqt );
         awardModule.reduceAward( "500001," + needCash, "Plane.levelUp" );
         plane.setLevel( plane.getLevel() + 1 );
     }
 
-    int calcLevelUpCash( Plane plane, PlaneQurlityTemplet pqt ){
+    int calcLevelUpNeedCash( Plane plane, PlaneQurlityTemplet pqt ){
         int needCash = (plane.getLevel() - 1) / 10 + 1;
 
         needCash *= pqt.getConsumeFactor();

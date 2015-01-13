@@ -19,6 +19,7 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
     static final String CURRENT_FIELD = "current";
     static final String TEMPLET_ID_FIELD = "templetId";
     static final String ID_FIELD = "_id";
+    static final String QUALITY_FIELD = "quality";
 
     public WingDataProvider( String uname ){
         super( TABLE_NAME, uname );
@@ -36,6 +37,7 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
         Wing wing = new Wing( (Long) object.get( ID_FIELD ), templet );
         wing.setLevel( (int) object.get( LEVEL_FIELD ) );
         wing.setCurrent( (boolean) object.get( CURRENT_FIELD ) );
+        wing.setQuality( (int)object.get( QUALITY_FIELD ) );
 
         return wing;
     }
@@ -47,6 +49,7 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
         obj.put( LEVEL_FIELD, wing.getLevel() );
         obj.put( TEMPLET_ID_FIELD, wing.getTemplet().getId() );
         obj.put( CURRENT_FIELD, wing.isCurrent() );
+        obj.put( QUALITY_FIELD, wing.getQuality() );
 
         return obj;
     }

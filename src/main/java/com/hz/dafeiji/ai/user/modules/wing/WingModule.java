@@ -1,5 +1,6 @@
 package com.hz.dafeiji.ai.user.modules.wing;
 
+import com.bbz.tool.common.StrUtil;
 import com.bbz.tool.identity.IdentityGen;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
@@ -11,7 +12,6 @@ import com.hz.dafeiji.cfg.manual.WingExpCfg;
 import com.hz.dafeiji.cfg.reward.StuffTemplet;
 import com.hz.dafeiji.cfg.reward.StuffTempletCfg;
 import com.hz.dafeiji.cfg.wing.WingTemplet;
-import com.hz.dafeiji.cfg.wing.WingTempletCfg;
 
 import java.util.Map;
 
@@ -22,6 +22,8 @@ import java.util.Map;
  */
 
 public class WingModule{
+
+    public static final String clazName = WingModule.class.getSimpleName();
 
     private final WingDataProvider db;
     private final AwardModule awardModule;
@@ -94,7 +96,7 @@ public class WingModule{
      */
     public int levelUp( long id, int[] stuffs, long[] wings ){
         Wing wing = getWingById( id );
-        Wing[] wingArr = getWingArrById( wings );
+        Wing[] wingArr = checkSwallowWings( wings, wing );
 
         int expAdd = calcExp( stuffs, wingArr );
 
@@ -168,9 +170,10 @@ public class WingModule{
      * @param wingTempletId 僚机模板id
      */
     public Wing buy( int wingTempletId ){
-        WingTemplet templet = check( wingTempletId );
-        //TODO
-        return add( templet );
+//        WingTemplet templet = check( wingTempletId );
+//        //TODO
+//        return add( templet );
+        return null;
     }
 
     /**
@@ -185,22 +188,22 @@ public class WingModule{
         db.add( wing );
         return wing;
     }
-
-    /**
-     * 通过如下条件检测玩家是否可以购买僚机
-     * 1、模板要存在
-     *
-     * @param wingTempletId 飞机模板id
-     */
-    private WingTemplet check( int wingTempletId ){
-
-        WingTemplet wt = WingTempletCfg.getWingTempletById( wingTempletId );
-        if( wt == null ) {
-            throw new ClientException( ErrorCode.WING_TEMPLET_NOT_FOUND, "planTempletId=" + wingTempletId );
-        }
-
-        return wt;
-    }
+//
+//    /**
+//     * 通过如下条件检测玩家是否可以购买僚机
+//     * 1、模板要存在
+//     *
+//     * @param wingTempletId 飞机模板id
+//     */
+//    private WingTemplet check( int wingTempletId ){
+//
+//        WingTemplet wt = WingTempletCfg.getWingTempletById( wingTempletId );
+//        if( wt == null ) {
+//            throw new ClientException( ErrorCode.WING_TEMPLET_NOT_FOUND, "planTempletId=" + wingTempletId );
+//        }
+//
+//        return wt;
+//    }
 
     private void setCurrentWing( Wing wing ){
         if( currentWing != null ) {
@@ -215,7 +218,7 @@ public class WingModule{
     }
 
     /**
-     * 从数据库和内存中删除僚机
+     * 从数据库和内存中删除僚机数组
      */
     private void removeWings( Wing[] removeWings ){
         for( Wing wing : removeWings ) {
@@ -228,10 +231,28 @@ public class WingModule{
         allWings.remove( wing.getId() );
     }
 
-    private Wing[] getWingArrById( long[] ids ){
+    /**
+     * 检测玩家传过来的被吞噬的僚机是否合法
+     * 1、僚机要存在
+     * 2、不能是要进阶的僚机自身
+     * 3、不能是当前出战的了解
+     *
+     * @param ids
+     * @return
+     */
+    private Wing[] checkSwallowWings( long[] ids, Wing upgrageWing ){
         Wing[] wings = new Wing[ids.length];
         for( int i = 0; i < ids.length; i++ ) {
-            wings[i] = getWingById( ids[i] );
+            if( upgrageWing.getId() == ids[i] ){
+                throw new ClientException( ErrorCode.WING_UPGRADE_SELF );
+            }
+
+            Wing wing = getWingById( ids[i] );
+            if( wing.isCurrent() ){
+                throw new ClientException( ErrorCode.WING_UPGRADE_IS_CURRENT );
+            }
+            wings[i] = wing;
+
         }
         return wings;
     }
@@ -239,4 +260,44 @@ public class WingModule{
     public Map<Long, Wing> getAll(){
         return allWings;
     }
+
+    /**
+     * 品质升级
+     * @param wingId        要升级的僚机唯一id
+     * @param wingIds      打算被吞噬的僚机id
+     */
+    public void QualityUp( long wingId, long[] wingIds ){
+        Wing wing = getWingById( wingId );
+        if( wing.getQuality() >= wing.getTemplet().getQualityMax() ){
+            throw new ClientException( ErrorCode.WING_UPGRADE_OVER_LIMIT );
+        }
+
+        if( wing.getLevel() != wing.getWqTemplet().getMaxLv() ){
+            throw new ClientException( ErrorCode.WING_UPGRADE_LEVEL_UNDER_LIMIT );
+        }
+
+        Wing[]  wings = checkSwallowWings( wingIds, wing );
+        if( wings.length < wing.getWqTemplet().getAdvanceWing() ){
+            throw new ClientException( ErrorCode.WING_UPGRADE_WING_NOT_ENOUGH );
+
+        }
+
+
+        String award = "";
+        if( wing.getWqTemplet().getAdvanceGold() != 0 ){
+            award = PropIdDefine.CASH_JIN_BI + "," + wing.getWqTemplet().getAdvanceGold() + ",";
+        }
+        if( wing.getWqTemplet().getAdvanceJewel() != 0 ){
+            award = PropIdDefine.CASH_ZUAN_SHI + "," + wing.getWqTemplet().getAdvanceJewel() + ",";
+        }
+        if( wing.getWqTemplet().getAdvanceCard() != 0 ){
+            award = PropIdDefine.ZH_JIN_JIE_KA + "," + wing.getWqTemplet().getAdvanceGold() + ",";
+        }
+
+        award = StrUtil.removeLastChar( award );
+
+        awardModule.reduceAward( award, clazName + ".QualityUp" );
+        removeWings( wings );
+    }
+
 }
