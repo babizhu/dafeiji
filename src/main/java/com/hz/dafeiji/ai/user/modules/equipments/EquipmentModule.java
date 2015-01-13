@@ -1,8 +1,6 @@
 package com.hz.dafeiji.ai.user.modules.equipments;
 
 import com.bbz.tool.common.Transform;
-import com.bbz.tool.db.MongoUtil;
-import com.google.common.collect.Lists;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.addtion.AddtionCollection;
@@ -60,8 +58,6 @@ public class EquipmentModule{
         className = getClass().getSimpleName();
 
         equipments = db.getMapAllBy(new BasicDBObject(EquipmentDataProvider.FIELD_ISDELETE,0)); //查询isDelete字段为0的数据
-
-        System.out.println("装备数量:"+equipments.size());
     }
 
     /**
@@ -142,16 +138,15 @@ public class EquipmentModule{
 
         int costDraw = et.getAdvanceDraw();         //消耗图纸
 
-        awardModule.reduceAward(PropIdDefine.CASH_JIN_BI + "," + et.getAdvanceGold(), methodName);     //扣除需要的金币
-        awardModule.reduceAward(PropIdDefine.CASH_ZUAN_SHI + "," + et.getAdvanceJewel(), methodName);  //扣除需要的钻石
-
+        List<Equipment> costEquips = new ArrayList<>();
         if(et.getAdvanceEquipment() > 0){       //如果需要消耗装备
-            List<Equipment> costEquips = new ArrayList<>();
-
             for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
                 Equipment temp = entry.getValue();
                 if(temp.getIsDelete() == 0){
-                    if(temp.getQuality() == et.getAdvanceEquipmentQue() && temp.getTemplet().getId() == equip.getTemplet().getId()){
+                    if(temp.getQuality() == et.getAdvanceEquipmentQue() &&              //待吞噬的装备品质 = 该装备需要的材料装备品质
+                       temp.getTemplet().getId() == equip.getTemplet().getId() &&       //待吞噬的装备模版ID = 该装备需要的材料装备模版ID
+                       temp.getLoaded() == 0){                                          //待吞噬的装备不能是装备中的
+
                         costEquips.add(temp);
                     }
                 }
@@ -162,10 +157,13 @@ public class EquipmentModule{
                         , "进阶需要的装备不够,需要品质"+et.getAdvanceEquipmentQue()+"的装备"+et.getAdvanceEquipment()
                         +"件,拥有:"+costEquips.size()+"件");
             }
+        }
+        String costProps = PropIdDefine.CASH_JIN_BI + "," + et.getAdvanceGold() + ","
+                         + PropIdDefine.CASH_ZUAN_SHI + "," + et.getAdvanceJewel();
 
-            for(Equipment e : costEquips){
-                removeEquip(e);     //删除被吃掉的装备
-            }
+        awardModule.reduceAward(costProps, methodName);     //扣除需要的Prop
+        for(Equipment e : costEquips){
+            removeEquip(e);     //删除被吃掉的装备
         }
 
         equip.upgradeQuality();
