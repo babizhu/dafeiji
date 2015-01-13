@@ -83,14 +83,13 @@ public class EquipmentModule{
      */
     public void splitEquip(String equipIds){
         long[] equipIdArr = Transform.ArrayType.toLongs(equipIds);
+        int totalEnergy = 0;
         for(long equipId : equipIdArr){
             Equipment equip = getEquipmentById(equipId);
-
-            int energy = EquipExpCfg.getSplitExp(equip.getQuality(), equip.getLevel(), equip.getTemplet().getType());  //分解装备获取的能源
-            awardModule.addAward(PropIdDefine.NENG_YUAN + "," + energy, className + ".splitEquip");
-
+            totalEnergy += EquipExpCfg.getSplitExp(equip.getQuality(), equip.getLevel(), equip.getTemplet().getType());  //分解装备获取的能源
             removeEquip(equip);         //删除装备
         }
+        awardModule.addAward(PropIdDefine.NENG_YUAN + "," + totalEnergy, className + ".splitEquip");
     }
 
     /**
@@ -291,7 +290,7 @@ public class EquipmentModule{
         Equipment equip = null;
         for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
             if(entry.getValue().getIsDelete() == 0){
-                if(entry.getValue().getTemplet().getType() == type && entry.getValue().getLoaded() == 1){
+                if(entry.getValue().getTemplet().getType() == type && entry.getValue().getLoaded() > 0){
                     equip = entry.getValue();
                     break;
                 }
