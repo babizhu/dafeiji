@@ -38,6 +38,7 @@ public class GameServer{public static void main( String[] args ){
             // In this example, this does not happen, but you can do that to gracefully
             // shut down your server.
             future.channel().closeFuture().sync();
+
         } catch( InterruptedException e ) {
             e.printStackTrace();
         } finally {

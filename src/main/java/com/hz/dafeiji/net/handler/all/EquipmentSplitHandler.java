@@ -19,7 +19,7 @@ public class EquipmentSplitHandler implements IGameHandler {
         if(Tools.reqParamCheck(request, "i")){
             EquipmentModule module = user.getModuleManager().getEquipmentModule();
 
-            module.splitEquip(request.getString("i"), user);
+            module.splitEquip(request.getString("i"));
 
             response.put("e", user.getModuleManager().getPropertyModule().getEnergy());
         }else{

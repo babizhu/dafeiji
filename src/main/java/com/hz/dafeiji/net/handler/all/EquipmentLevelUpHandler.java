@@ -18,7 +18,7 @@ public class EquipmentLevelUpHandler implements IGameHandler{
         if(Tools.reqParamCheck(request, "i")){
             EquipmentModule module = user.getModuleManager().getEquipmentModule();
 
-            module.levelUpEquip(request.getInteger("i"), user);
+            module.levelUpEquip(request.getInteger("i"));
         }else{
             throw new ClientException(ErrorCode.PARAMETER_ERROR, "EquipmentLevelUpHandler缺少必要参数,传入参数:" + request.toString());
         }
