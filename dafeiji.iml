@@ -12,7 +12,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: org.javassist:javassist:3.18.2-GA" level="project" />
-    <orderEntry type="library" name="Maven: org.javassist:javassist:3.18.2-GA" level="project" />
     <orderEntry type="library" name="Maven: org.jdom:jdom:2.0.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi:3.10-beta2" level="project" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.5" level="project" />

@@ -240,7 +240,7 @@ public class PlaneModule{
      */
     private void calcAllAddtion( ){
         AddtionCollection allAddtion = new AddtionCollection();
-        allAddtion.add( equipmentModule.getAdditionAttr() );
+        allAddtion.add( equipmentModule.getAddtionCollection() );
         //allAddtion.add( equipmentModule.getAdditionAttr() );//假设是第二个加成属性
         calcAddtion( allAddtion.getAddtions() );
     }

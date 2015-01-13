@@ -19,7 +19,7 @@ public class EquipmentUpgradeHandler implements IGameHandler{
         if(Tools.reqParamCheck(request, "i")){
             EquipmentModule module = user.getModuleManager().getEquipmentModule();
 
-            module.upgradeEquip(request.getInteger("i"), user);
+            module.upgradeEquip(request.getInteger("i"));
         }else{
             throw new ClientException(ErrorCode.PARAMETER_ERROR, "EquipmentUpgradeHandler缺少必要参数,传入参数:" + request.toString());
         }

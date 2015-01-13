@@ -88,7 +88,7 @@ public class ModuleManager{
         if(equipmentModule != null){
             return equipmentModule;
         }
-        equipmentModule = new EquipmentModule(uname);
+        equipmentModule = new EquipmentModule(this);
         return equipmentModule;
     }
 

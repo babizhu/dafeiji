@@ -19,7 +19,7 @@ public class EquipmentLoadHandler implements IGameHandler{
         if(Tools.reqParamCheck(request, "i")){
             EquipmentModule module = user.getModuleManager().getEquipmentModule();
 
-            module.loadEquip(request.getInteger("i"), user);
+            module.loadEquip(request.getInteger("i"));
         }else{
             throw new ClientException(ErrorCode.PARAMETER_ERROR, "EquipmentLoadHandler缺少必要参数,传入参数:" + request.toString());
         }

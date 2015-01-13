@@ -65,9 +65,9 @@ public class Equipment implements IdentityObj{
      * 从配置表构造新装备
      * @param templetId  模版ID
      */
-    public Equipment(long templetId){
+    public Equipment(int templetId){
         this.id = IdentityGen.INSTANCE.incrementAndGet();
-        this.templet = EquipmentTempletCfg.getEquipmentTempletById( (int)templetId );
+        this.templet = EquipmentTempletCfg.getEquipmentTempletById( templetId );
         this.level = 1;
         this.quality = templet.getQuality();
         this.loaded = 0;
