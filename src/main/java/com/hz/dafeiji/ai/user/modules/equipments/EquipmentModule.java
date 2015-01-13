@@ -87,9 +87,9 @@ public class EquipmentModule{
             Equipment equip = getEquipmentById(equipId);
 
             int energy = EquipExpCfg.getSplitExp(equip.getQuality(), equip.getLevel(), equip.getTemplet().getType());  //分解装备获取的能源
-            removeEquip(equip);         //删除装备
-
             awardModule.addAward(PropIdDefine.NENG_YUAN + "," + energy, className + ".splitEquip");
+
+            removeEquip(equip);         //删除装备
         }
     }
 
