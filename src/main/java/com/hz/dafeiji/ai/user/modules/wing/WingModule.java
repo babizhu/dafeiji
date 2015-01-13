@@ -91,23 +91,27 @@ public class WingModule{
      *
      * @param id     被升级的僚机id
      * @param stuffs 道具模板id列表
-     * @param wings  将被吞噬的僚机唯一ID列表
+     * @param swallowedWings  将被吞噬的僚机唯一ID的列表数组
      * @return 升级后僚机的等级
      */
-    public int levelUp( long id, int[] stuffs, long[] wings ){
+    public int levelUp( long id, int[] stuffs, long[] swallowedWings ){
         Wing wing = getWingById( id );
-        Wing[] wingArr = checkSwallowWings( wings, wing );
+        Wing[] wingArr = checkSwallowWings( swallowedWings, wing );
 
         int expAdd = calcExp( stuffs, wingArr );
 
         int needCash = (int) (expAdd * Define.JIN_BI_WING_UP);
-        awardModule.reduceAward( PropIdDefine.CASH_JIN_BI + "," + needCash, "WingModule.leveUp()" );
+        String award = PropIdDefine.CASH_JIN_BI + "," + needCash;
+        for( int stuff : stuffs ) {
+            award += "," + stuff + ",1";
+        }
+
+        awardModule.reduceAward( award, clazName + ".leveUp()" );
 
         int maxLevel = WingExpCfg.getMaxLevel( wing.getTemplet().getQuality(), wing.getExp(), expAdd );
         wing.setLevel( maxLevel );
 
         removeWings( wingArr );
-        //TODO 扣除道具
 
         db.updateWithField( wing, WingDataProvider.LEVEL_FIELD, maxLevel );
         return maxLevel;
@@ -171,7 +175,7 @@ public class WingModule{
      */
     public Wing buy( int wingTempletId ){
 //        WingTemplet templet = check( wingTempletId );
-//        //TODO
+//        //
 //        return add( templet );
         return null;
     }
@@ -182,7 +186,7 @@ public class WingModule{
      * @param templet 要创建的僚机模板
      * @return 创建的僚机
      */
-    private Wing add( WingTemplet templet ){
+    public Wing add( WingTemplet templet ){
         Wing wing = new Wing( IdentityGen.INSTANCE.incrementAndGet(), templet );
         allWings.put( wing.getId(), wing );
         db.add( wing );
@@ -237,8 +241,8 @@ public class WingModule{
      * 2、不能是要进阶的僚机自身
      * 3、不能是当前出战的了解
      *
-     * @param ids
-     * @return
+     * @param ids       被吞噬僚机的id数组
+     * @return          被吞噬的僚机列表
      */
     private Wing[] checkSwallowWings( long[] ids, Wing upgrageWing ){
         Wing[] wings = new Wing[ids.length];
@@ -263,10 +267,10 @@ public class WingModule{
 
     /**
      * 品质升级
-     * @param wingId        要升级的僚机唯一id
-     * @param wingIds      打算被吞噬的僚机id
+     * @param wingId                要升级的僚机唯一id
+     * @param swallowedWings        打算被吞噬的僚机id
      */
-    public void QualityUp( long wingId, long[] wingIds ){
+    public void QualityUp( long wingId, long[] swallowedWings ){
         Wing wing = getWingById( wingId );
         if( wing.getQuality() >= wing.getTemplet().getQualityMax() ){
             throw new ClientException( ErrorCode.WING_UPGRADE_OVER_LIMIT );
@@ -276,7 +280,7 @@ public class WingModule{
             throw new ClientException( ErrorCode.WING_UPGRADE_LEVEL_UNDER_LIMIT );
         }
 
-        Wing[]  wings = checkSwallowWings( wingIds, wing );
+        Wing[]  wings = checkSwallowWings( swallowedWings, wing );
         if( wings.length < wing.getWqTemplet().getAdvanceWing() ){
             throw new ClientException( ErrorCode.WING_UPGRADE_WING_NOT_ENOUGH );
 

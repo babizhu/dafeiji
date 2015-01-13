@@ -5,7 +5,7 @@ import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
 /**
  * 常数定义，自动生成，勿改
  * @author liukun
- * 2015-1-13 13:52:08
+ * 2015-1-13 14:35:25
  */
  @SuppressWarnings("UnusedDeclaration")
 public class Define {

@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-13 13:52:08
+ * 2015-1-13 14:35:25
  */
 public class EquipmentQurlityTemplet {
 
