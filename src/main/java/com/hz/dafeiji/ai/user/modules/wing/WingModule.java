@@ -1,6 +1,7 @@
 package com.hz.dafeiji.ai.user.modules.wing;
 
 import com.bbz.tool.common.StrUtil;
+import com.bbz.tool.common.Transform;
 import com.bbz.tool.identity.IdentityGen;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
@@ -87,18 +88,19 @@ public class WingModule{
 
 
     /**
-     * 僚机升级
+     * 僚机升级，输入参数请不要为空
      *
-     * @param id     被升级的僚机id
-     * @param stuffs 道具模板id列表
+     * @param id     被升级的僚机id   不能为null
+     * @param stuffs 道具模板id列表   不能为null
      * @param swallowedWings  将被吞噬的僚机唯一ID的列表数组
      * @return 升级后僚机的等级
      */
     public int levelUp( long id, int[] stuffs, long[] swallowedWings ){
         Wing wing = getWingById( id );
-        Wing[] wingArr = checkSwallowWings( swallowedWings, wing );
+        Wing[] swallowWings = checkSwallowWings( swallowedWings, wing );
 
-        int expAdd = calcExp( stuffs, wingArr );
+        int expAdd = calcExp( stuffs, swallowWings );
+
 
         int needCash = (int) (expAdd * Define.JIN_BI_WING_UP);
         String award = PropIdDefine.CASH_JIN_BI + "," + needCash;
@@ -108,12 +110,18 @@ public class WingModule{
 
         awardModule.reduceAward( award, clazName + ".leveUp()" );
 
-        int maxLevel = WingExpCfg.getMaxLevel( wing.getTemplet().getQuality(), wing.getExp(), expAdd );
+        int maxLevel = WingExpCfg.getMaxLevel( wing.getQuality(), wing.getExp(), expAdd );
         wing.setLevel( maxLevel );
 
-        removeWings( wingArr );
+        int currentExp = wing.getExp() + expAdd;
+        int maxLevelInQuality = wing.getWqTemplet().getMaxLv();//当前品阶的最大等级
+        currentExp = Math.min( currentExp, WingExpCfg.getExp( wing.getQuality(),maxLevelInQuality) );
 
-        db.updateWithField( wing, WingDataProvider.LEVEL_FIELD, maxLevel );
+        wing.setExp( currentExp );
+
+        removeWings( swallowWings );//吞噬材料僚机
+
+        db.update( wing );
         return maxLevel;
     }
 
@@ -134,7 +142,12 @@ public class WingModule{
         }
         for( int stuffTempletId : stuffs ) {//计算经验卡
             StuffTemplet templet = StuffTempletCfg.getStuffTempletById( stuffTempletId );
-            exp += Integer.parseInt( templet.getAwards() );
+            int[] data = Transform.ArrayType.toInts( templet.getAwards() );
+            int stuffId = data[0];
+            if( stuffId != PropIdDefine.JING_YAN){
+                throw new ClientException( ErrorCode.WING_LEVELUP_STUFF_ERROR );
+            }
+            exp += data[1];
         }
         return exp;
     }
@@ -189,6 +202,7 @@ public class WingModule{
     public Wing add( WingTemplet templet ){
         Wing wing = new Wing( IdentityGen.INSTANCE.incrementAndGet(), templet );
         allWings.put( wing.getId(), wing );
+        wing.setQuality( wing.getTemplet().getQuality() );
         db.add( wing );
         return wing;
     }
@@ -267,7 +281,7 @@ public class WingModule{
 
     /**
      * 品质升级
-     * @param wingId                要升级的僚机唯一id
+     * @param wingId                要进阶的僚机唯一id
      * @param swallowedWings        打算被吞噬的僚机id
      */
     public void QualityUp( long wingId, long[] swallowedWings ){
@@ -286,7 +300,6 @@ public class WingModule{
 
         }
 
-
         String award = "";
         if( wing.getWqTemplet().getAdvanceGold() != 0 ){
             award = PropIdDefine.CASH_JIN_BI + "," + wing.getWqTemplet().getAdvanceGold() + ",";
@@ -301,7 +314,24 @@ public class WingModule{
         award = StrUtil.removeLastChar( award );
 
         awardModule.reduceAward( award, clazName + ".QualityUp" );
-        removeWings( wings );
+        removeWings( wings );//吞噬僚机
+
+        wing.setQuality( wing.getQuality() + 1 );
+        int currentExp = WingExpCfg.getExp( wing.getQuality(), wing.getLevel() );
+        wing.setExp( currentExp );
+        db.update( wing );
+
     }
 
+    /**
+     * 清空所有数据，用于测试，请慎重使用
+     */
+    void removeAll(){
+        allWings.clear();
+        db.removeAll();
+    }
+
+    public Wing getCurrentWing(){
+        return currentWing;
+    }
 }

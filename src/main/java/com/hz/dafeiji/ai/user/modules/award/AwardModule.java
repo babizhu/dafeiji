@@ -5,6 +5,8 @@ import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.property.PropertyModule;
+import com.hz.dafeiji.ai.user.modules.stuff.StuffModule;
+import com.hz.dafeiji.cfg.define.Define;
 import com.hz.dafeiji.cfg.define.PropIdDefine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +28,7 @@ public class AwardModule{
     private static final Logger logger = LoggerFactory.getLogger( AwardModule.class );
 
     private final PropertyModule propertyModule;
-    //private final PlaneModule planeModule;没必要放这里，是因为很有可能不会初始化这个变量，浪费内存
+    private final StuffModule stuffModule;
     private final String uname;
     private final ModuleManager moduleManager;
 
@@ -36,7 +38,7 @@ public class AwardModule{
         //this.planeModule = planeModule;
         this.moduleManager = moduleManager;
         propertyModule = moduleManager.getPropertyModule();
-        //planeModule = moduleManager.getPlaneModule();
+        stuffModule = moduleManager.getStuffModule();
     }
 
     /**
@@ -62,8 +64,9 @@ public class AwardModule{
             return;
         }
         List<PropItem> props = transform( reduceStr );
-        if( !checkEnough( props ) ) {
-            throw new ClientException( ErrorCode.AWARD_NOT_ENOUGH );
+        ErrorCode errorCode = checkEnough( props );
+        if( !errorCode.isSuccess() ) {
+            throw new ClientException( errorCode );
         }
 
         for( PropItem prop : props ) {
@@ -89,8 +92,9 @@ public class AwardModule{
                 remainCount = propertyModule.changeStrength( prop.count );
             } else if( propId == PropIdDefine.NENG_YUAN ) {      //能源获取
                 remainCount = propertyModule.changeEnergy( prop.count );
-//            } else if( propId >= 100101 && propId <= 199999 ) {//飞机
-//                moduleManager.getPlaneModule().create( propId );
+            } else if( propId >= Define.ID_STUFF_MIN && propId <= Define.ID_STUFF_MAX ) {//道具材料
+                remainCount = stuffModule.reduceStuff( propId, prop.count );
+
             } else {
                 throw new ClientException( ErrorCode.AWARD_PROP_NOT_FOUND, prop.propId + "," + prop.count );
             }
@@ -107,7 +111,7 @@ public class AwardModule{
      * @param props 扣除道具的字符串,例如100021,2,100938,200
      *              即ID为100021的物品发放2个，道具ID为100938的物品发放200个
      */
-    private boolean checkEnough( List<PropItem> props ){
+    private ErrorCode checkEnough( List<PropItem> props ){
         for( PropItem prop : props ) {
             if( prop.count < 0 ) {
                 throw new ClientException( ErrorCode.AWARD_REDUCE_COUNT_ILLEGAL, prop.propId + "," + prop.count );
@@ -115,28 +119,30 @@ public class AwardModule{
             int propId = prop.propId;
             if( propId == PropIdDefine.CASH_JIN_BI ) {
                 if( propertyModule.getCash() < prop.count ) {
-                    return false;
+                    return ErrorCode.USER_GOLD_NOT_ENOUGH;
                 }
             } else if( propId == PropIdDefine.CASH_ZUAN_SHI ) {
                 if( propertyModule.getDiamond() < prop.count ) {
-                    return false;
+                    return ErrorCode.USER_DIAMOND_NOT_ENOUGH;
                 }
             } else if( propId == PropIdDefine.XING_DONG_LI ) {
                 if( propertyModule.getStrength() < prop.count ) {
-                    return false;
+                    return ErrorCode.USER_STRENGTH_NOT_ENOUGH;
                 }
             } else if( propId == PropIdDefine.NENG_YUAN ) {
                 if( propertyModule.getEnergy() < prop.count ) {
-                    return false;
+                    return ErrorCode.USER_ENERGY_NOT_ENOUGH;
                 }
-            } else if( propId >= 100101 && propId <= 199999 ) {//飞机
-                throw new ClientException( ErrorCode.NOT_IMPLENMENT, "无法扣除飞机" + prop.propId );
+            }  else if( propId >= Define.ID_STUFF_MIN && propId <= Define.ID_STUFF_MAX ) {//道具材料
+                if( !stuffModule.isEnough( propId, prop.count ) ){
+                    return ErrorCode.STUFF_NOT_ENOUGH;
+                }
 
-            } else {
+        } else {
                 throw new ClientException( ErrorCode.AWARD_PROP_NOT_FOUND, prop.propId + "," + prop.count );
             }
         }
-        return true;
+        return ErrorCode.SUCCESS;
     }
 
     /**
