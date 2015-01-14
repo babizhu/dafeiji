@@ -193,15 +193,15 @@ public enum ErrorCode{
     /**
      * 被吞噬的僚机是要进阶的僚机
      */
-    WING_UPGRADE_SELF( 8504 ),
+    WING_SWALLOW_SELF( 8504 ),
     /**
      * 被吞噬的僚机是当前出战的僚机
      */
-    WING_UPGRADE_IS_CURRENT( 8505 ),
+    WING_SWALLOW_IS_CURRENT( 8505 ),
     /**
      * 被吞噬的僚机数量不够
      */
-    WING_UPGRADE_WING_NOT_ENOUGH( 8506 ),
+    WING_SWALLOW_WINGS_NOT_ENOUGH( 8506 ),
     /**
      * 升级所使用的道具不是经验卡
      */
