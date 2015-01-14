@@ -118,7 +118,10 @@ public class WingModuleTest{
         } catch( ClientException e ) {
             errorCode = e.getCode();
         }
-        assertEquals( ErrorCode.WING_LEVEL_REACHED_LIMIT, errorCode );//金钱不足
+        assertEquals( ErrorCode.WING_LEVEL_REACHED_LIMIT, errorCode );//等级已经抵达上限
+
+        user.getModuleManager().getAwardModule().reduceAward(
+                PropIdDefine.CASH_JIN_BI + "," + exp / 10, "WingModuleTest.testLevelUp" );//钱归0
 
     }
 

@@ -1,6 +1,8 @@
 package com.hz.dafeiji.ai.user.modules.misc;
 
 
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
+
 import java.util.Map;
 
 /**
@@ -15,10 +17,11 @@ public class MiscDataModule{
     private final Map<String, Object> data;
     private final MiscDataProvider db;
 
-    public MiscDataModule( String uname ){
-        db = new MiscDataProvider( uname );
+    public MiscDataModule( ModuleManager moduleManager  ){
+        db = new MiscDataProvider( moduleManager.getUserName() );
         data = db.findOne();
     }
+
 
     /**
      * 返回内容，如果不存在返回""
