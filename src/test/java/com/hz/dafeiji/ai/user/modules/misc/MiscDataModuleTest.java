@@ -4,6 +4,8 @@ import com.hz.dafeiji.ai.user.User;
 import com.hz.util.D;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertEquals;
+
 
 public class MiscDataModuleTest{
 
@@ -27,6 +29,22 @@ public class MiscDataModuleTest{
         int i = module.getInt( MiscDataKey.MOPPING_UP, "2" );
 
         System.out.println( i );
+
+    }
+
+    @Test
+    public void testisMark(){
+        assertEquals( false, module.isMark( MiscDataKey.ENEMY ) );
+        module.putMark( MiscDataKey.ENEMY, false );
+        assertEquals( false, module.isMark( MiscDataKey.ENEMY ) );
+        module.putMark( MiscDataKey.ENEMY, true );
+        assertEquals( true, module.isMark( MiscDataKey.ENEMY ) );
+
+        int awardId=23;
+        if( !module.isMark( MiscDataKey.ENEMY, awardId+"" ) ){
+            //领奖
+            module.putMark( MiscDataKey.ENEMY,true, awardId+"" );
+        }
 
     }
 

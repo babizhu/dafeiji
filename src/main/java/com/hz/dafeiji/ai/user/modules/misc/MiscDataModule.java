@@ -55,10 +55,25 @@ public class MiscDataModule{
         return ret;
     }
 
+    public boolean isMark( MiscDataKey key, String... args ){
+        String buildKey = key.buildKey( args );
+        Integer ret = (Integer) data.get( buildKey );
+        if( ret == null || ret == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public void putMark( MiscDataKey key, boolean value, String... args ){
+        String buildKey = key.buildKey( args );
+        int i = value ? 1 : 0;
+        data.put( buildKey, i );
+        //db.replace( data );不用整体更新
+        db.updateWithField( buildKey, value );
+    }
 
     public void put( MiscDataKey key, Object value, String... args ){
         String buildKey = key.buildKey( args );
-        System.out.println( buildKey );
         data.put( buildKey, value );
         //db.replace( data );不用整体更新
         db.updateWithField( buildKey, value );
