@@ -76,7 +76,7 @@ public enum ErrorCode{
     /**
      * 用户金币不足
      */
-    USER_GOLD_NOT_ENOUGH( 3003 ),
+    USER_CASH_NOT_ENOUGH( 3003 ),
 
     /**
      * 用户钻石不足

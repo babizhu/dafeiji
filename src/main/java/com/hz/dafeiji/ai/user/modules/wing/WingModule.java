@@ -96,10 +96,17 @@ public class WingModule{
      * @return 升级后僚机的等级
      */
     public int levelUp( long id, int[] stuffs, long[] swallowedWings ){
+
         Wing wing = getWingById( id );
+        int maxLevelInQuality = wing.getWqTemplet().getMaxLv();//当前品阶的最大等级
+
+        if( wing.getLevel() == maxLevelInQuality ){
+            throw new ClientException( ErrorCode.WING_LEVEL_REACHED_LIMIT );
+        }
         Wing[] swallowWings = checkSwallowWings( swallowedWings, wing );
 
         int expAdd = calcExp( stuffs, swallowWings );
+        int maxLevel = WingExpCfg.getMaxLevel( wing.getQuality(), wing.getExp(), expAdd );
 
 
         int needCash = (int) (expAdd * Define.JIN_BI_WING_UP);
@@ -110,11 +117,10 @@ public class WingModule{
 
         awardModule.reduceAward( award, clazName + ".leveUp()" );
 
-        int maxLevel = WingExpCfg.getMaxLevel( wing.getQuality(), wing.getExp(), expAdd );
         wing.setLevel( maxLevel );
 
         int currentExp = wing.getExp() + expAdd;
-        int maxLevelInQuality = wing.getWqTemplet().getMaxLv();//当前品阶的最大等级
+
         currentExp = Math.min( currentExp, WingExpCfg.getExp( wing.getQuality(),maxLevelInQuality) );
 
         wing.setExp( currentExp );
@@ -262,12 +268,12 @@ public class WingModule{
         Wing[] wings = new Wing[ids.length];
         for( int i = 0; i < ids.length; i++ ) {
             if( upgrageWing.getId() == ids[i] ){
-                throw new ClientException( ErrorCode.WING_UPGRADE_SELF );
+                throw new ClientException( ErrorCode.WING_SWALLOW_SELF );
             }
 
             Wing wing = getWingById( ids[i] );
             if( wing.isCurrent() ){
-                throw new ClientException( ErrorCode.WING_UPGRADE_IS_CURRENT );
+                throw new ClientException( ErrorCode.WING_SWALLOW_IS_CURRENT );
             }
             wings[i] = wing;
 
@@ -296,7 +302,7 @@ public class WingModule{
 
         Wing[]  wings = checkSwallowWings( swallowedWings, wing );
         if( wings.length < wing.getWqTemplet().getAdvanceWing() ){
-            throw new ClientException( ErrorCode.WING_UPGRADE_WING_NOT_ENOUGH );
+            throw new ClientException( ErrorCode.WING_SWALLOW_WINGS_NOT_ENOUGH );
 
         }
 

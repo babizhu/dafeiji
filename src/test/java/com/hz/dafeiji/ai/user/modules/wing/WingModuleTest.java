@@ -91,25 +91,34 @@ public class WingModuleTest{
         int exp = data[1];//这个经验卡获得的经验值
 
         ErrorCode errorCode = ErrorCode.SUCCESS;
-        try{
+        try {
             module.levelUp( w1.getId(), stuffs, swallowWings );
-        }catch( ClientException e ){
+        } catch( ClientException e ) {
             errorCode = e.getCode();
         }
-        assertEquals( ErrorCode.USER_GOLD_NOT_ENOUGH, errorCode );//金钱不足
+        assertEquals( ErrorCode.USER_CASH_NOT_ENOUGH, errorCode );//金钱不足
 
         user.getModuleManager().getAwardModule().addAward(
-                PropIdDefine.CASH_JIN_BI +"," + exp/10, "WingModuleTest.testLevelUp" );//给点钱
+                PropIdDefine.CASH_JIN_BI + "," + exp / 10, "WingModuleTest.testLevelUp" );//给点钱
         module.levelUp( w1.getId(), stuffs, swallowWings );
         assertEquals( 7, w1.getLevel() );
         assertEquals( exp, w1.getExp() );
 
         user.getModuleManager().getAwardModule().addAward(
-                PropIdDefine.CASH_JIN_BI +"," + exp/10, "WingModuleTest.testLevelUp" );//给点钱
+                PropIdDefine.CASH_JIN_BI + "," + exp / 10, "WingModuleTest.testLevelUp" );//给点钱
         module.levelUp( w1.getId(), stuffs, swallowWings );
         assertEquals( 10, w1.getLevel() );//1品阶最高等级为10
         assertEquals( 1800, w1.getExp() );//经验应该为1800，尽管实际给予了2000经验
 
+        //在已经升级到1品阶满级的情况下，继续升级
+        user.getModuleManager().getAwardModule().addAward(
+                PropIdDefine.CASH_JIN_BI + "," + exp / 10, "WingModuleTest.testLevelUp" );//给点钱
+        try {
+            module.levelUp( w1.getId(), stuffs, swallowWings );
+        } catch( ClientException e ) {
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_LEVEL_REACHED_LIMIT, errorCode );//金钱不足
 
     }
 

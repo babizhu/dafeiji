@@ -119,7 +119,7 @@ public class AwardModule{
             int propId = prop.propId;
             if( propId == PropIdDefine.CASH_JIN_BI ) {
                 if( propertyModule.getCash() < prop.count ) {
-                    return ErrorCode.USER_GOLD_NOT_ENOUGH;
+                    return ErrorCode.USER_CASH_NOT_ENOUGH;
                 }
             } else if( propId == PropIdDefine.CASH_ZUAN_SHI ) {
                 if( propertyModule.getDiamond() < prop.count ) {
