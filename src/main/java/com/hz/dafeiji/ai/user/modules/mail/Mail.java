@@ -32,16 +32,6 @@ public class Mail implements IdentityObj {
     private int sendTime;
 
     /**
-     * 是否已读
-     */
-    private int isRead;
-
-    /**
-     * 邮件标题
-     */
-    private String title;
-
-    /**
      * 邮件内容
      */
     private String content;
@@ -52,14 +42,9 @@ public class Mail implements IdentityObj {
     private String award;
 
     /**
-     * 是否已收取附件
+     * 是否是系统发送的邮件
      */
-    private int isAward;
-
-    /**
-     * 是否已删除
-     */
-    private int isDelete;
+    private int isSysMail;
 
     public Mail(){}
 
@@ -67,21 +52,17 @@ public class Mail implements IdentityObj {
      * 创建新邮件
      * @param sender  发件人用户名
      * @param receive  收件人用户名
-     * @param title  邮件标题
      * @param content  邮件内容
      * @param award  附件道具，参考AwardModule类
      */
-    public Mail(String sender, String receive, String title, String content, String award){
+    public Mail(String sender, String receive, String content, String award, boolean isSysMail){
         this.id = IdentityGen.INSTANCE.incrementAndGet();
         this.sender = sender;
         this.receive = receive;
         this.sendTime = SystemTimer.currentTimeSecond();
-        this.isRead = 0;
-        this.title = title;
         this.content = content;
         this.award = award;
-        this.isAward = 0;
-        this.isDelete = 0;
+        this.isSysMail = isSysMail ? 1 : 0;
     }
 
     @Override
@@ -117,22 +98,6 @@ public class Mail implements IdentityObj {
         this.sendTime = sendTime;
     }
 
-    public int getIsRead() {
-        return isRead;
-    }
-
-    public void setIsRead(int isRead) {
-        this.isRead = isRead;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getContent() {
         return content;
     }
@@ -149,19 +114,11 @@ public class Mail implements IdentityObj {
         this.award = award;
     }
 
-    public int getIsAward() {
-        return isAward;
+    public int getIsSysMail() {
+        return isSysMail;
     }
 
-    public void setIsAward(int isAward) {
-        this.isAward = isAward;
-    }
-
-    public int getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(int isDelete) {
-        this.isDelete = isDelete;
+    public void setIsSysMail(int isSysMail) {
+        this.isSysMail = isSysMail;
     }
 }

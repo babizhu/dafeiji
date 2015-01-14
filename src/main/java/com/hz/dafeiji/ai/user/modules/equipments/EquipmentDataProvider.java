@@ -16,7 +16,6 @@ public class EquipmentDataProvider extends AbstractDataProviderWithIdentity<Equi
     public static final String FIELD_TEMPLETID = "templetId";
     public static final String FIELD_LEVEL = "level";
     public static final String FIELD_QUALITY = "quality";
-    public static final String FIELD_UNAME = "uname";
     public static final String FIELD_LOADED = "loaded";
     public static final String FIELD_ISDELETE = "isDelete";
 
@@ -39,7 +38,6 @@ public class EquipmentDataProvider extends AbstractDataProviderWithIdentity<Equi
     @Override
     protected DBObject encode(Equipment equip){
         DBObject obj = new BasicDBObject(FIELD_ID, equip.getId());
-        obj.put(FIELD_UNAME, getUname());
         obj.put(FIELD_TEMPLETID, equip.getTemplet().getId());
         obj.put(FIELD_LEVEL, equip.getLevel());
         obj.put(FIELD_QUALITY, equip.getQuality());

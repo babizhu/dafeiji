@@ -25,7 +25,12 @@ public enum MiscDataKey{
     /**
      * 最大闯关数
      */
-    MAX_MISSION_ID( 4 );
+    MAX_MISSION_ID( 4 ),
+
+    /**
+     * 已经领取了的全服奖励邮件ID列表
+     */
+    GLOBAL_MAIL_AWARDED( 5 );
     private static final Map<Integer, MiscDataKey> numToEnum = new HashMap<>();
 
     static{

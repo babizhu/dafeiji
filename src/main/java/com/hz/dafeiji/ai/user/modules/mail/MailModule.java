@@ -1,11 +1,14 @@
 package com.hz.dafeiji.ai.user.modules.mail;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
+import com.bbz.tool.common.Transform;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.dafeiji.ai.user.modules.ModuleManager;
+import com.hz.dafeiji.ai.user.modules.award.AwardModule;
+import com.hz.dafeiji.ai.user.modules.misc.MiscDataKey;
+import com.hz.dafeiji.ai.user.modules.misc.MiscDataModule;
 
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 /**
  * Created by Valen on 2015/1/5.
@@ -14,82 +17,20 @@ import java.util.Map;
 
 @SuppressWarnings("UnusedDeclaration")
 public class MailModule {
-    final MailCtrlDataProvider ctrlDb;
-    private Map<Long, MailCtrl> ctrlMail;
 
-    public MailModule(String uname) {
-        ctrlDb = new MailCtrlDataProvider(uname);
-        ctrlMail = ctrlDb.getMapAll();
-    }
-
-
-    /**
-     * 用户写新邮件
-     * @param mail Mail对象
-     */
-    public void writeMail(Mail mail){
-        MailStore.INSTANCE.addUserMail(mail);
-    }
-
-    /**
-     * 用户读邮件
-     * @param id 邮件ID
-     * @param isSysMail 是否是系统邮件
-     */
-    public void readMail(long id, String uname, boolean isSysMail){
-        Mail mail = isSysMail ? MailStore.INSTANCE.getSysMailByMailId(id) : MailStore.INSTANCE.getUserMailByMailId(id);
-        if(mail != null){
-            if(isSysMail){      //系统邮件的处理
-                MailCtrl ctrl = getMailCtrlByMailId(id);
-                if(ctrl != null){
-                    ctrl.setReaded(1);
-                }else{
-                    ctrl = new MailCtrl(uname, mail.getId(), 1, 0, 0);
-                    ctrlMail.put(ctrl.getId(), ctrl);
-                }
-                ctrlDb.replace(ctrl);
-            }else{              //玩家邮件处理
-                mail.setIsRead(1);  //修改读取状态
-                MailStore.INSTANCE.updateUserMail(mail);
-            }
-        }else{
-            throw new ClientException(ErrorCode.MAIL_MAIL_NOT_FOUND, "查阅的邮件未找到[id:"+id+",uname:"+uname+",isSysMail:"+isSysMail+"]");
+    private static Comparator<Mail> mailComparator = new Comparator<Mail>() {
+        @Override
+        public int compare(Mail o1, Mail o2) {
+            return o2.getSendTime() - o1.getSendTime();
         }
-    }
+    };
 
-    /**
-     * 用户删除系统邮件
-     * @param id 系统邮件ID
-     * @param uname 用户名
-     */
-    public void deleteSysMail(long id, String uname){
-        Mail mail = MailStore.INSTANCE.getSysMailByMailId(id);
-        if(mail != null){
-            MailCtrl ctrl = getMailCtrlByMailId(id);
-            if(ctrl != null){
-                ctrl.setDeleted(1);
-            }else{
-                ctrl = new MailCtrl(uname, mail.getId(), 0, 0, 1);
-                ctrlMail.put(ctrl.getId(), ctrl);
-            }
-            ctrlDb.replace(ctrl);
-        }else{
-            throw new ClientException(ErrorCode.MAIL_MAIL_NOT_FOUND, "删除的系统邮件未找到[id:"+id+",uname:"+uname+"]");
-        }
-    }
+    private final MiscDataModule miscDataModule;
+    private final AwardModule awardModule;
 
-    /**
-     * 用户删除邮件
-     * @param id 邮件ID
-     */
-    public void deleteUserMail(long id){
-        Mail mail = MailStore.INSTANCE.getUserMailByMailId(id);
-        if(mail != null){
-            mail.setIsDelete(1);
-            MailStore.INSTANCE.updateUserMail(mail);
-        }else{
-            throw new ClientException(ErrorCode.MAIL_MAIL_NOT_FOUND, "删除的玩家邮件未找到[id:"+id+"]");
-        }
+    public MailModule(ModuleManager moduleManager) {
+        miscDataModule = moduleManager.getMiscDataModule();
+        awardModule = moduleManager.getAwardModule();
     }
 
     /**
@@ -98,44 +39,72 @@ public class MailModule {
      * @return List<Mail>
      */
     public List<Mail> getUserMails(String uname){
-       return MailStore.INSTANCE.getUserMail(uname);
+        return MailStore.INSTANCE.getUserMailAll(uname);
     }
 
     /**
      * 获取系统邮件列表
      * @return List<Mail>
      */
-    public List<Mail> getSysMails(){
-        return MailStore.INSTANCE.getSysMail(ctrlMail);
-    }
+    public List<Mail> getSysMails(String uname){
+        List<Mail> list = MailStore.INSTANCE.getSysMail(uname);
+        List<Mail> globalMail = MailStore.INSTANCE.getGlobalSysMail();
 
-    /**
-     * 检查邮件控制器是否已经对某条系统邮件做了记录
-     * @return MailCtrl
-     */
-    private MailCtrl getMailCtrlByMailId(long mailId){
-        MailCtrl ctrl = null;
-        for(Map.Entry<Long, MailCtrl> entry : ctrlMail.entrySet()){
-            if(entry.getValue().getMailId() == mailId){
-                ctrl = entry.getValue();
-                break;
+        for(Mail global : globalMail){
+            String mailId = global.getId() + "";
+            if(!miscDataModule.isMark(MiscDataKey.GLOBAL_MAIL_AWARDED, mailId)){
+                list.add(global);
             }
         }
-        return ctrl;
+        return list;
+    }
+
+
+    /**
+     * 领取用户邮件
+     * @param mailIds 要领取的邮件ID列表
+     */
+    public void awardUserMail(String uname, String mailIds){
+        long[] ids = Transform.ArrayType.toLongs(mailIds);
+        for(long id : ids){
+            Mail mail = MailStore.INSTANCE.getUserMailById(id);
+            if(mail != null){
+                awardModule.addAward(mail.getAward(), "领取玩家邮件奖励,用户名:"+uname+",奖励:"+mail.getAward()+",说明:"+mail.getContent());
+
+                MailStore.INSTANCE.removeUserMail(mail);
+            }else{
+                throw new ClientException(ErrorCode.MAIL_MAIL_NOT_FOUND,
+                            "要领取的玩家邮件未找到,邮件ID:"+id+",玩家用户名:"+uname);
+            }
+        }
     }
 
     /**
-     * 转换发送给前端的Mail对象成JSONObject
-     * @param mail Mail对象
-     * @return JSONObject
+     * 领取系统邮件
+     * @param mailIds 要领取的邮件ID列表
      */
-    private JSONObject toJSON(Mail mail){
-        JSONObject obj = new JSONObject();
-        obj.put("i", mail.getId());
-        obj.put("s", mail.getSender());
-        obj.put("t", mail.getTitle());
-        obj.put("c", mail.getContent());
-        obj.put("it", mail.getAward());
-        return obj;
+    public void awardSysMail(String uname, String mailIds){
+        long[] ids = Transform.ArrayType.toLongs(mailIds);
+        for(long id : ids){
+            boolean isGlobalMail = false;
+            Mail mail = MailStore.INSTANCE.getUserMailById(id);
+            if(mail == null){
+                mail = MailStore.INSTANCE.getGlobalMailById(id);
+                isGlobalMail = true;
+            }
+
+            if(mail != null){
+                awardModule.addAward(mail.getAward(), "领取系统邮件奖励,用户名:"+uname+",奖励:"+mail.getAward()+",说明:"+mail.getContent());
+
+                if(!isGlobalMail){      //针对玩家的系统邮件
+                    MailStore.INSTANCE.removeUserMail(mail);
+                }else{                  //针对全服的系统邮件
+                    miscDataModule.putMark(MiscDataKey.GLOBAL_MAIL_AWARDED, true, mail.getId()+"");
+                }
+            }else{
+                throw new ClientException(ErrorCode.MAIL_MAIL_NOT_FOUND,
+                        "要领取的系统邮件未找到,邮件ID:"+id+",玩家用户名:"+uname);
+            }
+        }
     }
 }

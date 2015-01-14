@@ -19,8 +19,11 @@ public class MailGetListHandler implements IGameHandler {
     @Override
     public void run(JSONObject request, JSONObject response, User user) {
         MailModule module = user.getModuleManager().getMailModule();
-        List<Mail> userMail = module.getUserMails(user.getUserBaseInfo().getUserName());
-        List<Mail> sysMail = module.getSysMails();
+
+        String uname = user.getUserBaseInfo().getUserName();
+
+        List<Mail> userMail = module.getUserMails(uname);
+        List<Mail> sysMail = module.getSysMails(uname);
 
         response.put("um", toJSONArray(userMail));
         response.put("sm", toJSONArray(sysMail));
@@ -38,7 +41,6 @@ public class MailGetListHandler implements IGameHandler {
             JSONObject obj = new JSONObject();
             obj.put("i", mail.getId());
             obj.put("s", mail.getSender());
-            obj.put("t", mail.getTitle());
             obj.put("c", mail.getContent());
             obj.put("it", mail.getAward());
             arr.add(obj);
