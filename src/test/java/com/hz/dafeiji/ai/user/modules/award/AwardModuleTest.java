@@ -21,7 +21,7 @@ public class AwardModuleTest{
      * 清空测试数据
      */
     @After
-    public void clear(){
+    public void remove(){
         propertyModule.remove();
     }
 

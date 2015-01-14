@@ -83,7 +83,7 @@ public class MiscDataModule{
      * 目前是测试用的代码
      */
     @SuppressWarnings("UnusedDeclaration")
-    void clear(){
+    void removeAll(){
         data.clear();
         db.remove();
     }

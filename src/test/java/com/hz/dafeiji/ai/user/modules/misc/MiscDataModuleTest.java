@@ -2,6 +2,7 @@ package com.hz.dafeiji.ai.user.modules.misc;
 
 import com.hz.dafeiji.ai.user.User;
 import com.hz.util.D;
+import org.junit.After;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -14,6 +15,11 @@ public class MiscDataModuleTest{
     User user = new User( uname );
     MiscDataModule module = user.getModuleManager().MiscDataModule();
     //PropertyModule propertyModule = user.getModuleManager().getPropertyModule();
+
+    @After
+    public void remove(){
+        module.removeAll();
+    }
 
     @Test
     public void testGetString() throws Exception{
