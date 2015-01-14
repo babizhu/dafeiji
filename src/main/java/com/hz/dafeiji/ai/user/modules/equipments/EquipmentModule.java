@@ -224,7 +224,7 @@ public class EquipmentModule{
      * @param equip 要获取属性的装备对象
      * @return AddtionValue
      */
-    public AddtionCollection getEquipAddtion(Equipment equip){
+    AddtionCollection getEquipAddtion(Equipment equip){
         AddtionCollection collection = new AddtionCollection();
         EquipmentTemplet et = equip.getTemplet();
         EquipmentQurlityTemplet qt = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());
@@ -245,11 +245,10 @@ public class EquipmentModule{
                 value = new AddtionValue(AddtionType.HP_ADDTION);
                 args = new float[]{et.getHp(), qt.getHpInc(), et.getHpUp(), qt.getHpUpInc()};
                 break;
+            default:
+                throw new ClientException(ErrorCode.EQUIPMENT_TYPE_ERROR, "装备类型错误,模版ID:"+et.getId()+",类型:"+et.getType());
         }
 
-        if(value == null){
-            throw new ClientException(ErrorCode.EQUIPMENT_TYPE_ERROR, "装备类型错误,模版ID:"+et.getId()+",类型:"+et.getType());
-        }
 
         float attr = (args[0] + args[1]) + (args[2] + args[3]) * (equip.getLevel() - 1);
         if(et.getType() == 3){      //目前只有HP是直接增加数值,  其他都是增加百分比

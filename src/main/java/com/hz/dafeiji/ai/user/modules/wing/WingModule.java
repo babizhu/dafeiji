@@ -88,7 +88,7 @@ public class WingModule{
 
 
     /**
-     * 僚机升级，输入参数请不要为空
+     * 僚机升级，输入参数请不要为null
      *
      * @param id     被升级的僚机id   不能为null
      * @param stuffs 道具模板id列表   不能为null
@@ -286,9 +286,9 @@ public class WingModule{
     }
 
     /**
-     * 品质升级
-     * @param wingId                要进阶的僚机唯一id
-     * @param swallowedWings        打算被吞噬的僚机id
+     * 僚机品质升级，输入参数请不要为null
+     * @param wingId                要进阶的僚机唯一id，不能为null
+     * @param swallowedWings        打算被吞噬的僚机id,不能为null
      */
     public void QualityUp( long wingId, long[] swallowedWings ){
         Wing wing = getWingById( wingId );
@@ -311,10 +311,10 @@ public class WingModule{
             award = PropIdDefine.CASH_JIN_BI + "," + wing.getWqTemplet().getAdvanceGold() + ",";
         }
         if( wing.getWqTemplet().getAdvanceJewel() != 0 ){
-            award = PropIdDefine.CASH_ZUAN_SHI + "," + wing.getWqTemplet().getAdvanceJewel() + ",";
+            award += PropIdDefine.CASH_ZUAN_SHI + "," + wing.getWqTemplet().getAdvanceJewel() + ",";
         }
         if( wing.getWqTemplet().getAdvanceCard() != 0 ){
-            award = PropIdDefine.ZH_JIN_JIE_KA + "," + wing.getWqTemplet().getAdvanceGold() + ",";
+            award += PropIdDefine.ZH_JIN_JIE_KA + "," + wing.getWqTemplet().getAdvanceCard() + ",";
         }
 
         award = StrUtil.removeLastChar( award );

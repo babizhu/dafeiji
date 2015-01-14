@@ -184,7 +184,7 @@ public class PropertyModule{
     /**
      * 删除玩家的数据库记录，仅仅为测试用例使用
      */
-    public void remove(){
+    public void removeUserData(){
         db.remove();
     }
 

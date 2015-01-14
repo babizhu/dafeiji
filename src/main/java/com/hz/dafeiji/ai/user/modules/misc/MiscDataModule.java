@@ -58,10 +58,7 @@ public class MiscDataModule{
     public boolean isMark( MiscDataKey key, String... args ){
         String buildKey = key.buildKey( args );
         Integer ret = (Integer) data.get( buildKey );
-        if( ret == null || ret == 0) {
-            return false;
-        }
-        return true;
+        return !(ret == null || ret == 0);
     }
 
     public void putMark( MiscDataKey key, boolean value, String... args ){
@@ -81,9 +78,10 @@ public class MiscDataModule{
 
     /**
      * 目前是测试用的代码
+     * 删除此模块玩家所有的信息
      */
     @SuppressWarnings("UnusedDeclaration")
-    void removeAll(){
+    void removeUserData(){
         data.clear();
         db.remove();
     }

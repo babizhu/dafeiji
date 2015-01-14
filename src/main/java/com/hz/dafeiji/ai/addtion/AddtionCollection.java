@@ -15,12 +15,13 @@ public class AddtionCollection{
 
     private EnumMap<AddtionType, AddtionValue> addtions = new EnumMap<AddtionType, AddtionValue>( AddtionType.class );
 
-    public void add( AddtionValue value ){
+    public AddtionCollection add( AddtionValue value ){
         if( addtions.containsKey( value.getAddtionItem() ) ){
             addtions.get( value.getAddtionItem() ).plus( value );
         }else {
             addtions.put( value.getAddtionItem(), value );
         }
+        return this;
     }
 
     @Override
@@ -30,9 +31,10 @@ public class AddtionCollection{
                 '}';
     }
 
-    public void add( AddtionCollection addtion1 ){
+    public AddtionCollection add( AddtionCollection addtion1 ){
         for( AddtionValue value : addtion1.getAddtions().values() ) {
             add( value );
         }
+        return this;
     }
 }

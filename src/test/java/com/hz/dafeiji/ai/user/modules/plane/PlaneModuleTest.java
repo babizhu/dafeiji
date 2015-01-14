@@ -136,7 +136,7 @@ public class PlaneModuleTest{
     @Test
     public void testBuy(){
 
-        //module.remove();
+        //module.removeAllUserData();
         //购买price=0的飞机
         module.buy( D.DEFAULT_PLANE_ID );
 

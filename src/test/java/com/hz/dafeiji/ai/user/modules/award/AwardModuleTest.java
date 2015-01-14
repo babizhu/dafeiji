@@ -22,7 +22,7 @@ public class AwardModuleTest{
      */
     @After
     public void remove(){
-        propertyModule.remove();
+        propertyModule.removeUserData();
     }
 
     @Test
@@ -42,7 +42,7 @@ public class AwardModuleTest{
             module.reduceAward( "500001,1300", "test" );
 
         } catch( ClientException e ) {
-            assertEquals( e.getCode(), ErrorCode.AWARD_NOT_ENOUGH );
+            assertEquals( e.getCode(), ErrorCode.USER_CASH_NOT_ENOUGH );
         }
         assertEquals( 700, propertyModule.getCash() );
 
@@ -82,7 +82,7 @@ public class AwardModuleTest{
             module.reduceAward( "500001,1300,500002,50", "test" );
 
         } catch( ClientException e ) {
-            assertEquals( e.getCode(), ErrorCode.AWARD_NOT_ENOUGH );
+            assertEquals( e.getCode(), ErrorCode.USER_CASH_NOT_ENOUGH );
         }
         assertEquals( 700, propertyModule.getCash() );
         assertEquals( 450, propertyModule.getDiamond() );

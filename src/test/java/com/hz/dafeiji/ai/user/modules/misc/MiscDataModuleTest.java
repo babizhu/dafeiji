@@ -18,7 +18,7 @@ public class MiscDataModuleTest{
 
     @After
     public void remove(){
-        module.removeAll();
+        module.removeUserData();
     }
 
     @Test

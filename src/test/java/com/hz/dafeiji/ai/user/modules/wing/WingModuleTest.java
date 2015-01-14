@@ -66,7 +66,7 @@ public class WingModuleTest{
         module.setCurrentWing( w1.getId() );
         assertEquals( module.getCurrentWing(), w1 );
 
-        wing = module.add( wt );
+        module.add( wt );
         assertEquals( module.getCurrentWing(), w1 );
     }
 
@@ -98,21 +98,18 @@ public class WingModuleTest{
         }
         assertEquals( ErrorCode.USER_CASH_NOT_ENOUGH, errorCode );//金钱不足
 
-        user.getModuleManager().getAwardModule().addAward(
-                PropIdDefine.CASH_JIN_BI + "," + exp / 10, "WingModuleTest.testLevelUp" );//给点钱
+        addCash( exp / 10 );//给点钱
         module.levelUp( w1.getId(), stuffs, swallowWings );
         assertEquals( 7, w1.getLevel() );
-        assertEquals( exp, w1.getExp() );
+        assertEquals( exp, w1.getExp() );//升级成功
 
-        user.getModuleManager().getAwardModule().addAward(
-                PropIdDefine.CASH_JIN_BI + "," + exp / 10, "WingModuleTest.testLevelUp" );//给点钱
+        addCash( exp / 10 );//给点钱
         module.levelUp( w1.getId(), stuffs, swallowWings );
         assertEquals( 10, w1.getLevel() );//1品阶最高等级为10
         assertEquals( 1800, w1.getExp() );//经验应该为1800，尽管实际给予了2000经验
 
-        //在已经升级到1品阶满级的情况下，继续升级
-        user.getModuleManager().getAwardModule().addAward(
-                PropIdDefine.CASH_JIN_BI + "," + exp / 10, "WingModuleTest.testLevelUp" );//给点钱
+        //在已经升级到1品阶满级（10级）的情况下，继续升级
+        addCash( exp / 10 );
         try {
             module.levelUp( w1.getId(), stuffs, swallowWings );
         } catch( ClientException e ) {
@@ -125,8 +122,45 @@ public class WingModuleTest{
 
     }
 
+    /**
+     * 配合僚机升级需要给玩家增加一点钱
+     * @param cash  要增加的钱
+     */
+    private void addCash( int cash ){
+        user.getModuleManager().getAwardModule().addAward(
+                PropIdDefine.CASH_JIN_BI + "," + cash, "WingModuleTest.testLevelUp" );//给点钱
+    }
+
+    /**
+     * 清空玩家的钱
+     */
+    private void clearUserCash(){
+
+    }
     @Test
     public void testSell() throws Exception{
+
+        Wing w1 = module.add( WingTempletCfg.getWingTempletById(200401) );//增加一架僚机
+        Wing w2 = module.add( WingTempletCfg.getWingTempletById(200402) );//增加一架僚机
+
+        assertEquals( 2, module.getAll().size() );
+
+        long[] sells = new long[]{w1.getId(), w2.getId()};
+        int cash = module.sell( sells );
+        assertEquals( 0, module.getAll().size() );
+        assertEquals( 650, cash );
+
+        w1 = module.add( WingTempletCfg.getWingTempletById(200401) );//增加一架僚机
+        w2 = module.add( WingTempletCfg.getWingTempletById(200402) );//增加一架僚机
+
+        w1.setLevel( 2 );//设置等级为2
+        sells = new long[]{w1.getId(), w2.getId()};
+        cash = module.sell( sells );
+        assertEquals( 0, module.getAll().size() );
+        assertEquals( 660, cash );
+
+
+
 
     }
 
@@ -156,6 +190,25 @@ public class WingModuleTest{
 
     @Test
     public void testQualityUp() throws Exception{
+        Wing w1 = module.add( WingTempletCfg.getWingTempletById(200401) );//增加一架僚机
+        ErrorCode errorCode = ErrorCode.SUCCESS;
+        try{
+            module.QualityUp( w1.getId(), new long[0] );
+        }catch( ClientException e ){
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_UPGRADE_LEVEL_UNDER_LIMIT, errorCode );
+
+
+        //调整等级到可以升级品阶的最大
+        w1.setLevel( 10 );
+        try{
+            module.QualityUp( w1.getId(), new long[0] );
+        }catch( ClientException e ){
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_UPGRADE_LEVEL_UNDER_LIMIT, errorCode );
+
 
     }
 }

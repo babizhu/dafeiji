@@ -18,7 +18,7 @@ public class PropertyModuleTest{
      */
     @Before
     public void clear(){
-        module.remove();
+        module.removeUserData();
     }
 
     @Test
