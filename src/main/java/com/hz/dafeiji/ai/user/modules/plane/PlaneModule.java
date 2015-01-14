@@ -10,6 +10,7 @@ import com.hz.dafeiji.ai.addtion.AddtionValue;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
 import com.hz.dafeiji.ai.user.modules.equipments.EquipmentModule;
+import com.hz.dafeiji.ai.user.modules.wing.WingModule;
 import com.hz.dafeiji.cfg.plane.PlaneQurlityTemplet;
 import com.hz.dafeiji.cfg.plane.PlaneQurlityTempletCfg;
 import com.hz.dafeiji.cfg.plane.PlaneTemplet;
@@ -46,11 +47,13 @@ public class PlaneModule{
 
 //    private final ModuleManager moduleManager;
     private final AwardModule awardModule;
+    private WingModule wingModule;
 
     public PlaneModule( String uname, ModuleManager moduleManager ){
 //        this.moduleManager = moduleManager;
         awardModule = moduleManager.getAwardModule();
         equipmentModule = moduleManager.getEquipmentModule();
+        wingModule = moduleManager.getWingModule();
 
         db = new PlaneDataProvider( uname );
         allPlanes = db.getMapAll();
@@ -241,7 +244,8 @@ public class PlaneModule{
     private void calcAllAddtion( ){
         AddtionCollection allAddtion = new AddtionCollection();
         allAddtion.add( equipmentModule.getAddtionCollection() );
-        //allAddtion.add( equipmentModule.getAdditionAttr() );//假设是第二个加成属性
+        allAddtion.add( wingModule.getAddtionCollection() );
+
         calcAddtion( allAddtion.getAddtions() );
     }
 

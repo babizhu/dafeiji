@@ -224,7 +224,7 @@ public class EquipmentModule{
      * @param equip 要获取属性的装备对象
      * @return AddtionValue
      */
-    AddtionCollection getEquipAddtion(Equipment equip){
+    public AddtionCollection getEquipAddtion(Equipment equip){
         AddtionCollection collection = new AddtionCollection();
         EquipmentTemplet et = equip.getTemplet();
         EquipmentQurlityTemplet qt = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());

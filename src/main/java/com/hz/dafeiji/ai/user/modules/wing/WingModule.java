@@ -5,6 +5,9 @@ import com.bbz.tool.common.Transform;
 import com.bbz.tool.identity.IdentityGen;
 import com.hz.dafeiji.ai.ClientException;
 import com.hz.dafeiji.ai.ErrorCode;
+import com.hz.dafeiji.ai.addtion.AddtionCollection;
+import com.hz.dafeiji.ai.addtion.AddtionType;
+import com.hz.dafeiji.ai.addtion.AddtionValue;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
 import com.hz.dafeiji.cfg.define.Define;
@@ -339,5 +342,24 @@ public class WingModule{
 
     public Wing getCurrentWing(){
         return currentWing;
+    }
+
+    /**
+     * 获取用户上阵装备属性
+     * @return AddtionCollection
+     */
+    public AddtionCollection getAddtionCollection(){
+        AddtionCollection addtion = new AddtionCollection();
+        if( currentWing != null ){
+            AddtionValue av = new AddtionValue( AddtionType.CASH_ADDTION );
+            av.setAddtionPercent( currentWing.getWqTemplet().getGold() );
+            addtion.add( av );
+
+            av = new AddtionValue( AddtionType.SCORE_ADDTION );
+            av.setAddtionPercent( currentWing.getWqTemplet().getScore() );
+            addtion.add( av );
+        }
+
+        return addtion;
     }
 }
