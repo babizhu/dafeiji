@@ -27,7 +27,7 @@ public class MailSendGiftHandler implements IGameHandler {
             String title = "送道具邮件的标题";
             String content = "您的好友["+sender+"]送给你了xxxx";
 
-            Mail mail = new Mail(sender, receiver, title, content, award);
+            Mail mail = new Mail(sender, receiver, content, award, false);
             MailStore.INSTANCE.addUserMail(mail);
         }else{
             throw new ClientException(ErrorCode.PARAMETER_ERROR, "MailSendGiftHandler缺少必要参数,传入参数:" + request.toString());

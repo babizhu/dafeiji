@@ -84,8 +84,16 @@ public class ModuleManager{
         if( mailModule != null ) {
             return mailModule;
         }
-        mailModule = new MailModule( uname );
+        mailModule = new MailModule( this );
         return mailModule;
+    }
+
+    public MiscDataModule getMiscDataModule(){
+        if(miscDataModule != null){
+            return miscDataModule;
+        }
+        miscDataModule = new MiscDataModule(this);
+        return miscDataModule;
     }
 
     public EquipmentModule getEquipmentModule(){
