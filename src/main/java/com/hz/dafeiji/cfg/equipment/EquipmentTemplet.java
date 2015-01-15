@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-13 14:35:25
+ * 2015-1-15 14:14:16
  */
 public class EquipmentTemplet {
 
@@ -81,6 +81,42 @@ public class EquipmentTemplet {
 	 */
 	public int getCurrentLv() {
 		return currentLv;
+	}/**
+	 * 碎片id
+	 */
+    private final int debris;
+
+
+
+	/**
+	 * 碎片id
+	 */
+	public int getDebris() {
+		return debris;
+	}/**
+	 * 合成所需碎片数量
+	 */
+    private final int compound;
+
+
+
+	/**
+	 * 合成所需碎片数量
+	 */
+	public int getCompound() {
+		return compound;
+	}/**
+	 * 可用万能碎片数量
+	 */
+    private final int allPurpose;
+
+
+
+	/**
+	 * 可用万能碎片数量
+	 */
+	public int getAllPurpose() {
+		return allPurpose;
 	}/**
 	 * 初始攻击加成
 	 */
@@ -210,6 +246,9 @@ type = Integer.parseInt( element.getChildText("type").trim() );
 quality = Integer.parseInt( element.getChildText("quality").trim() );
 qualityMax = Integer.parseInt( element.getChildText("qualityMax").trim() );
 currentLv = Integer.parseInt( element.getChildText("currentLv").trim() );
+debris = Integer.parseInt( element.getChildText("debris").trim() );
+compound = Integer.parseInt( element.getChildText("compound").trim() );
+allPurpose = Integer.parseInt( element.getChildText("allPurpose").trim() );
 attackAdd = Float.parseFloat( element.getChildText("attackAdd").trim() );
 skillCooling = Float.parseFloat( element.getChildText("skillCooling").trim() );
 hp = Integer.parseInt( element.getChildText("hp").trim() );
@@ -225,7 +264,7 @@ describe = element.getChildText("describe").trim();
 
 	@Override
 	public String toString() {
-		return "EquipmentTemplet [id = " + id + ",name = " + name + ",type = " + type + ",quality = " + quality + ",qualityMax = " + qualityMax + ",currentLv = " + currentLv + ",attackAdd = " + attackAdd + ",skillCooling = " + skillCooling + ",hp = " + hp + ",attackAddUp = " + attackAddUp + ",skillCoolingUp = " + skillCoolingUp + ",hpUp = " + hpUp + ",addUp = " + addUp + ",resId = " + resId + ",skill = " + skill + ",describe = " + describe + "]";
+		return "EquipmentTemplet [id = " + id + ",name = " + name + ",type = " + type + ",quality = " + quality + ",qualityMax = " + qualityMax + ",currentLv = " + currentLv + ",debris = " + debris + ",compound = " + compound + ",allPurpose = " + allPurpose + ",attackAdd = " + attackAdd + ",skillCooling = " + skillCooling + ",hp = " + hp + ",attackAddUp = " + attackAddUp + ",skillCoolingUp = " + skillCoolingUp + ",hpUp = " + hpUp + ",addUp = " + addUp + ",resId = " + resId + ",skill = " + skill + ",describe = " + describe + "]";
 	}
 
 	/*自定义代码开始*//*自定义代码结束*/

@@ -199,9 +199,10 @@ public enum ErrorCode{
      */
     WING_SWALLOW_IS_CURRENT( 8505 ),
     /**
-     * 被吞噬的僚机数量不够
+     * 被吞噬的僚机数量不够或者多了
      */
-    WING_SWALLOW_WINGS_NOT_ENOUGH( 8506 ),
+    WING_SWALLOW_COUNT_INVALID( 8506 ),
+
     /**
      * 升级所使用的道具不是经验卡
      */
@@ -210,7 +211,11 @@ public enum ErrorCode{
     /**
      * 僚机升级已达当前品质的上限
      */
-    WING_LEVEL_REACHED_LIMIT( 8508 ),
+    WING_LEVELUP_REACHED_LIMIT( 8508 ),
+    /**
+     * 用于升阶的被吞噬的僚机的品质小于需求
+     */
+    WING_SWALLOW_QUALITY_UNDER_LIMIT( 8509 ),
 
     ////////////////////////////////////////////////道具错误/////////////////////////////////////////
     /**

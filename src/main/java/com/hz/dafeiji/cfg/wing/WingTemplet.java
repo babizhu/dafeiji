@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-13 14:35:25
+ * 2015-1-15 14:14:16
  */
 public class WingTemplet {
 
@@ -117,6 +117,18 @@ public class WingTemplet {
 	 */
 	public float getAttackUp() {
 		return attackUp;
+	}/**
+	 * 碎片id
+	 */
+    private final int debris;
+
+
+
+	/**
+	 * 碎片id
+	 */
+	public int getDebris() {
+		return debris;
 	}/**
 	 * 合成所需碎片数量
 	 */
@@ -237,6 +249,7 @@ attribute = Integer.parseInt( element.getChildText("attribute").trim() );
 attack = Integer.parseInt( element.getChildText("attack").trim() );
 aspd = Integer.parseInt( element.getChildText("aspd").trim() );
 attackUp = Float.parseFloat( element.getChildText("attackUp").trim() );
+debris = Integer.parseInt( element.getChildText("debris").trim() );
 compound = Integer.parseInt( element.getChildText("compound").trim() );
 allPurpose = Integer.parseInt( element.getChildText("allPurpose").trim() );
 cashBase = Integer.parseInt( element.getChildText("cashBase").trim() );
@@ -251,7 +264,7 @@ describe = element.getChildText("describe").trim();
 
 	@Override
 	public String toString() {
-		return "WingTemplet [id = " + id + ",name = " + name + ",quality = " + quality + ",qualityMax = " + qualityMax + ",currentLv = " + currentLv + ",attribute = " + attribute + ",attack = " + attack + ",aspd = " + aspd + ",attackUp = " + attackUp + ",compound = " + compound + ",allPurpose = " + allPurpose + ",cashBase = " + cashBase + ",resId = " + resId + ",barrage = " + barrage + ",skill1 = " + skill1 + ",skill2 = " + skill2 + ",source = " + source + ",describe = " + describe + "]";
+		return "WingTemplet [id = " + id + ",name = " + name + ",quality = " + quality + ",qualityMax = " + qualityMax + ",currentLv = " + currentLv + ",attribute = " + attribute + ",attack = " + attack + ",aspd = " + aspd + ",attackUp = " + attackUp + ",debris = " + debris + ",compound = " + compound + ",allPurpose = " + allPurpose + ",cashBase = " + cashBase + ",resId = " + resId + ",barrage = " + barrage + ",skill1 = " + skill1 + ",skill2 = " + skill2 + ",source = " + source + ",describe = " + describe + "]";
 	}
 
 	/*自定义代码开始*//*自定义代码结束*/

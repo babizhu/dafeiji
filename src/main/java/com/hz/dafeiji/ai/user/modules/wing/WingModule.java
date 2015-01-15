@@ -10,6 +10,7 @@ import com.hz.dafeiji.ai.addtion.AddtionType;
 import com.hz.dafeiji.ai.addtion.AddtionValue;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
+import com.hz.dafeiji.ai.user.modules.stuff.StuffModule;
 import com.hz.dafeiji.cfg.define.Define;
 import com.hz.dafeiji.cfg.define.PropIdDefine;
 import com.hz.dafeiji.cfg.manual.WingExpCfg;
@@ -31,6 +32,7 @@ public class WingModule{
 
     private final WingDataProvider db;
     private final AwardModule awardModule;
+    private final StuffModule stuffModule;
 
     /**
      * 所有的僚机
@@ -46,6 +48,7 @@ public class WingModule{
     public WingModule( ModuleManager moduleManager ){
         db = new WingDataProvider( moduleManager.getUserName() );
         awardModule = moduleManager.getAwardModule();
+        stuffModule = moduleManager.getStuffModule();
 
         allWings = db.getMapAll();
 
@@ -104,7 +107,7 @@ public class WingModule{
         int maxLevelInQuality = wing.getWqTemplet().getMaxLv();//当前品阶的最大等级
 
         if( wing.getLevel() == maxLevelInQuality ){
-            throw new ClientException( ErrorCode.WING_LEVEL_REACHED_LIMIT );
+            throw new ClientException( ErrorCode.WING_LEVELUP_REACHED_LIMIT );
         }
         Wing[] swallowWings = checkSwallowWings( swallowedWings, wing );
 
@@ -191,18 +194,6 @@ public class WingModule{
 
 
     /**
-     * 购买僚机
-     *
-     * @param wingTempletId 僚机模板id
-     */
-    public Wing buy( int wingTempletId ){
-//        WingTemplet templet = check( wingTempletId );
-//        //
-//        return add( templet );
-        return null;
-    }
-
-    /**
      * 根据模板，创建一个僚机，并保存到内存和数据库中
      *
      * @param templet 要创建的僚机模板
@@ -262,7 +253,7 @@ public class WingModule{
      * 检测玩家传过来的被吞噬的僚机是否合法
      * 1、僚机要存在
      * 2、不能是要进阶的僚机自身
-     * 3、不能是当前出战的了解
+     * 3、不能是当前出战的僚机
      *
      * @param ids       被吞噬僚机的id数组
      * @return          被吞噬的僚机列表
@@ -303,11 +294,18 @@ public class WingModule{
             throw new ClientException( ErrorCode.WING_UPGRADE_LEVEL_UNDER_LIMIT );
         }
 
-        Wing[]  wings = checkSwallowWings( swallowedWings, wing );
-        if( wings.length < wing.getWqTemplet().getAdvanceWing() ){
-            throw new ClientException( ErrorCode.WING_SWALLOW_WINGS_NOT_ENOUGH );
 
+        Wing[]  wings = checkSwallowWings( swallowedWings, wing );
+        if( wings.length != wing.getWqTemplet().getAdvanceWing() ){
+            throw new ClientException( ErrorCode.WING_SWALLOW_COUNT_INVALID );
+        }else{
+            for( Wing swallow : wings ) {
+                if( swallow.getQuality(  )< wing.getWqTemplet().getAdvanceWingQue() ){
+                    throw new ClientException(ErrorCode.WING_SWALLOW_QUALITY_UNDER_LIMIT );
+                }
+            }
         }
+
 
         String award = "";
         if( wing.getWqTemplet().getAdvanceGold() != 0 ){
@@ -361,5 +359,25 @@ public class WingModule{
         }
 
         return addtion;
+    }
+
+    /**
+     * 碎片合成僚机
+     * @param wingTempletId     要生成的僚机模板id
+     */
+    public void compose( int wingTempletId ){
+        //if()
+        //stuffModule.
+
+
+    }
+
+    /**
+     * 分解僚机
+     * @param id        要分解僚机的唯一id
+     */
+    public void decompose( long id ){
+        Wing wing = getWingById( id );
+
     }
 }

@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-13 14:35:25
+ * 2015-1-15 14:14:16
  */
 public class StuffTemplet {
 
@@ -46,14 +46,14 @@ public class StuffTemplet {
 	public int getOrder() {
 		return order;
 	}/**
-	 * 道具类型(1战斗前 2战斗中 3奖励)
+	 * 道具类型(1战斗前 2战斗中 3奖励,4僚机碎片 5装备碎片)
 	 */
     private final int type;
 
 
 
 	/**
-	 * 道具类型(1战斗前 2战斗中 3奖励)
+	 * 道具类型(1战斗前 2战斗中 3奖励,4僚机碎片 5装备碎片)
 	 */
 	public int getType() {
 		return type;

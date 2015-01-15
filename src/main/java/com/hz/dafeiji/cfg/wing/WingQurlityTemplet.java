@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-13 14:35:25
+ * 2015-1-15 14:14:16
  */
 public class WingQurlityTemplet {
 
@@ -69,6 +69,18 @@ public class WingQurlityTemplet {
 	 */
 	public int getMaxLv() {
 		return maxLv;
+	}/**
+	 * 僚机分解成万能碎片数量
+	 */
+    private final int resolve;
+
+
+
+	/**
+	 * 僚机分解成万能碎片数量
+	 */
+	public int getResolve() {
+		return resolve;
 	}/**
 	 * 金币加成
 	 */
@@ -221,6 +233,7 @@ quality = Integer.parseInt( element.getChildText("quality").trim() );
 step = Integer.parseInt( element.getChildText("step").trim() );
 starCount = Integer.parseInt( element.getChildText("starCount").trim() );
 maxLv = Integer.parseInt( element.getChildText("maxLv").trim() );
+resolve = Integer.parseInt( element.getChildText("resolve").trim() );
 gold = Float.parseFloat( element.getChildText("gold").trim() );
 score = Float.parseFloat( element.getChildText("score").trim() );
 aspdUpInc = Float.parseFloat( element.getChildText("aspdUpInc").trim() );
@@ -238,7 +251,7 @@ state = element.getChildText("state").trim();
 
 	@Override
 	public String toString() {
-		return "WingQurlityTemplet [id = " + id + ",quality = " + quality + ",step = " + step + ",starCount = " + starCount + ",maxLv = " + maxLv + ",gold = " + gold + ",score = " + score + ",aspdUpInc = " + aspdUpInc + ",attackUpInc = " + attackUpInc + ",expGap = " + expGap + ",expInitial = " + expInitial + ",advanceCard = " + advanceCard + ",advanceWingQue = " + advanceWingQue + ",advanceWing = " + advanceWing + ",advanceGold = " + advanceGold + ",advanceJewel = " + advanceJewel + ",state = " + state + "]";
+		return "WingQurlityTemplet [id = " + id + ",quality = " + quality + ",step = " + step + ",starCount = " + starCount + ",maxLv = " + maxLv + ",resolve = " + resolve + ",gold = " + gold + ",score = " + score + ",aspdUpInc = " + aspdUpInc + ",attackUpInc = " + attackUpInc + ",expGap = " + expGap + ",expInitial = " + expInitial + ",advanceCard = " + advanceCard + ",advanceWingQue = " + advanceWingQue + ",advanceWing = " + advanceWing + ",advanceGold = " + advanceGold + ",advanceJewel = " + advanceJewel + ",state = " + state + "]";
 	}
 
 	/*自定义代码开始*//*自定义代码结束*/

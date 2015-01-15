@@ -189,7 +189,7 @@ public class PlaneModule{
     /**
      * 测试用
      */
-    public void remove(){
+    public void removeAll(){
         db.removeAll();
         allPlanes.clear();
     }

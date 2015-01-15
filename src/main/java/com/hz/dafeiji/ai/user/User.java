@@ -87,7 +87,7 @@ public class User{
      * 删除玩家的所有信息，通常是测试用，这里要谨慎又谨慎
      */
     public void remove(){
-        moduleManager.getPlaneModule().remove();
+        moduleManager.getPlaneModule().removeAll();
     }
 
 }

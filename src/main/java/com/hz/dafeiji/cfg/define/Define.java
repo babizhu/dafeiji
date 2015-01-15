@@ -5,7 +5,7 @@ import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
 /**
  * 常数定义，自动生成，勿改
  * @author liukun
- * 2015-1-13 14:35:25
+ * 2015-1-15 14:14:16
  */
  @SuppressWarnings("UnusedDeclaration")
 public class Define {
@@ -17,7 +17,7 @@ public static float ZHUANG_BEI_CHAI_FEN = 0.1F;/** 僚机被吞噬时所获得�
 public static float LIAO_JI_TUN_SHI = 0.1F;/** 装备升级时的总的参数。 **/
 public static float ZHUANG_BEI_SHENG_JI_CHANG_LIANG = 10F;/** 经典模式核弹携带上限 **/
 public static int HEI_DAN_XIE_DAI_SHANG_XIAN = 9;/** 开局后可以冲刺10屏的距离 **/
-public static int XIN_SHENG_QU_DONG = 10;/** 死亡后可以冲刺5屏的距离 **/
+public static int XIN_SHENG_QU_DONG = 1;/** 死亡后可以冲刺5屏的距离 **/
 public static int SI_WANG_QU_DONG = 5;/** 蓝色防护罩持续时间为5秒 **/
 public static int LAN_SE_FANG_HU_TIME = 5;/** 战斗中冲刺3屏 **/
 public static int KUANG_RE_QU_DONG = 3;/** 战斗中获得爱心可以恢复20%的气血 **/
