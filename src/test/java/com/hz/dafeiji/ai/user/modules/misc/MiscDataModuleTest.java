@@ -2,7 +2,7 @@ package com.hz.dafeiji.ai.user.modules.misc;
 
 import com.hz.dafeiji.ai.user.User;
 import com.hz.util.D;
-import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -16,9 +16,9 @@ public class MiscDataModuleTest{
     MiscDataModule module = user.getModuleManager().MiscDataModule();
     //PropertyModule propertyModule = user.getModuleManager().getPropertyModule();
 
-    @After
+    @Before
     public void remove(){
-        module.removeUserData();
+//        module.removeUserData();
     }
 
     @Test

@@ -115,7 +115,7 @@ public class WingModuleTest{
         } catch( ClientException e ) {
             errorCode = e.getCode();
         }
-        assertEquals( ErrorCode.WING_LEVEL_REACHED_LIMIT, errorCode );//等级已经抵达上限
+        assertEquals( ErrorCode.WING_LEVELUP_REACHED_LIMIT, errorCode );//等级已经抵达上限
 
         user.getModuleManager().getAwardModule().reduceAward(
                 PropIdDefine.CASH_JIN_BI + "," + exp / 10, "WingModuleTest.testLevelUp" );//钱归0
@@ -143,11 +143,11 @@ public class WingModuleTest{
         Wing w1 = module.add( WingTempletCfg.getWingTempletById(200401) );//增加一架僚机
         Wing w2 = module.add( WingTempletCfg.getWingTempletById(200402) );//增加一架僚机
 
-        assertEquals( 2, module.getAll().size() );
+        assertEquals( 2, module.getAllWings().size() );
 
         long[] sells = new long[]{w1.getId(), w2.getId()};
         int cash = module.sell( sells );
-        assertEquals( 0, module.getAll().size() );
+        assertEquals( 0, module.getAllWings().size() );
         assertEquals( 650, cash );
 
         w1 = module.add( WingTempletCfg.getWingTempletById(200401) );//增加一架僚机
@@ -156,7 +156,7 @@ public class WingModuleTest{
         w1.setLevel( 2 );//设置等级为2
         sells = new long[]{w1.getId(), w2.getId()};
         cash = module.sell( sells );
-        assertEquals( 0, module.getAll().size() );
+        assertEquals( 0, module.getAllWings().size() );
         assertEquals( 660, cash );
 
 
@@ -179,12 +179,12 @@ public class WingModuleTest{
         wt = WingTempletCfg.getWingTempletById( templetId );
         module.add( wt );
 
-        System.out.println( module.getAll() );
+        System.out.println( module.getAllWings() );
     }
 
     @Test
     public void testGetAll() throws Exception{
-        Map<Long, Wing> all = module.getAll();
+        Map<Long, Wing> all = module.getAllWings();
         System.out.println( all );
     }
 
@@ -192,6 +192,16 @@ public class WingModuleTest{
     public void testQualityUp() throws Exception{
         Wing w1 = module.add( WingTempletCfg.getWingTempletById(200401) );//增加一架僚机
         ErrorCode errorCode = ErrorCode.SUCCESS;
+
+        //测试不存在的僚机id
+        try{
+            module.QualityUp( 0, new long[0] );
+        }catch( ClientException e ){
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_NOT_FOUND, errorCode );
+
+
         try{
             module.QualityUp( w1.getId(), new long[0] );
         }catch( ClientException e ){
@@ -207,8 +217,154 @@ public class WingModuleTest{
         }catch( ClientException e ){
             errorCode = e.getCode();
         }
-        assertEquals( ErrorCode.WING_UPGRADE_LEVEL_UNDER_LIMIT, errorCode );
+        assertEquals( ErrorCode.USER_CASH_NOT_ENOUGH, errorCode );
 
+        addCash( w1.getWqTemplet().getAdvanceGold() );//给点钱
+        int oldLevel = w1.getLevel();
+        module.QualityUp( w1.getId(), new long[0] );
+        assertEquals( 2, w1.getQuality() );//升阶
+        assertEquals( oldLevel, w1.getLevel() );//等级不变
+        assertEquals( 2700, w1.getExp() );//经验自动补齐到此品阶此等级的经验
+
+
+        //继续升第三阶
+        w1.setLevel( 20 );
+        addCash( w1.getWqTemplet().getAdvanceGold() );//给点钱
+        oldLevel = w1.getLevel();
+        module.QualityUp( w1.getId(), new long[0] );
+
+        assertEquals( 3, w1.getQuality() );//升阶
+        assertEquals( oldLevel, w1.getLevel() );//等级不变
+        assertEquals( 19000, w1.getExp() );//经验自动补齐到此品阶此等级的经验
+
+
+        //继续升第四阶
+        w1.setLevel( 30 );
+        addCash( w1.getWqTemplet().getAdvanceGold() );//给点钱
+        oldLevel = w1.getLevel();
+        module.QualityUp( w1.getId(), new long[0] );
+        assertEquals( 4, w1.getQuality() );//升阶
+        assertEquals( oldLevel, w1.getLevel() );//等级不变
+        assertEquals( 63800, w1.getExp() );//经验自动补齐到此品阶此等级的经验
+
+        //继续升第五阶,超过此飞机的品质上限，抛出异常
+        //w1.setLevel( 30 );
+        //addCash( w1.getWqTemplet().getAdvanceGold() );//给点钱
+        try {
+
+            module.QualityUp( w1.getId(), new long[0] );
+        }catch( ClientException e ){
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_UPGRADE_OVER_LIMIT, errorCode );
+
+
+        w1 = module.add( WingTempletCfg.getWingTempletById( 200804 ) );
+        w1.setQuality( 5 );
+        w1.setLevel( 45 );
+
+        //被吞噬的僚机数量不够
+        try{
+            module.QualityUp( w1.getId(), new long[0] );
+        }catch( ClientException e ){
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_SWALLOW_COUNT_INVALID, errorCode );
+
+        //被吞噬的僚机不存在
+        try{
+            module.QualityUp( w1.getId(), new long[1] );
+        }catch( ClientException e ){
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_NOT_FOUND, errorCode );
+
+
+        try{
+
+            module.QualityUp( w1.getId(), new long[]{w1.getId()} );
+        }catch( ClientException e ){
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_SWALLOW_SELF, errorCode );
+
+        //准备一个打算被吞噬的僚机
+        Wing w2 = module.add( WingTempletCfg.getWingTempletById( 200804 ) );
+        w2.setQuality( 5 );
+        w2.setLevel( 45 );
+        w2.setCurrent( true );
+
+        try{
+
+            module.QualityUp( w1.getId(), new long[]{w2.getId()} );
+        }catch( ClientException e ){
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_SWALLOW_IS_CURRENT, errorCode );
+
+        w2.setCurrent( false );
+        addCash( w1.getWqTemplet().getAdvanceGold() );//给点钱
+        oldLevel = w1.getLevel();
+        int oldWingCount = module.getAllWings().size();//所有僚机的数量
+        module.QualityUp( w1.getId(), new long[]{w2.getId()} );
+        assertEquals( 6, w1.getQuality() );//升阶
+        assertEquals( oldLevel, w1.getLevel() );//等级不变
+        assertEquals( 258500, w1.getExp() );//经验自动补齐到此品阶此等级的经验
+        assertEquals( oldWingCount-1, module.getAllWings().size() );//僚机的数量减去一（被吞噬）
+
+    }
+
+    @Test
+    public void testGetAddtionCollection(){
+        Wing w1 = module.add( WingTempletCfg.getWingTempletById(200401) );//增加一架僚机
+        module.setCurrentWing( w1.getId() );
+        System.out.println( module.getAddtionCollection() );
+
+        w1.setQuality( 3 );
+        System.out.println( module.getAddtionCollection() );
+    }
+
+
+    @Test
+    public void testSetLock(){
+        Wing w1 = module.add( WingTempletCfg.getWingTempletById(200401) );//增加一架僚机
+        assertEquals( false, w1.isLock() );
+        module.setLock( w1.getId(), true );
+        assertEquals( true, w1.isLock() );
+    }
+
+    private void addStuff( int propId, int count ){
+        user.getModuleManager().getAwardModule().addAward(
+                propId + "," + count, "WingModuleTest.test" );//给点钱
+    }
+    @Test
+    public void testCompose(){
+        int templetId = 200402;//此战机通过配置表检测是不能合成的
+        ErrorCode errorCode = ErrorCode.SUCCESS;
+        try{
+            module.compose( templetId );
+        }catch( ClientException e ){
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.WING_CAN_NOT_COMPOSE, errorCode );
+
+        int wingCount = module.getAllWings().size();
+        addStuff( 534002, 60 );
+        templetId = 200801;
+        module.compose( templetId );
+
+        assertEquals( ++wingCount, module.getAllWings().size() );
+
+        //只有一半万能碎片
+        addStuff( 534002, 30 );
+        //addStuff( PropIdDefine.SL_WAN_NENG_LIAO_JI, 30 );
+        try{
+            module.compose( templetId );
+        }catch( ClientException e ){
+            System.out.println( e.toString() );
+            errorCode = e.getCode();
+        }
+        assertEquals( ErrorCode.STUFF_NOT_ENOUGH, errorCode );
 
     }
 }

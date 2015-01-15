@@ -25,7 +25,7 @@ public class DefineTempletCfg{
 //        load();
     }
 
-//    public static List<DefineTemplet> getAll() {
+//    public static List<DefineTemplet> getAllWings() {
 //        return new ArrayList<DefineTemplet>(all);
 //    }
 //

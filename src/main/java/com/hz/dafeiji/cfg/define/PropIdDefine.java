@@ -5,7 +5,7 @@ import com.hz.dafeiji.cfg.manual.define.DefineTempletCfg;
 /**
  * 常数定义，自动生成，勿改
  * @author liukun
- * 2015-1-15 14:14:16
+ * 2015-1-15 17:31:53
  */
  @SuppressWarnings("UnusedDeclaration")
 public class PropIdDefine {

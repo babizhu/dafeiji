@@ -26,8 +26,11 @@ class StuffDataProvider extends AbstractDataProviderWithUserName<CountMap<Intege
     protected CountMap<Integer> decode( DBObject obj ){
         CountMap<Integer> data = new CountMap<>();
         if( obj != null ) {
+
             for( String key : obj.keySet() ) {
-                data.put( Integer.parseInt( key ), (int) obj.get( key ) );
+                if( !key.equals( "_id" )){
+                    data.put( Integer.parseInt( key ), (int) obj.get( key ) );
+                }
             }
         }
         return data;

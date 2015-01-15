@@ -21,6 +21,7 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
     static final String ID_FIELD = "_id";
     static final String QUALITY_FIELD = "quality";
     static final String EXP_FIELD = "exp";
+    static final String LOCK_FIELD = "lock";
 
     public WingDataProvider( String uname ){
         super( TABLE_NAME, uname );
@@ -39,7 +40,8 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
         wing.setLevel( (int) object.get( LEVEL_FIELD ) );
         wing.setCurrent( (boolean) object.get( CURRENT_FIELD ) );
         wing.setQuality( (int)object.get( QUALITY_FIELD ) );
-        wing.setExp( (int)object.get( EXP_FIELD ) );
+        wing.setExp( (int) object.get( EXP_FIELD ) );
+        wing.setLock( (boolean) object.get( LOCK_FIELD ) );
 
         return wing;
     }
@@ -53,6 +55,7 @@ public class WingDataProvider extends AbstractDataProviderWithIdentity<Wing>{
         obj.put( CURRENT_FIELD, wing.isCurrent() );
         obj.put( QUALITY_FIELD, wing.getQuality() );
         obj.put( EXP_FIELD, wing.getExp() );
+        obj.put( LOCK_FIELD, wing.isLock() );
 
         return obj;
     }

@@ -93,7 +93,7 @@ public class AwardModule{
             } else if( propId == PropIdDefine.NENG_YUAN ) {      //能源获取
                 remainCount = propertyModule.changeEnergy( prop.count );
             } else if( propId >= Define.ID_STUFF_MIN && propId <= Define.ID_STUFF_MAX ) {//道具材料
-                remainCount = stuffModule.reduceStuff( propId, prop.count );
+                remainCount = stuffModule.changeStuff( propId, prop.count );
 
             } else {
                 throw new ClientException( ErrorCode.AWARD_PROP_NOT_FOUND, prop.propId + "," + prop.count );

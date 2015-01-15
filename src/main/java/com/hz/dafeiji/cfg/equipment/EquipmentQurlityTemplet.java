@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-15 14:14:16
+ * 2015-1-15 17:31:53
  */
 public class EquipmentQurlityTemplet {
 
@@ -202,6 +202,18 @@ public class EquipmentQurlityTemplet {
 	public int getEnergyBasis() {
 		return energyBasis;
 	}/**
+	 * 分解成万能碎片数量
+	 */
+    private final int resolve;
+
+
+
+	/**
+	 * 分解成万能碎片数量
+	 */
+	public int getResolve() {
+		return resolve;
+	}/**
 	 * 进阶消耗图纸数量
 	 */
     private final int advanceDraw;
@@ -292,6 +304,7 @@ hpUpInc = Float.parseFloat( element.getChildText("hpUpInc").trim() );
 energyCoe = Integer.parseInt( element.getChildText("energyCoe").trim() );
 energyExpend = Integer.parseInt( element.getChildText("energyExpend").trim() );
 energyBasis = Integer.parseInt( element.getChildText("energyBasis").trim() );
+resolve = Integer.parseInt( element.getChildText("resolve").trim() );
 advanceDraw = Integer.parseInt( element.getChildText("advanceDraw").trim() );
 advanceEquipmentQue = Integer.parseInt( element.getChildText("advanceEquipmentQue").trim() );
 advanceEquipment = Integer.parseInt( element.getChildText("advanceEquipment").trim() );
@@ -303,7 +316,7 @@ state = element.getChildText("state").trim();
 
 	@Override
 	public String toString() {
-		return "EquipmentQurlityTemplet [id = " + id + ",quality = " + quality + ",step = " + step + ",starCount = " + starCount + ",maxLv = " + maxLv + ",gold = " + gold + ",score = " + score + ",attackAddInc = " + attackAddInc + ",skillCoolingInc = " + skillCoolingInc + ",hpInc = " + hpInc + ",attackAddUpInc = " + attackAddUpInc + ",skillCoolingUpInc = " + skillCoolingUpInc + ",hpUpInc = " + hpUpInc + ",energyCoe = " + energyCoe + ",energyExpend = " + energyExpend + ",energyBasis = " + energyBasis + ",advanceDraw = " + advanceDraw + ",advanceEquipmentQue = " + advanceEquipmentQue + ",advanceEquipment = " + advanceEquipment + ",advanceGold = " + advanceGold + ",advanceJewel = " + advanceJewel + ",state = " + state + "]";
+		return "EquipmentQurlityTemplet [id = " + id + ",quality = " + quality + ",step = " + step + ",starCount = " + starCount + ",maxLv = " + maxLv + ",gold = " + gold + ",score = " + score + ",attackAddInc = " + attackAddInc + ",skillCoolingInc = " + skillCoolingInc + ",hpInc = " + hpInc + ",attackAddUpInc = " + attackAddUpInc + ",skillCoolingUpInc = " + skillCoolingUpInc + ",hpUpInc = " + hpUpInc + ",energyCoe = " + energyCoe + ",energyExpend = " + energyExpend + ",energyBasis = " + energyBasis + ",resolve = " + resolve + ",advanceDraw = " + advanceDraw + ",advanceEquipmentQue = " + advanceEquipmentQue + ",advanceEquipment = " + advanceEquipment + ",advanceGold = " + advanceGold + ",advanceJewel = " + advanceJewel + ",state = " + state + "]";
 	}
 
 	/*自定义代码开始*//*自定义代码结束*/

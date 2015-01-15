@@ -40,7 +40,7 @@ public class PlaneModuleTest{
     @Before
     public void clear(){
         //System.out.println( "--------------------------------------------------");
-        module.remove();
+        module.removeAll();
     }
 
     @Test
@@ -207,7 +207,7 @@ public class PlaneModuleTest{
 
         assertEquals( 5, module.getAll().size() );
 
-//        printAll( module.getAll() );
+//        printAll( module.getAllWings() );
 
         try {
             //测试重复模板id

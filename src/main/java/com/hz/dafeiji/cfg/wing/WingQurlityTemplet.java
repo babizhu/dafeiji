@@ -5,7 +5,7 @@ import org.jdom2.Element;
 /**
  * 模版
  * @author liukun
- * 2015-1-15 14:14:16
+ * 2015-1-15 17:31:53
  */
 public class WingQurlityTemplet {
 

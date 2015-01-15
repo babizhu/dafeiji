@@ -19,6 +19,7 @@ public class Wing implements IdentityObj{
     private WingQurlityTemplet wqTemplet;
     private int exp;
     private int quality;
+    private boolean lock;
 
     /**
      * 是否当前的出战飞机

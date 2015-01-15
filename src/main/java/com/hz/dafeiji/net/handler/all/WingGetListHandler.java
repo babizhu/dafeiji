@@ -17,7 +17,7 @@ public class WingGetListHandler implements IGameHandler{
     @Override
     public void run( JSONObject request, JSONObject response, User user ){
         JSONArray wingList = new JSONArray();
-        Map<Long, Wing> all = user.getModuleManager().getWingModule().getAll();
+        Map<Long, Wing> all = user.getModuleManager().getWingModule().getAllWings();
         for( Wing wing : all.values() ) {
             JSONObject wingJson = getJsonObject( wing );
 

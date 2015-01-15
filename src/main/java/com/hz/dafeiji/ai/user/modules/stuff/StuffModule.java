@@ -1,8 +1,6 @@
 package com.hz.dafeiji.ai.user.modules.stuff;
 
 import com.bbz.tool.common.CountMap;
-import com.hz.dafeiji.ai.ClientException;
-import com.hz.dafeiji.ai.ErrorCode;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
 
 /**
@@ -24,31 +22,33 @@ public class StuffModule{
 
 
     /**
+     * 请勿直接使用此方法，请采用AwardModule模块
      * 增加道具，外层已经做了道具id是否合法的检测
      * @param propId    道具模板id
      * @param count     要增加的数量
      * @return          增加后的数量
-     */
+
     public int addStuff(int propId, int count){
 
         return data.add( propId, count );
-    }
+    }*/
 
     /**
+     * 请勿直接使用此方法，请采用AwardModule模块
      * 扣除道具，外层已经做了道具id是否合法的检测
      * @param propId    道具模板id
      * @param count     要扣除的数量
      * @return          扣除后的道具数量
-     */
-    public int reduceStuff( int propId, int count ){
+
+    int reduceStuff( int propId, int count ){
         if( !isEnough( propId,count ) ){
             throw new ClientException( ErrorCode.STUFF_NOT_ENOUGH );
         }
         return data.add( propId, -count );
 
-    }
+    }*/
 
-    /**
+    /**请勿直接使用此方法，请采用AwardModule模块
      * 检测道具数量是否足够
      * @param propId        道具id
      * @param needCount         要检测的数量
@@ -57,7 +57,7 @@ public class StuffModule{
      */
     public boolean isEnough( int propId, int needCount ){
         int count = data.get( propId );
-        return count > needCount;
+        return count >= needCount;
     }
 
 
@@ -76,5 +76,19 @@ public class StuffModule{
     void removeAll(){
         db.remove();
         data.clear();
+    }
+
+    /**
+     * 如果是扣除，changeValue请用负数，同时无需考虑是否够扣的问题，AwardModule会统一处理
+     *
+     * @param changeValue 变化值
+     * @return 变化之后的道具数量
+     */
+    public int changeStuff( int propId, int changeValue ){
+
+        int remainCount = data.add( propId, changeValue );
+        db.updateWithField( ""+propId, remainCount );
+        return remainCount;
+
     }
 }

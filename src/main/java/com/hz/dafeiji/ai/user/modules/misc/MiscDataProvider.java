@@ -27,7 +27,9 @@ class MiscDataProvider extends AbstractDataProviderWithUserName<Map<String, Obje
         Map<String, Object> data = Maps.newHashMap();
         if( obj != null ) {
             for( String key : obj.keySet() ) {
-                data.put( key, obj.get( key ) );
+                if( !key.equals( "_id" ) ) {
+                    data.put( key, obj.get( key ) );
+                }
             }
         }
         return data;

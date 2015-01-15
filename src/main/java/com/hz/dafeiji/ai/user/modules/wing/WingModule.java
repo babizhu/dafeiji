@@ -17,6 +17,7 @@ import com.hz.dafeiji.cfg.manual.WingExpCfg;
 import com.hz.dafeiji.cfg.reward.StuffTemplet;
 import com.hz.dafeiji.cfg.reward.StuffTempletCfg;
 import com.hz.dafeiji.cfg.wing.WingTemplet;
+import com.hz.dafeiji.cfg.wing.WingTempletCfg;
 
 import java.util.Map;
 
@@ -275,7 +276,7 @@ public class WingModule{
         return wings;
     }
 
-    public Map<Long, Wing> getAll(){
+    public Map<Long, Wing> getAllWings(){
         return allWings;
     }
 
@@ -365,19 +366,60 @@ public class WingModule{
      * 碎片合成僚机
      * @param wingTempletId     要生成的僚机模板id
      */
-    public void compose( int wingTempletId ){
-        //if()
-        //stuffModule.
+    public Wing compose( int wingTempletId ){
+        WingTemplet templet = WingTempletCfg.getWingTempletById( wingTempletId );
+        if(templet == null){
+            throw new ClientException(ErrorCode.WING_TEMPLET_NOT_FOUND, "模版ID:"+wingTempletId);
+        }
+        String costStr;
 
+        if(templet.getDebris() <= 0){
+            throw new ClientException(ErrorCode.WING_CAN_NOT_COMPOSE, "该僚机不能被合成:"+wingTempletId);
+        }
 
+        int stuffId = templet.getDebris();                  //需要的碎片道具ID
+        int needStuffCount = templet.getCompound();         //需要的碎片数量
+        int stuffCount = stuffModule.getCount(stuffId);     //拥有的碎片道具数量
+
+        if(stuffCount >= needStuffCount){        //如果自身碎片足够合成
+            costStr = stuffId + "," + needStuffCount;             //消耗自身碎片
+        }else{
+            int needPurpose = needStuffCount - stuffCount;          //需要的万能碎片
+
+            if(needPurpose > templet.getAllPurpose()){                       //需要的万能碎片超出最大限制
+                throw new ClientException(ErrorCode.WING_PURPOSE_OVERLIMIT);
+            }
+
+            //扣除自身所有该装备的碎片 + 要使用多少万能碎片
+            costStr = stuffId + "," + stuffCount + "," + PropIdDefine.SL_WAN_NENG_LIAO_JI + "," + needPurpose;
+        }
+
+        awardModule.reduceAward(costStr, clazName + ".compose");
+
+        return add( templet );
     }
 
     /**
-     * 分解僚机
+     * 分解僚机，生成万能碎片
+     *
      * @param id        要分解僚机的唯一id
      */
     public void decompose( long id ){
         Wing wing = getWingById( id );
+        String awardStr = PropIdDefine.SL_WAN_NENG_LIAO_JI + "," + wing.getWqTemplet().getResolve();
+        awardModule.addAward( awardStr, clazName + ".decompose" );
 
+        remove( wing );
+    }
+
+    /**
+     * 设置僚机是否锁定
+     * @param id
+     * @param isLock
+     */
+    public void setLock( long id, boolean isLock){
+        Wing wing = getWingById( id );
+        wing.setLock( isLock );
+        db.updateWithField( wing, WingDataProvider.LOCK_FIELD, isLock );
     }
 }
