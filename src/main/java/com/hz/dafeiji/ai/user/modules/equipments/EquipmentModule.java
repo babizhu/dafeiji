@@ -9,7 +9,6 @@ import com.hz.dafeiji.ai.addtion.AddtionValue;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
 import com.hz.dafeiji.ai.user.modules.stuff.StuffModule;
-import com.hz.dafeiji.cfg.define.Define;
 import com.hz.dafeiji.cfg.define.PropIdDefine;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTempletCfg;
@@ -233,8 +232,8 @@ public class EquipmentModule{
         EquipmentQurlityTemplet qt = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality());
 
         //属性计算公式 : (初始属性加成 + 初始属性加成增量) + (属性加成成长 + 属性加成成长增量) * (装备等级 - 1)
-        AddtionValue value = null;
-        float[] args = null;
+        AddtionValue value;
+        float[] args;
         switch (et.getType()){          //根据装备类型决定加成的属性类型
             case 1 :
                 value = new AddtionValue(AddtionType.ATTACK_ADDTION);
@@ -277,7 +276,7 @@ public class EquipmentModule{
      */
     public void composeEquip(int equipTempletId){
         EquipmentTemplet et = EquipmentTempletCfg.getEquipmentTempletById(equipTempletId);
-        String costItems = "";
+        String costItems;
         if(et == null){
             throw new ClientException(ErrorCode.EQUIPMENT_TEMPLET_NOT_FOUND, "合成装备模版ID:"+equipTempletId);
         }
