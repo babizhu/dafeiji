@@ -8,6 +8,8 @@ import com.hz.dafeiji.ai.addtion.AddtionType;
 import com.hz.dafeiji.ai.addtion.AddtionValue;
 import com.hz.dafeiji.ai.user.modules.ModuleManager;
 import com.hz.dafeiji.ai.user.modules.award.AwardModule;
+import com.hz.dafeiji.ai.user.modules.stuff.StuffModule;
+import com.hz.dafeiji.cfg.define.Define;
 import com.hz.dafeiji.cfg.define.PropIdDefine;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTemplet;
 import com.hz.dafeiji.cfg.equipment.EquipmentQurlityTempletCfg;
@@ -31,6 +33,7 @@ public class EquipmentModule{
     private static Comparator<Equipment> equipmentComparator = null;
     private String className;
     private final AwardModule awardModule;
+    private final StuffModule stuffModule;
 
     static {
         equipmentComparator = new Comparator<Equipment>() {
@@ -55,6 +58,7 @@ public class EquipmentModule{
     public EquipmentModule(ModuleManager moduleManager){
         db = new EquipmentDataProvider(moduleManager.getUserName());
         awardModule = moduleManager.getAwardModule();
+        stuffModule = moduleManager.getStuffModule();
         className = getClass().getSimpleName();
 
         equipments = db.getMapAllBy(new BasicDBObject(EquipmentDataProvider.FIELD_ISDELETE,0)); //查询isDelete字段为0的数据
@@ -218,7 +222,6 @@ public class EquipmentModule{
         return addtion;
     }
 
-
     /**
      * 计算装备加成属性
      * @param equip 要获取属性的装备对象
@@ -266,6 +269,45 @@ public class EquipmentModule{
         collection.add(goldValue);
         collection.add(scoreValue);
         return collection;
+    }
+
+    /**
+     * 合成装备
+     * @param equipTempletId 要合成装备的模版ID
+     */
+    public void composeEquip(int equipTempletId){
+        EquipmentTemplet et = EquipmentTempletCfg.getEquipmentTempletById(equipTempletId);
+        String costItems = "";
+        if(et == null){
+            throw new ClientException(ErrorCode.EQUIPMENT_TEMPLET_NOT_FOUND, "合成装备模版ID:"+equipTempletId);
+        }
+
+        if(et.getDebris() <= 0){
+            throw new ClientException(ErrorCode.EQUIPMENT_TYPE_ERROR, "该装备不能被合成:"+equipTempletId);
+        }
+
+        int pieceId = et.getDebris();           //需要的碎片道具ID
+        int needPiece = et.getCompound();       //需要的碎片数量
+        int maxPurpose = et.getAllPurpose();    //能使用的最大万能碎片数量
+        int pieceCount = stuffModule.getCount(pieceId);     //拥有的碎片道具数量
+
+        if(pieceCount >= needPiece){        //如果自身碎片足够合成
+            costItems = pieceId + "," + needPiece;             //消耗自身碎片
+        }else{
+            int needPurpose = needPiece - pieceCount;          //需要的万能碎片
+
+            if(needPurpose > maxPurpose){                       //需要的万能碎片超出最大限制
+                throw new ClientException(ErrorCode.EQUIPMENT_PURPOSE_OVERLIMIT, "合成需要的万能碎片数量超出限制.");
+            }
+
+            //扣除自身所有该装备的碎片 + 要使用多少万能碎片
+            costItems = pieceId + "," + pieceCount + "," + PropIdDefine.SZ_WAN_NENG_ZHUANG_BEI + "," + needPurpose;
+        }
+
+        awardModule.reduceAward(costItems, "合成装备:"+equipTempletId);
+        Equipment equip = new Equipment(equipTempletId);
+        db.add(equip);
+        equipments.put(equip.getId(), equip);
     }
 
     /**
