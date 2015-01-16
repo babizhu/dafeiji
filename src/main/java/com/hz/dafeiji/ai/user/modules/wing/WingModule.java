@@ -292,7 +292,9 @@ public class WingModule{
         }
 
         if( wing.getLevel() != wing.getWqTemplet().getMaxLv() ){
-            throw new ClientException( ErrorCode.WING_UPGRADE_LEVEL_UNDER_LIMIT );
+            throw new ClientException( ErrorCode.WING_UPGRADE_LEVEL_UNDER_LIMIT,
+                    "limit=" + wing.getWqTemplet().getMaxLv() + ",currentLevel=" +
+                            wing.getLevel());
         }
 
 

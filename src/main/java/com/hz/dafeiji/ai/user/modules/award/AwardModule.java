@@ -66,7 +66,7 @@ public class AwardModule{
         List<PropItem> props = transform( reduceStr );
         ErrorCode errorCode = checkEnough( props );
         if( !errorCode.isSuccess() ) {
-            throw new ClientException( errorCode );
+            throw new ClientException( errorCode, reduceStr );
         }
 
         for( PropItem prop : props ) {

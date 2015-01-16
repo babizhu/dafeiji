@@ -16,7 +16,7 @@ public class Wing implements IdentityObj{
     private long id;
     private int level = 1;
     private final WingTemplet templet;
-    private WingQurlityTemplet wqTemplet;
+    //private WingQurlityTemplet wqTemplet;
     private int exp;
     private int quality;
     private boolean lock;
@@ -35,11 +35,11 @@ public class Wing implements IdentityObj{
     }
 
     public int getAttack(){
-        return (int) (templet.getAttack() + (level - 1) * (templet.getAttackUp() + wqTemplet.getAttackUpInc()));
+        return (int) (templet.getAttack() + (level - 1) * (templet.getAttackUp() + getWqTemplet().getAttackUpInc()));
     }
 
     public int getAttackSpeed(){
-        return (int) (templet.getAspd() + wqTemplet.getAspdUpInc());
+        return (int) (templet.getAspd() + getWqTemplet().getAspdUpInc());
     }
 
     public WingQurlityTemplet getWqTemplet(){

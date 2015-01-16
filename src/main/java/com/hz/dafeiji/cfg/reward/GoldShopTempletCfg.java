@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * 模版配置
  * @author liukun
- * 2015-1-15 17:31:53
+ * 2015-1-16 15:10:13
  */
 public class GoldShopTempletCfg {
 	private static final Map<Integer,GoldShopTemplet> goldShopTemplets = new HashMap<>();

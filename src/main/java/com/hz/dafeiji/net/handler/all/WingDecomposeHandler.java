@@ -10,12 +10,11 @@ import com.hz.dafeiji.net.handler.IGameHandler;
  * 设置某个僚机的状态，出战或者休息
  */
 
-public class WingSetCurrentHandler implements IGameHandler{
+public class WingDecomposeHandler implements IGameHandler{
     @Override
     public void run( JSONObject request, JSONObject response, User user ){
         long wingId = request.getLong( "id" );
-        boolean isCurrent = request.getByte( "c" ) == 1?true:false;
-        user.getModuleManager().getWingModule().setCurrentWing( wingId );
+        user.getModuleManager().getWingModule().decompose( wingId );
     }
 
 

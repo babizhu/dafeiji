@@ -7,15 +7,15 @@ import com.hz.dafeiji.net.handler.IGameHandler;
 /**
  * user         LIUKUN
  * time         2015-1-7 11:54
- * 设置某个僚机的状态，出战或者休息
+ * 僚机合成
  */
 
-public class WingSetCurrentHandler implements IGameHandler{
+public class WingComposeHandler implements IGameHandler{
     @Override
     public void run( JSONObject request, JSONObject response, User user ){
-        long wingId = request.getLong( "id" );
-        boolean isCurrent = request.getByte( "c" ) == 1?true:false;
-        user.getModuleManager().getWingModule().setCurrentWing( wingId );
+        int templetId = request.getInteger( "tid" );
+
+        user.getModuleManager().getWingModule().compose( templetId );
     }
 
 
