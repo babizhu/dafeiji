@@ -42,6 +42,11 @@ public class Equipment implements IdentityObj{
      */
     private int isDelete;
 
+    /**
+     * 是否已被锁定
+     */
+    private int locked;
+
 
     /**
      * 从数据库取出数据构造对象
@@ -52,13 +57,14 @@ public class Equipment implements IdentityObj{
      * @param loaded  是否装备上
      * @param isDelete 是否已删除
      */
-    public Equipment(long id, int templetId, int level, int quality, int loaded, int isDelete){
+    public Equipment(long id, int templetId, int level, int quality, int loaded, int isDelete, int locked){
         this.id = id;
         this.templet = EquipmentTempletCfg.getEquipmentTempletById( templetId );
         this.level = level;
         this.quality = quality;
         this.loaded = loaded;
         this.isDelete = isDelete;
+        this.locked = locked;
     }
 
     /**
@@ -72,6 +78,7 @@ public class Equipment implements IdentityObj{
         this.quality = templet.getQuality();
         this.loaded = 0;
         this.isDelete = 0;
+        this.locked = 0;
     }
 
     /**
@@ -87,4 +94,38 @@ public class Equipment implements IdentityObj{
     public void upgradeQuality(){
         this.quality++;
     }
+
+    /**
+     * 锁定装备
+     */
+    public void lock(){
+        this.locked = 1;
+    }
+
+    /**
+     * 解锁装备
+     */
+    public void unlock(){
+        this.locked = 0;
+    }
+
+    /**
+     * 判断是否已经被删除
+     * @return boolean
+     */
+    public boolean isRemoved(){ return this.isDelete > 0; }
+
+    /**
+     * 判断是否是上阵的装备
+     * @return boolean
+     */
+    public boolean isLoaded(){
+        return this.loaded > 0;
+    }
+
+    /**
+     * 判断是否北锁定
+     * @return boolean
+     */
+    public boolean isLocked(){ return this.locked > 0; }
 }
