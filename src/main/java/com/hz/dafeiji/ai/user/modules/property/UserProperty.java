@@ -37,7 +37,7 @@ class UserProperty{
     /**
      * 经验
      */
-    private int exp;
+//    private int exp;
 
     /**
      * 铜钱
@@ -53,6 +53,32 @@ class UserProperty{
      * 能源
      */
     private int energy;
+
+    public int getDistance(){
+        return distance;
+    }
+
+    public void setDistance( int distance ){
+        this.distance = distance;
+    }
+
+    public int getDistanceWeek(){
+        return distanceWeek;
+    }
+
+    public void setDistanceWeek( int distanceWeek ){
+        this.distanceWeek = distanceWeek;
+    }
+
+    /**
+     * 历史最远距离
+     */
+    private int distance;
+
+    /**
+     * 本周最远距离
+     */
+    private int distanceWeek;
 
 
     //private INonBlockingConnection  con;
@@ -122,9 +148,9 @@ class UserProperty{
         return vip;
     }
 
-    public int getExp(){
-        return exp;
-    }
+//    public int getExp(){
+//        return exp;
+//    }
 
     public int getCash(){
         return cash;
@@ -139,7 +165,8 @@ class UserProperty{
                 ", scoreWeek=" + scoreWeek +
                 ", power=" + power +
                 ", diamond=" + diamond +
-                ", exp=" + exp +
+                ", distance=" + distance +
+                ", distanceWeek=" + distanceWeek +
                 ", cash=" + cash +
                 ", vip=" + vip +
                 '}';

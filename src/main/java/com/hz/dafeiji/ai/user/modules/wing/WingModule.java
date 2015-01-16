@@ -318,7 +318,7 @@ public class WingModule{
             award += PropIdDefine.CASH_ZUAN_SHI + "," + wing.getWqTemplet().getAdvanceJewel() + ",";
         }
         if( wing.getWqTemplet().getAdvanceCard() != 0 ){
-            award += PropIdDefine.ZH_JIN_JIE_KA + "," + wing.getWqTemplet().getAdvanceCard() + ",";
+            award += PropIdDefine.SL_JIN_JIE_KA + "," + wing.getWqTemplet().getAdvanceCard() + ",";
         }
 
         award = StrUtil.removeLastChar( award );
@@ -416,8 +416,8 @@ public class WingModule{
 
     /**
      * 设置僚机是否锁定
-     * @param id
-     * @param isLock
+     * @param id        要设置的僚机唯一id
+     * @param isLock    是否锁定
      */
     public void setLock( long id, boolean isLock){
         Wing wing = getWingById( id );
