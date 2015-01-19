@@ -87,12 +87,22 @@ public class EquipmentModule{
     public void splitEquip(String equipIds){
         long[] equipIdArr = Transform.ArrayType.toLongs(equipIds);
         int totalEnergy = 0;
+        int totalPurposePiece = 0;
         for(long equipId : equipIdArr){
             Equipment equip = getEquipmentById(equipId);
-            totalEnergy += EquipExpCfg.getSplitExp(equip.getQuality(), equip.getLevel(), equip.getTemplet().getType());  //分解装备获取的能源
-            removeEquip(equip);         //删除装备
+            if(!equip.isLoaded() && !equip.isLocked() && !equip.isRemoved()){
+                totalEnergy += EquipExpCfg.getSplitExp(equip.getQuality(), equip.getLevel(), equip.getTemplet().getType());  //分解装备获取的能源
+                totalPurposePiece = EquipmentQurlityTempletCfg.getEquipmentQurlityTempletById(equip.getQuality()).getResolve();
+                removeEquip(equip);         //删除装备
+            }else{
+                throw new ClientException(ErrorCode.EQUIPMENT_SPLIT_ILLEGAL, "分解的装备不合法,Id:"+equipId);
+            }
         }
-        awardModule.addAward(PropIdDefine.NENG_YUAN + "," + totalEnergy, className + ".splitEquip");
+        String award = PropIdDefine.NENG_YUAN + "," + totalEnergy;
+        if(totalPurposePiece > 0){
+            award += PropIdDefine.SZ_WAN_NENG_ZHUANG_BEI + "," + totalPurposePiece;
+        }
+        awardModule.addAward(award, className + ".splitEquip");
     }
 
     /**
@@ -138,17 +148,16 @@ public class EquipmentModule{
                     +equip.getLevel()+",要求等级:"+et.getMaxLv());
         }
 
-        int costDraw = et.getAdvanceDraw();         //消耗图纸
-
         List<Equipment> costEquips = new ArrayList<>();
         if(et.getAdvanceEquipment() > 0){       //如果需要消耗装备
             for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
                 Equipment temp = entry.getValue();
-                if(temp.getIsDelete() == 0){
+                if(!temp.isRemoved()){
                     if(temp.getQuality() == et.getAdvanceEquipmentQue() &&              //待吞噬的装备品质 = 该装备需要的材料装备品质
                        temp.getTemplet().getId() == equip.getTemplet().getId() &&       //待吞噬的装备模版ID = 该装备需要的材料装备模版ID
                        temp.getId() != equipId &&                                       //待吞噬的装备不能是要升级的装备
-                       temp.getLoaded() == 0){                                          //待吞噬的装备不能是装备中的
+                       !temp.isLocked() &&                                              //待吞噬的装备不能是被锁定的
+                       !temp.isLoaded()){                                               //待吞噬的装备不能是装备中的
 
                         costEquips.add(temp);
                     }
@@ -161,7 +170,8 @@ public class EquipmentModule{
                         +"件,拥有:"+costEquips.size()+"件");
             }
         }
-        String costProps = PropIdDefine.CASH_JIN_BI + "," + et.getAdvanceGold() + ","
+        String costProps = PropIdDefine.SZ_JIN_JIE_TU_ZHI + "," + et.getAdvanceDraw()
+                         + PropIdDefine.CASH_JIN_BI + "," + et.getAdvanceGold() + ","
                          + PropIdDefine.CASH_ZUAN_SHI + "," + et.getAdvanceJewel();
 
         awardModule.reduceAward(costProps, methodName);     //扣除需要的Prop
@@ -197,7 +207,7 @@ public class EquipmentModule{
     public List<Equipment> getAllEquipments(){
         List<Equipment> list = new ArrayList<>();
         for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
-            if(entry.getValue().getIsDelete() == 0){
+            if(!entry.getValue().isRemoved()){
                 list.add(entry.getValue());
             }
         }
@@ -213,7 +223,7 @@ public class EquipmentModule{
     public AddtionCollection getAddtionCollection(){
         AddtionCollection addtion = new AddtionCollection();
         for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
-            if(entry.getValue().getIsDelete() == 0 && entry.getValue().getLoaded() > 0){
+            if(!entry.getValue().isRemoved() && entry.getValue().isLoaded()){
                 AddtionCollection equipAddtion = getEquipAddtion(entry.getValue());
                 addtion.add(equipAddtion);
             }
@@ -250,7 +260,6 @@ public class EquipmentModule{
             default:
                 throw new ClientException(ErrorCode.EQUIPMENT_TYPE_ERROR, "装备类型错误,模版ID:"+et.getId()+",类型:"+et.getType());
         }
-
 
         float attr = (args[0] + args[1]) + (args[2] + args[3]) * (equip.getLevel() - 1);
         if(et.getType() == 3){      //目前只有HP是直接增加数值,  其他都是增加百分比
@@ -303,10 +312,30 @@ public class EquipmentModule{
             costItems = pieceId + "," + pieceCount + "," + PropIdDefine.SZ_WAN_NENG_ZHUANG_BEI + "," + needPurpose;
         }
 
-        awardModule.reduceAward(costItems, "合成装备:"+equipTempletId);
+        awardModule.reduceAward(costItems, className + ".composeEquip");
         Equipment equip = new Equipment(equipTempletId);
         db.add(equip);
         equipments.put(equip.getId(), equip);
+    }
+
+    /**
+     * 锁定装备
+     * @param equipId 要锁定的装备id
+     */
+    public void lockEquip(long equipId){
+        Equipment equip = getEquipmentById(equipId);
+        equip.lock();
+        db.update(equip);
+    }
+
+    /**
+     * 解锁装备
+     * @param equipId 要解除锁定的装备id
+     */
+    public void unlockEquip(long equipId){
+        Equipment equip = getEquipmentById(equipId);
+        equip.unlock();
+        db.update(equip);
     }
 
     /**
@@ -329,8 +358,9 @@ public class EquipmentModule{
     private Equipment getLoadedEquipByType(int type){
         Equipment equip = null;
         for(Map.Entry<Long, Equipment> entry : equipments.entrySet()){
-            if(entry.getValue().getIsDelete() == 0){
-                if(entry.getValue().getTemplet().getType() == type && entry.getValue().getLoaded() > 0){
+
+            if(!entry.getValue().isRemoved()){
+                if(entry.getValue().getTemplet().getType() == type && entry.getValue().isLoaded()){
                     equip = entry.getValue();
                     break;
                 }

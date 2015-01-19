@@ -18,6 +18,7 @@ public class EquipmentDataProvider extends AbstractDataProviderWithIdentity<Equi
     public static final String FIELD_QUALITY = "quality";
     public static final String FIELD_LOADED = "loaded";
     public static final String FIELD_ISDELETE = "isDelete";
+    public static final String FIELD_ISLOCKED = "isLocked";
 
     public EquipmentDataProvider( String uname ){
         super( TABLE_NAME, uname );
@@ -32,7 +33,8 @@ public class EquipmentDataProvider extends AbstractDataProviderWithIdentity<Equi
         int quality = (int) object.get(FIELD_QUALITY);
         int loaded = (int) object.get(FIELD_LOADED);
         int isDelete = (int) object.get(FIELD_ISDELETE);
-        return new Equipment(id, templeteId, level, quality, loaded, isDelete);
+        int isLocked = (int) object.get(FIELD_ISLOCKED);
+        return new Equipment(id, templeteId, level, quality, loaded, isDelete, isLocked);
     }
 
     @Override
@@ -43,6 +45,7 @@ public class EquipmentDataProvider extends AbstractDataProviderWithIdentity<Equi
         obj.put(FIELD_QUALITY, equip.getQuality());
         obj.put(FIELD_LOADED, equip.getLoaded());
         obj.put(FIELD_ISDELETE, equip.getIsDelete());
+        obj.put(FIELD_ISLOCKED, equip.getLocked());
         return obj;
     }
 
