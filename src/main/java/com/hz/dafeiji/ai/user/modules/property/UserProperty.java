@@ -1,5 +1,7 @@
 package com.hz.dafeiji.ai.user.modules.property;
 
+import com.bbz.tool.time.SystemTimer;
+
 /**
  * user         LIUKUN
  * time         2014-4-9 20:30
@@ -80,6 +82,11 @@ class UserProperty{
      */
     private int distanceWeek;
 
+    /**
+     * 产生记录的时间（秒）
+     */
+    private int recordTime;
+
 
     //private INonBlockingConnection  con;
 
@@ -105,9 +112,16 @@ class UserProperty{
     }
 
     public void setScoreWeek( int score ){
-        if( this.scoreWeek < score ) {
+        if( this.scoreWeek <= score ) {
             this.scoreWeek = score;
+            recordTime = SystemTimer.currentTimeSecond();
+        }else {
+//            if( !TimeUtil.isCurrentWeek(recordTime, SystemTimer.currentTimeSecond() ) ){
+//                this.scoreWeek = score;
+//                recordTime = SystemTimer.currentTimeSecond();
+//            }
         }
+
     }
 
 

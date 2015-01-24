@@ -96,9 +96,9 @@ public class PropertyModule{
         return property.getDiamond();
     }
 
-    public int getExp(){
-        return property.getExp();
-    }
+//    public int getExp(){
+//        return property.getExp();
+//    }
 
     public int getCash(){
         return property.getCash();

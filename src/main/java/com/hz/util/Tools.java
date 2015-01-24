@@ -1,6 +1,8 @@
 package com.hz.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bbz.tool.time.SystemTimer;
+import org.joda.time.LocalDate;
 
 /**
  * Created by Valen on 2015/1/5.
@@ -27,6 +29,25 @@ public class Tools {
     }
 
     public static void main(String[] args){
+        System.out.println(isCurrentWeek( 1 ));
+    }
+
+
+    public static boolean isCurrentWeek( int time1 ){
+
+        LocalDate day = new LocalDate( );
+        day = day.withDayOfWeek( 5+1 );
+
+        long sec = (day.toDate().getTime() - 1) / 1000;
+        System.out.println(  );
+        System.out.println( day.toDate() );
+
+        if( time1 < sec && SystemTimer.currentTimeSecond() >= sec ){
+            return false;
+        }
+
+        return true;
+
 
     }
 }
